@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Sacramento&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-luxury-red: #ff2e63;
+  --color-luxury-crimson: #e63946;
+  --color-luxury-ruby: #ae2012;
+  --color-luxury-dark: #080303;
+  --color-luxury-darker: #030101;
+  --color-luxury-deep: #120606;
+  --color-luxury-rose: #ff8fa3;
+  --color-luxury-glow: #e63946;
+  --color-luxury-gold: #e63946;
+  --color-luxury-gold-light: #ff8fa3;
+
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Outfit", sans-serif;
+  --font-handwritten: "Sacramento", cursive;
+
+  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-candle-flicker: flicker 1.2s ease-in-out infinite alternate;
+  --animate-float-slow: float 8s ease-in-out infinite;
+  --animate-float-medium: float 5s ease-in-out infinite;
+  --animate-glow-pulse: glowPulse 3s ease-in-out infinite alternate;
+  --animate-spin-slow: spin 20s linear infinite;
+  --animate-spin-reverse-slow: spin-reverse 30s linear infinite;
+
+  @keyframes flicker {
+    0%, 100% {
+      transform: scale(1) rotate(-1deg);
+      filter: drop-shadow(0 0 3px rgba(230, 57, 70, 0.8));
+    }
+    50% {
+      transform: scale(1.08) rotate(1.5deg) translateY(-1px);
+      filter: drop-shadow(0 0 7px rgba(255, 46, 99, 0.9));
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-15px) rotate(1deg);
+    }
+  }
+
+  @keyframes glowPulse {
+    0% {
+      filter: drop-shadow(0 0 2px rgba(230, 57, 70, 0.4));
+    }
+    100% {
+      filter: drop-shadow(0 0 10px rgba(230, 57, 70, 0.8));
+    }
+  }
+
+  @keyframes spin-reverse {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(-360deg);
+    }
+  }
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-luxury-dark);
+  color: #f1f2f6;
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
+  user-select: none;
+}
+
+/* Custom Webkit Scrollbars in Crimson */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(8, 3, 3, 0.95);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, rgba(230, 57, 70, 0.1) 0%, rgba(230, 57, 70, 0.45) 50%, rgba(230, 57, 70, 0.1) 100%);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(230, 57, 70, 0.6);
+}
+
+/* Premium Ruby Glassmorphism */
+.glassmorphism {
+  background: rgba(13, 6, 6, 0.55);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.glassmorphism-luxury {
+  background: rgba(10, 4, 4, 0.72);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(230, 57, 70, 0.15);
+  box-shadow: 0 16px 40px -10px rgba(0, 0, 0, 0.8), 
+              inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glassmorphism-hover {
+  transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.glassmorphism-hover:hover {
+  background: rgba(18, 8, 8, 0.82);
+  border-color: rgba(230, 57, 70, 0.38);
+  box-shadow: 0 20px 48px -5px rgba(0, 0, 0, 0.9), 
+              0 0 18px rgba(230, 57, 70, 0.2);
+  transform: translateY(-4px);
+}
+
+/* Ruby Red Gradients */
+.text-luxury-gradient {
+  background: linear-gradient(135deg, #f5f7fa 0%, #ff8fa3 30%, #e63946 70%, #ae2012 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% auto;
+  animation: shineText 6s linear infinite;
+}
+
+.text-rose-gradient {
+  background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 50%, #e63946 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes shineText {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Red Heartbeat Glow */
+.heartbeat-glow {
+  animation: heartbeat 3s infinite cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(230, 57, 70, 0.15), 
+                inset 0 0 15px rgba(230, 57, 70, 0.05);
+  }
+  50% {
+    transform: scale(1.015);
+    box-shadow: 0 0 35px rgba(230, 57, 70, 0.4), 
+                inset 0 0 25px rgba(230, 57, 70, 0.2);
+    border-color: rgba(230, 57, 70, 0.35);
+  }
+}
+
+/* Red Glowing Borders */
+.gold-glow-border {
+  position: relative;
+}
+
+.gold-glow-border::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  background: linear-gradient(90deg, transparent, rgba(230, 57, 70, 0.4), transparent);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* Polaroid tilt aesthetic */
+.polaroid-card {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Custom Interactive Red Cursor */
+.custom-cursor {
+  width: 8px;
+  height: 8px;
+  background: var(--color-luxury-gold);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+.custom-cursor-ring {
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(230, 57, 70, 0.45);
+  border-radius: 50%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9998;
+  transition: width 0.3s, height 0.3s, border-color 0.3s;
+  transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Red Orbital Rotation Utilities */
+.orbit-rotate {
+  animation: spin 30s linear infinite;
+}
+
+.orbit-rotate-reverse {
+  animation: spin-reverse 45s linear infinite;
+}
+
+@keyframes spin-reverse {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(-360deg); }
+}
+
+html {
+  scroll-behavior: auto;
+}

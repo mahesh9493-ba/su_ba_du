@@ -1,0 +1,275 @@
+import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+
+export default function MidnightTransition({ onTransitionComplete }) {
+  const containerRef = useRef(null);
+  const canvasRef = useRef(null);
+  const flashRef = useRef(null);
+  const [showCanvas, setShowCanvas] = useState(false);
+
+  useEffect(() => {
+    // Safety timeout in case GSAP fails to fire or runs into errors
+    const safetyTimeout = setTimeout(() => {
+      console.warn("MidnightTransition: safety trigger activated");
+      onTransitionComplete();
+    }, 4500);
+
+    const ctx = gsap.context(() => {
+      const container = containerRef.current;
+      const flash = flashRef.current;
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          clearTimeout(safetyTimeout);
+          setTimeout(onTransitionComplete, 500);
+        }
+      });
+
+      // Highly robust deterministic camera shake timeline (independent of EasePack)
+      tl.to(container, { x: -6, y: 5, duration: 0.05, ease: "none" })
+        .to(container, { x: 6, y: -5, duration: 0.05, ease: "none" })
+        .to(container, { x: -8, y: 7, duration: 0.05, ease: "none" })
+        .to(container, { x: 8, y: -7, duration: 0.05, ease: "none" })
+        .to(container, { x: -5, y: 4, duration: 0.05, ease: "none" })
+        .to(container, { x: 5, y: -4, duration: 0.05, ease: "none" })
+        .to(container, { x: -3, y: 2, duration: 0.05, ease: "none" })
+        .to(container, { x: 3, y: -2, duration: 0.05, ease: "none" })
+        .to(container, { x: -1, y: 1, duration: 0.05, ease: "none" })
+        .to(container, { x: 1, y: -1, duration: 0.05, ease: "none" })
+        .to(container, { x: 0, y: 0, duration: 0.05, ease: "none", clearProps: "transform" });
+
+      tl.to(flash, {
+        opacity: 1,
+        duration: 0.3,
+        ease: "power2.out",
+        onStart: () => setShowCanvas(true)
+      });
+
+      tl.to(flash, {
+        opacity: 0,
+        duration: 2.2,
+        ease: "power1.inOut"
+      }, "+=0.1");
+    });
+
+    return () => {
+      clearTimeout(safetyTimeout);
+      ctx.revert();
+    };
+  }, [onTransitionComplete]);
+
+  // High performance fireworks in crimson
+  useEffect(() => {
+    if (!showCanvas || !canvasRef.current) return;
+
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext('2d');
+    let animationFrameId;
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', handleResize);
+
+    class Confetti {
+      constructor() {
+        this.x = Math.random() * width;
+        this.y = -20;
+        this.size = Math.random() * 8 + 6;
+        // Velvet red / rose themes
+        this.color = [
+          '#ff2e63', // Red
+          '#e63946', // Crimson
+          '#ff8fa3', // Rose
+          '#ae2012', // Ruby
+          '#ffffff', // Sparkle white
+          '#ffccd5'  // Soft pink
+        ][Math.floor(Math.random() * 6)];
+        this.vx = Math.random() * 2 - 1;
+        this.vy = Math.random() * 3 + 2;
+        this.rotation = Math.random() * 360;
+        this.rotationSpeed = Math.random() * 5 - 2.5;
+        this.wobble = Math.random() * 10;
+        this.wobbleSpeed = Math.random() * 0.05 + 0.02;
+      }
+      update() {
+        this.y += this.vy;
+        this.x += this.vx + Math.sin(this.wobble) * 0.5;
+        this.wobble += this.wobbleSpeed;
+        this.rotation += this.rotationSpeed;
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate((this.rotation * Math.PI) / 180);
+        ctx.fillStyle = this.color;
+        ctx.fillRect(-this.size / 2, -this.size / 4, this.size, this.size / 2);
+        ctx.restore();
+      }
+    }
+
+    class FireworkSparks {
+      constructor(x, y, color) {
+        this.x = x;
+        this.y = y;
+        this.color = color;
+        const angle = Math.random() * Math.PI * 2;
+        const speed = Math.random() * 5 + 2;
+        this.vx = Math.cos(angle) * speed;
+        this.vy = Math.sin(angle) * speed;
+        this.gravity = 0.08;
+        this.alpha = 1;
+        this.decay = Math.random() * 0.015 + 0.008;
+        this.size = Math.random() * 2.5 + 1;
+      }
+      update() {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.vy += this.gravity;
+        this.alpha -= this.decay;
+      }
+      draw() {
+        if (this.alpha <= 0) return;
+        ctx.save();
+        ctx.shadowBlur = this.size * 3;
+        ctx.shadowColor = this.color;
+        ctx.fillStyle = this.color;
+        ctx.globalAlpha = this.alpha;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    class Rocket {
+      constructor() {
+        this.x = Math.random() * (width - 200) + 100;
+        this.y = height + 10;
+        this.targetY = Math.random() * (height * 0.5) + height * 0.15;
+        this.vy = -(Math.random() * 6 + 10);
+        // Red-dominant rocket tails
+        this.color = [
+          '#ff2e63',
+          '#e63946',
+          '#ff8fa3',
+          '#ffffff',
+          '#ff0055',
+          '#ae2012'
+        ][Math.floor(Math.random() * 6)];
+        this.isDead = false;
+      }
+      update() {
+        this.y += this.vy;
+        this.vy += 0.05;
+
+        if (this.y <= this.targetY || this.vy >= 0) {
+          this.isDead = true;
+          this.explode();
+        }
+      }
+      draw() {
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = this.color;
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+      explode() {
+        for (let i = 0; i < 60; i++) {
+          fireworkSparks.push(new FireworkSparks(this.x, this.y, this.color));
+        }
+      }
+    }
+
+    let confettiList = [];
+    let fireworkRockets = [];
+    let fireworkSparks = [];
+
+    for (let i = 0; i < 60; i++) confettiList.push(new Confetti());
+    fireworkRockets.push(new Rocket());
+    fireworkRockets.push(new Rocket());
+
+    let frameCount = 0;
+
+    const tick = () => {
+      frameCount++;
+
+      ctx.clearRect(0, 0, width, height);
+
+      if (frameCount % 4 === 0) confettiList.push(new Confetti());
+      if (frameCount % 45 === 0) fireworkRockets.push(new Rocket());
+
+      confettiList = confettiList.filter(c => c.y < height + 20);
+      confettiList.forEach(c => {
+        c.update();
+        c.draw();
+      });
+
+      fireworkRockets = fireworkRockets.filter(r => !r.isDead);
+      fireworkRockets.forEach(r => {
+        r.update();
+        r.draw();
+      });
+
+      fireworkSparks = fireworkSparks.filter(s => s.alpha > 0);
+      fireworkSparks.forEach(s => {
+        s.update();
+        s.draw();
+      });
+
+      animationFrameId = requestAnimationFrame(tick);
+    };
+
+    tick();
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [showCanvas]);
+
+  return (
+    <div 
+      ref={containerRef}
+      className="fixed inset-0 w-full h-full z-50 pointer-events-none overflow-hidden flex items-center justify-center"
+    >
+      {/* Permanently mounted canvas to eliminate race conditions, toggling opacity */}
+      <canvas 
+        ref={canvasRef} 
+        className={`absolute inset-0 w-full h-full pointer-events-none transition-opacity duration-700 ${showCanvas ? "opacity-100" : "opacity-0"}`} 
+      />
+
+      {/* Cinematic Transition UI inside container to experience the camera shake */}
+      {!showCanvas && (
+        <div className="relative z-10 flex flex-col items-center justify-center text-center px-4 max-w-sm p-8 rounded-2xl glassmorphism-luxury border border-luxury-red/20 shadow-2xl animate-pulse">
+          <div className="w-16 h-16 rounded-full border border-luxury-rose/20 flex items-center justify-center text-luxury-rose mb-4 heartbeat-glow">
+            <svg className="w-8 h-8 text-luxury-red fill-luxury-red" viewBox="0 0 24 24">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </div>
+          <h2 className="text-2xl font-serif font-bold text-luxury-gradient tracking-[0.2em] uppercase mb-2">
+            Midnight Approaching
+          </h2>
+          <p className="text-[10px] tracking-widest text-[#ffcbd5] uppercase font-light">
+            Brace yourself for the surprise...
+          </p>
+        </div>
+      )}
+
+      <div 
+        ref={flashRef}
+        className="absolute inset-0 w-full h-full opacity-0 pointer-events-none z-30"
+        style={{
+          background: 'radial-gradient(circle, rgba(255,240,240,1) 0%, rgba(230,57,70,0.85) 60%, rgba(10,4,4,1) 100%)',
+        }}
+      />
+    </div>
+  );
+}

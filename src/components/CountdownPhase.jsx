@@ -64,8 +64,6 @@ const THEMES = {
   }
 };
 
-
-
 export default function CountdownPhase({ onCountdownComplete, targetDate, onThemeChange }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [petals, setPetals] = useState([]);
@@ -534,8 +532,6 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
 
         </AnimatePresence>
       </div>
-
-
 
     </motion.div>
   );

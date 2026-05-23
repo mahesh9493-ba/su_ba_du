@@ -69,6 +69,11 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
   const [petals, setPetals] = useState([]);
   const [narrativeIdx, setNarrativeIdx] = useState(0);
 
+  // Cinematic Time-Travel Simulation variables for Demo Switcher
+  const [simulationMode, setSimulationMode] = useState(null); // null, 'days', 'hours', 'minutes', 'seconds'
+  const [simulatedTarget, setSimulatedTarget] = useState(0);
+  const [isSwapperOpen, setIsSwapperOpen] = useState(false);
+
   // Calculate active stage theme based on remaining countdown metrics
   let activeTheme = 'days';
   if (timeLeft.days > 0) {
@@ -88,10 +93,41 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
     }
   }, [activeTheme, onThemeChange]);
 
-  // 1. Calculate precise remaining time to May 31
+  // Set up Simulated Countdown Values for developer demo swapper
+  const handleSetSimulation = (mode) => {
+    if (mode === 'real') {
+      setSimulationMode(null);
+      return;
+    }
+    
+    setSimulationMode(mode);
+    const now = Date.now();
+    let offset = 0;
+    
+    switch (mode) {
+      case 'days':
+        offset = 10 * 24 * 60 * 60 * 1000 + 5 * 60 * 60 * 1000 + 12 * 60 * 1000 + 30 * 1000;
+        break;
+      case 'hours':
+        offset = 0 * 24 * 60 * 60 * 1000 + 3 * 60 * 60 * 1000 + 45 * 60 * 1000 + 12 * 1000;
+        break;
+      case 'minutes':
+        offset = 0 * 24 * 60 * 60 * 1000 + 0 * 60 * 60 * 1000 + 18 * 60 * 1000 + 42 * 1000;
+        break;
+      case 'seconds':
+        offset = 0 * 24 * 60 * 60 * 1000 + 0 * 60 * 60 * 1000 + 0 * 60 * 1000 + 25 * 1000;
+        break;
+      default:
+        break;
+    }
+    
+    setSimulatedTarget(now + offset);
+  };
+
+  // 1. Calculate precise remaining time to May 31 or simulated target
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const target = +new Date(targetDate);
+      const target = simulationMode ? simulatedTarget : +new Date(targetDate);
       const difference = target - Date.now();
       let newTimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
@@ -103,7 +139,13 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
           seconds: Math.floor((difference / 1000) % 60)
         };
       } else {
-        onCountdownComplete();
+        if (simulationMode) {
+          // Loop back simulation when it hits 0 so they can test infinitely
+          handleSetSimulation(simulationMode);
+          return;
+        } else {
+          onCountdownComplete();
+        }
       }
       setTimeLeft(newTimeLeft);
     };
@@ -111,7 +153,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
     calculateTimeLeft();
     const timer = setInterval(calculateTimeLeft, 1000);
     return () => clearInterval(timer);
-  }, [targetDate, onCountdownComplete]);
+  }, [targetDate, onCountdownComplete, simulationMode, simulatedTarget]);
 
   // 2. Spawn floating background particles based on active stage
   useEffect(() => {
@@ -531,6 +573,93 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
           )}
 
         </AnimatePresence>
+      </div>
+
+      {/* 5. Majestic Glowing Floating Swapper for developer demo testing */}
+      <div className="w-full max-w-xl px-4 mt-auto mb-2 z-20 pointer-events-auto relative">
+        <div className="rounded-2xl glassmorphism border border-white/5 p-3 flex flex-col items-center shadow-lg bg-black/25">
+          <button 
+            onClick={() => setIsSwapperOpen(!isSwapperOpen)}
+            className="text-[9px] uppercase tracking-[0.28em] text-rose-300 font-bold hover:text-white transition-all flex items-center gap-1.5 cursor-pointer py-1 select-none"
+          >
+            <span>✨ {isSwapperOpen ? 'Close Switcher' : 'Preview Countdown Themes (Tester)'}</span>
+            <span className="text-[7px] opacity-60">{isSwapperOpen ? '▲' : '▼'}</span>
+          </button>
+
+          <AnimatePresence>
+            {isSwapperOpen && (
+              <motion.div 
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                className="w-full flex flex-col items-center mt-3 border-t border-white/5 pt-3 overflow-hidden"
+              >
+                <div className="flex flex-wrap gap-2 justify-center w-full">
+                  <button
+                    onClick={() => handleSetSimulation('days')}
+                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                      simulationMode === 'days'
+                        ? 'bg-rose-400 text-black border-rose-400 font-bold shadow-md'
+                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    Days Mode
+                  </button>
+
+                  <button
+                    onClick={() => handleSetSimulation('hours')}
+                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                      simulationMode === 'hours'
+                        ? 'bg-amber-400 text-black border-amber-400 font-bold shadow-md'
+                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    Hours Mode
+                  </button>
+
+                  <button
+                    onClick={() => handleSetSimulation('minutes')}
+                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                      simulationMode === 'minutes'
+                        ? 'bg-pink-400 text-black border-pink-400 font-bold shadow-md'
+                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    Minutes Mode
+                  </button>
+
+                  <button
+                    onClick={() => handleSetSimulation('seconds')}
+                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                      simulationMode === 'seconds'
+                        ? 'bg-red-500 text-black border-red-500 font-bold shadow-md'
+                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    Seconds Mode
+                  </button>
+
+                  <button
+                    onClick={() => handleSetSimulation('real')}
+                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                      simulationMode === null
+                        ? 'bg-white text-black border-white font-bold shadow-md'
+                        : 'bg-white/5 border-white/10 text-white/30 hover:bg-white/10 hover:text-white'
+                    }`}
+                  >
+                    Real Time
+                  </button>
+                </div>
+                
+                <p className="text-[7.5px] uppercase tracking-widest text-white/30 text-center mt-2.5">
+                  {simulationMode 
+                    ? `Simulating: ${themeConfig.name} Realm` 
+                    : "Running live countdown targeting midnight on May 31"}
+                </p>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
 
     </motion.div>

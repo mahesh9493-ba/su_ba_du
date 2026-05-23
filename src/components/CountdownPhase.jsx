@@ -236,7 +236,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="min-h-screen flex flex-col items-center justify-between relative z-10 px-4 py-8 select-none overflow-hidden"
+      className="min-h-screen flex flex-col items-center justify-center relative z-10 px-4 py-8 select-none overflow-hidden gap-4"
     >
       
       {/* Custom CSS animations and styles for cozy elements */}
@@ -332,16 +332,16 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
       </div>
 
       {/* Title Header Block */}
-      <div className="w-full max-w-4xl flex flex-col items-center relative z-10 pt-4">
+      <div className="w-full max-w-4xl flex flex-col items-center relative z-10 pt-2">
         <h1
-          className={`text-3xl md:text-5xl font-serif font-bold tracking-wide mb-2 text-center leading-tight transition-all duration-1000 bg-clip-text text-transparent ${themeConfig.titleGlow}`}
+          className={`text-3xl md:text-5xl font-serif font-bold tracking-wide mb-1 text-center leading-tight transition-all duration-1000 bg-clip-text text-transparent ${themeConfig.titleGlow}`}
           style={{ backgroundSize: "200% auto" }}
         >
           Just For Bagi ❤️
         </h1>
 
         {/* Narrative loop */}
-        <div className="h-8 flex items-center justify-center mb-2 overflow-hidden max-w-md text-center px-4">
+        <div className="h-6 flex items-center justify-center mb-1 overflow-hidden max-w-md text-center px-4">
           <AnimatePresence mode="wait">
             <motion.p
               key={narrativeIdx}
@@ -357,309 +357,267 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
         </div>
       </div>
 
-      {/* MORPHING COUNTDOWN DISPLAY DISPLAYING ONLY NECESSARY LABELS (DAYS/HOURS/MINUTES/SECONDS ONLY) */}
-      <div className="w-full max-w-3xl flex items-center justify-center my-auto relative z-10 pointer-events-auto min-h-[440px]">
-        <AnimatePresence mode="wait">
-          
-          {/* ========================================================
-              DAYS STAGE: SHOWING DAYS : HOURS : MINUTES : SECONDS
-              ======================================================== */}
-          {activeTheme === 'days' && (
-            <motion.div
-              key="days-stage"
-              initial={{ opacity: 0, scale: 0.93, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.07, y: -30 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center justify-center text-center w-full px-4"
-            >
-
-
-              {/* Massive Days display as primary focus */}
-              <div className="flex flex-col items-center justify-center animate-[days-breathing_8s_ease-in-out_infinite]">
-                <h2 className="text-8xl sm:text-[9rem] md:text-[11rem] font-serif font-black tracking-widest leading-none text-transparent bg-clip-text bg-gradient-to-b from-rose-100 via-rose-300 to-orange-300 drop-shadow-[0_8px_30px_rgba(244,63,94,0.35)]">
-                  {pad(timeLeft.days)}
-                </h2>
-                
-                <span className="text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.55em] text-rose-300 uppercase mt-2">
-                  Days
-                </span>
-              </div>
-
-              {/* Styled horizontal glass tray displaying other metrics: Hours : Minutes : Seconds */}
-              <div className="mt-8 px-5 py-3.5 rounded-2xl glassmorphism border border-white/10 flex items-center gap-4 sm:gap-6 shadow-md bg-white/5 animate-clouds">
-                
-                <div className="flex flex-col items-center">
-                  <span className="text-lg sm:text-xl font-bold font-serif text-white/90">{pad(timeLeft.hours)}</span>
-                  <span className="text-[8px] uppercase tracking-wider text-rose-300/70">Hours</span>
-                </div>
-                
-                <span className="text-sm font-bold text-rose-400 animate-pulse">:</span>
-
-                <div className="flex flex-col items-center">
-                  <span className="text-lg sm:text-xl font-bold font-serif text-white/90">{pad(timeLeft.minutes)}</span>
-                  <span className="text-[8px] uppercase tracking-wider text-rose-300/70">Minutes</span>
-                </div>
-
-                <span className="text-sm font-bold text-rose-400 animate-pulse">:</span>
-
-                <div className="flex flex-col items-center">
-                  <span className="text-lg sm:text-xl font-bold font-serif text-white/90">{pad(timeLeft.seconds)}</span>
-                  <span className="text-[8px] uppercase tracking-wider text-rose-300/70">Seconds</span>
-                </div>
-
-              </div>
-
-            </motion.div>
-          )}
-
-          {/* ========================================================
-              HOURS STAGE: SHOWING HOURS : MINUTES : SECONDS
-              ======================================================== */}
-          {activeTheme === 'hours' && (
-            <motion.div
-              key="hours-stage"
-              initial={{ opacity: 0, scale: 0.93, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.07, y: -30 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center justify-center text-center w-full px-4 relative"
-            >
-              {/* Spinning background rings */}
-              <div className="absolute w-[290px] h-[290px] sm:w-[390px] sm:h-[390px] pointer-events-none opacity-20 z-0">
-                <svg viewBox="0 0 100 100" className="w-full h-full text-amber-300 animate-[spin_40s_linear_infinite]">
-                  <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4, 4" />
-                  <circle cx="50" cy="50" r="41" fill="none" stroke="currentColor" strokeWidth="0.75" strokeDasharray="1, 8" />
-                </svg>
-              </div>
-
-
-
-              {/* Primary focus: Hours */}
-              <div className="flex flex-col items-center justify-center relative z-10">
-                <h2 className="text-8xl sm:text-[9rem] md:text-[11rem] font-serif font-black tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-400 to-yellow-400 drop-shadow-[0_6px_25px_rgba(245,158,11,0.5)]">
-                  {pad(timeLeft.hours)}
-                </h2>
-                
-                <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.45em] text-amber-300 uppercase mt-2">
-                  Hours
-                </span>
-              </div>
-
-              {/* Smaller remaining tray: Minutes : Seconds */}
-              <div className="mt-8 px-5 py-3 rounded-2xl glassmorphism border border-amber-500/10 flex items-center gap-5 shadow-sm bg-black/10 relative z-10">
-                
-                <div className="flex flex-col items-center">
-                  <span className="text-md sm:text-lg font-bold font-serif text-white/90">{pad(timeLeft.minutes)}</span>
-                  <span className="text-[8px] uppercase tracking-wider text-amber-300/70">Minutes</span>
-                </div>
-
-                <span className="text-sm font-bold text-amber-400 animate-pulse">:</span>
-
-                <div className="flex flex-col items-center">
-                  <span className="text-md sm:text-lg font-bold font-serif text-white/90">{pad(timeLeft.seconds)}</span>
-                  <span className="text-[8px] uppercase tracking-wider text-amber-300/70">Seconds</span>
-                </div>
-
-              </div>
-
-            </motion.div>
-          )}
-
-          {/* ========================================================
-              MINUTES STAGE: SHOWING MINUTES : SECONDS
-              ======================================================== */}
-          {activeTheme === 'minutes' && (
-            <motion.div
-              key="minutes-stage"
-              initial={{ opacity: 0, scale: 0.93, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.07, y: -30 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center justify-center text-center w-full px-4 relative"
-            >
-              {/* Cozy modern digital grid mesh */}
-              <div className="absolute inset-0 bg-pink-900/5 backdrop-blur-[7px] rounded-3xl border border-pink-500/10 pointer-events-none overflow-hidden max-w-lg mx-auto h-[350px] my-auto">
-                <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:20px_20px] opacity-25" />
-              </div>
-
-
-
-              {/* Primary focus: Minutes */}
-              <div className="flex flex-col items-center justify-center relative z-10">
-                <h2 className="font-mono text-8xl sm:text-[9rem] md:text-[11rem] font-extrabold tracking-tight leading-none text-pink-300 drop-shadow-[0_0_35px_rgba(255,77,109,0.85)] neon-text-glow">
-                  {pad(timeLeft.minutes)}
-                </h2>
-                
-                <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.4em] text-pink-400 uppercase mt-2">
-                  Minutes
-                </span>
-              </div>
-
-              {/* Advanced Seconds Radial Gauge under Minutes Stage */}
-              <div className="mt-8 relative z-10 flex flex-col items-center justify-center">
-                <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center">
-                  {/* Outer rotating/pulsing ring backdrop */}
-                  <div className="absolute inset-0 rounded-full border border-pink-500/10 scale-110 animate-[spin_20s_linear_infinite]" />
-                  {/* Radial SVG gauge */}
-                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 60 60">
-                    {/* Background circle */}
-                    <circle 
-                      cx="30" 
-                      cy="30" 
-                      r="26" 
-                      stroke="rgba(244, 63, 94, 0.1)" 
-                      strokeWidth="3" 
-                      fill="none" 
-                    />
-                    {/* Ticking glowing progress circle */}
-                    <motion.circle 
-                      cx="30" 
-                      cy="30" 
-                      r="26" 
-                      stroke="#ff4d6d" 
-                      strokeWidth="3.5" 
-                      fill="none" 
-                      strokeLinecap="round"
-                      strokeDasharray={2 * Math.PI * 26}
-                      animate={{ strokeDashoffset: (2 * Math.PI * 26) - (timeLeft.seconds / 60) * (2 * Math.PI * 26) }}
-                      transition={{ duration: 1, ease: "linear" }}
-                      className="drop-shadow-[0_0_8px_rgba(255,77,109,0.85)]"
-                    />
-                  </svg>
+      {/* UNIFIED CONTAINER FOR COUNTDOWN CARD AND TESTER SWAPPER (DEVELOPER MODE INSIDE COUNTDOWN) */}
+      <div className="w-full max-w-3xl flex flex-col items-center justify-center relative z-10 pointer-events-auto gap-4">
+        
+        {/* Main Countdown Stage Frame */}
+        <div className="w-full flex items-center justify-center min-h-[350px]">
+          <AnimatePresence mode="wait">
+            
+            {/* ========================================================
+                DAYS STAGE: SHOWING DAYS : HOURS : MINUTES : SECONDS
+                ======================================================== */}
+            {activeTheme === 'days' && (
+              <motion.div
+                key="days-stage"
+                initial={{ opacity: 0, scale: 0.93, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.07, y: -30 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col items-center justify-center text-center w-full px-4"
+              >
+                {/* Massive Days display as primary focus */}
+                <div className="flex flex-col items-center justify-center animate-[days-breathing_8s_ease-in-out_infinite]">
+                  <h2 className="text-8xl sm:text-[9rem] md:text-[11rem] font-serif font-black tracking-widest leading-none text-transparent bg-clip-text bg-gradient-to-b from-rose-100 via-rose-300 to-orange-300 drop-shadow-[0_8px_30px_rgba(244,63,94,0.35)]">
+                    {pad(timeLeft.days)}
+                  </h2>
                   
-                  {/* Inside the circle, show the ticking seconds */}
-                  <div className="absolute inset-0 flex flex-col items-center justify-center">
-                    <span className="font-mono text-xl sm:text-2xl font-black text-white drop-shadow-[0_0_10px_rgba(255,77,109,0.5)] leading-none">
-                      {pad(timeLeft.seconds)}
-                    </span>
-                    <span className="text-[7px] uppercase tracking-wider text-pink-300 font-bold mt-1">Secs</span>
+                  <span className="text-[10px] sm:text-xs md:text-sm font-semibold tracking-[0.55em] text-rose-300 uppercase mt-2">
+                    Days
+                  </span>
+                </div>
+
+                {/* Styled horizontal glass tray displaying other metrics: Hours : Minutes : Seconds */}
+                <div className="mt-6 px-5 py-3.5 rounded-2xl glassmorphism border border-white/10 flex items-center gap-4 sm:gap-6 shadow-md bg-white/5 animate-clouds">
+                  <div className="flex flex-col items-center">
+                    <span className="text-lg sm:text-xl font-bold font-serif text-white/90">{pad(timeLeft.hours)}</span>
+                    <span className="text-[8px] uppercase tracking-wider text-rose-300/70">Hours</span>
+                  </div>
+                  <span className="text-sm font-bold text-rose-400 animate-pulse">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-lg sm:text-xl font-bold font-serif text-white/90">{pad(timeLeft.minutes)}</span>
+                    <span className="text-[8px] uppercase tracking-wider text-rose-300/70">Minutes</span>
+                  </div>
+                  <span className="text-sm font-bold text-rose-400 animate-pulse">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-lg sm:text-xl font-bold font-serif text-white/90">{pad(timeLeft.seconds)}</span>
+                    <span className="text-[8px] uppercase tracking-wider text-rose-300/70">Seconds</span>
                   </div>
                 </div>
-              </div>
-
-            </motion.div>
-          )}
-
-          {/* ========================================================
-              SECONDS STAGE: SHOWING SECONDS ONLY (DRAMATIC BEAT)
-              ======================================================== */}
-          {activeTheme === 'seconds' && (
-            <motion.div
-              key="seconds-stage"
-              initial={{ opacity: 0, scale: 0.93, y: 30 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.07, y: -30 }}
-              transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center justify-center text-center w-full px-4 relative"
-            >
-              {/* Glowing flash background */}
-              <div className="absolute w-[360px] h-[360px] sm:w-[480px] sm:h-[480px] rounded-full bg-rose-500/10 filter blur-[95px] animate-[seconds-flash_1s_infinite] pointer-events-none z-0" />
-
-
-
-              {/* Bouncing Second numbers */}
-              <div className="flex flex-col items-center justify-center relative z-10 animate-[seconds-heartbeat-bounce_1s_infinite]">
-                <h2 className="font-sans text-[10rem] sm:text-[13rem] md:text-[16rem] font-black tracking-tighter leading-none text-red-500 drop-shadow-[0_0_55px_rgba(244,63,94,0.9)]">
-                  {pad(timeLeft.seconds)}
-                </h2>
-                
-                <span className="text-[11px] sm:text-xs md:text-sm font-black tracking-[0.45em] text-rose-400 uppercase mt-2 animate-pulse">
-                  Seconds
-                </span>
-              </div>
-
-            </motion.div>
-          )}
-
-        </AnimatePresence>
-      </div>
-
-      {/* 5. Majestic Glowing Floating Swapper for developer demo testing */}
-      <div className="w-full max-w-xl px-4 mt-auto mb-2 z-20 pointer-events-auto relative">
-        <div className="rounded-2xl glassmorphism border border-white/5 p-3 flex flex-col items-center shadow-lg bg-black/25">
-          <button 
-            onClick={() => setIsSwapperOpen(!isSwapperOpen)}
-            className="text-[9px] uppercase tracking-[0.28em] text-rose-300 font-bold hover:text-white transition-all flex items-center gap-1.5 cursor-pointer py-1 select-none"
-          >
-            <span>✨ {isSwapperOpen ? 'Close Switcher' : 'Preview Countdown Themes (Tester)'}</span>
-            <span className="text-[7px] opacity-60">{isSwapperOpen ? '▲' : '▼'}</span>
-          </button>
-
-          <AnimatePresence>
-            {isSwapperOpen && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                className="w-full flex flex-col items-center mt-3 border-t border-white/5 pt-3 overflow-hidden"
-              >
-                <div className="flex flex-wrap gap-2 justify-center w-full">
-                  <button
-                    onClick={() => handleSetSimulation('days')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === 'days'
-                        ? 'bg-rose-400 text-black border-rose-400 font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Days Mode
-                  </button>
-
-                  <button
-                    onClick={() => handleSetSimulation('hours')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === 'hours'
-                        ? 'bg-amber-400 text-black border-amber-400 font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Hours Mode
-                  </button>
-
-                  <button
-                    onClick={() => handleSetSimulation('minutes')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === 'minutes'
-                        ? 'bg-pink-400 text-black border-pink-400 font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Minutes Mode
-                  </button>
-
-                  <button
-                    onClick={() => handleSetSimulation('seconds')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === 'seconds'
-                        ? 'bg-red-500 text-black border-red-500 font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Seconds Mode
-                  </button>
-
-                  <button
-                    onClick={() => handleSetSimulation('real')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === null
-                        ? 'bg-white text-black border-white font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/30 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Real Time
-                  </button>
-                </div>
-                
-                <p className="text-[7.5px] uppercase tracking-widest text-white/30 text-center mt-2.5">
-                  {simulationMode 
-                    ? `Simulating: ${themeConfig.name} Realm` 
-                    : "Running live countdown targeting midnight on May 31"}
-                </p>
               </motion.div>
             )}
+
+            {/* ========================================================
+                HOURS STAGE: SHOWING HOURS : MINUTES : SECONDS
+                ======================================================== */}
+            {activeTheme === 'hours' && (
+              <motion.div
+                key="hours-stage"
+                initial={{ opacity: 0, scale: 0.93, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.07, y: -30 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col items-center justify-center text-center w-full px-4 relative"
+              >
+                {/* Spinning background rings */}
+                <div className="absolute w-[290px] h-[290px] sm:w-[390px] sm:h-[390px] pointer-events-none opacity-20 z-0">
+                  <svg viewBox="0 0 100 100" className="w-full h-full text-amber-300 animate-[spin_40s_linear_infinite]">
+                    <circle cx="50" cy="50" r="46" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="4, 4" />
+                    <circle cx="50" cy="50" r="41" fill="none" stroke="currentColor" strokeWidth="0.75" strokeDasharray="1, 8" />
+                  </svg>
+                </div>
+
+                {/* Primary focus: Hours */}
+                <div className="flex flex-col items-center justify-center relative z-10">
+                  <h2 className="text-8xl sm:text-[9rem] md:text-[11rem] font-serif font-black tracking-tight leading-none text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-orange-400 to-yellow-400 drop-shadow-[0_6px_25px_rgba(245,158,11,0.5)]">
+                    {pad(timeLeft.hours)}
+                  </h2>
+                  <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.45em] text-amber-300 uppercase mt-2">
+                    Hours
+                  </span>
+                </div>
+
+                {/* Smaller remaining tray: Minutes : Seconds */}
+                <div className="mt-6 px-5 py-3 rounded-2xl glassmorphism border border-amber-500/10 flex items-center gap-5 shadow-sm bg-black/10 relative z-10">
+                  <div className="flex flex-col items-center">
+                    <span className="text-md sm:text-lg font-bold font-serif text-white/90">{pad(timeLeft.minutes)}</span>
+                    <span className="text-[8px] uppercase tracking-wider text-amber-300/70">Minutes</span>
+                  </div>
+                  <span className="text-sm font-bold text-amber-400 animate-pulse">:</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-md sm:text-lg font-bold font-serif text-white/90">{pad(timeLeft.seconds)}</span>
+                    <span className="text-[8px] uppercase tracking-wider text-amber-300/70">Seconds</span>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ========================================================
+                MINUTES STAGE: SHOWING MINUTES : SECONDS
+                ======================================================== */}
+            {activeTheme === 'minutes' && (
+              <motion.div
+                key="minutes-stage"
+                initial={{ opacity: 0, scale: 0.93, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.07, y: -30 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col items-center justify-center text-center w-full px-4 relative"
+              >
+                {/* Cozy modern digital grid mesh */}
+                <div className="absolute inset-0 bg-pink-900/5 backdrop-blur-[7px] rounded-3xl border border-pink-500/10 pointer-events-none overflow-hidden max-w-lg mx-auto h-[350px] my-auto">
+                  <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.01)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.01)_1px,transparent_1px)] bg-[size:20px_20px] opacity-25" />
+                </div>
+
+                {/* Primary focus: Minutes */}
+                <div className="flex flex-col items-center justify-center relative z-10">
+                  <h2 className="font-mono text-8xl sm:text-[9rem] md:text-[11rem] font-extrabold tracking-tight leading-none text-pink-300 drop-shadow-[0_0_35px_rgba(255,77,109,0.85)] neon-text-glow">
+                    {pad(timeLeft.minutes)}
+                  </h2>
+                  <span className="text-[10px] sm:text-xs md:text-sm font-bold tracking-[0.4em] text-pink-400 uppercase mt-2">
+                    Minutes
+                  </span>
+                </div>
+
+                {/* Advanced Seconds Radial Gauge under Minutes Stage */}
+                <div className="mt-6 relative z-10 flex flex-col items-center justify-center">
+                  <div className="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center">
+                    <div className="absolute inset-0 rounded-full border border-pink-500/10 scale-110 animate-[spin_20s_linear_infinite]" />
+                    <svg className="w-full h-full transform -rotate-90" viewBox="0 0 60 60">
+                      <circle cx="30" cy="30" r="26" stroke="rgba(244, 63, 94, 0.1)" strokeWidth="3" fill="none" />
+                      <motion.circle 
+                        cx="30" cy="30" r="26" stroke="#ff4d6d" strokeWidth="3.5" fill="none" strokeLinecap="round"
+                        strokeDasharray={2 * Math.PI * 26}
+                        animate={{ strokeDashoffset: (2 * Math.PI * 26) - (timeLeft.seconds / 60) * (2 * Math.PI * 26) }}
+                        transition={{ duration: 1, ease: "linear" }}
+                        className="drop-shadow-[0_0_8px_rgba(255,77,109,0.85)]"
+                      />
+                    </svg>
+                    <div className="absolute inset-0 flex flex-col items-center justify-center">
+                      <span className="font-mono text-xl sm:text-2xl font-black text-white drop-shadow-[0_0_10px_rgba(255,77,109,0.5)] leading-none">{pad(timeLeft.seconds)}</span>
+                      <span className="text-[7px] uppercase tracking-wider text-pink-300 font-bold mt-1">Secs</span>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            {/* ========================================================
+                SECONDS STAGE: SHOWING SECONDS ONLY (DRAMATIC BEAT)
+                ======================================================== */}
+            {activeTheme === 'seconds' && (
+              <motion.div
+                key="seconds-stage"
+                initial={{ opacity: 0, scale: 0.93, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 1.07, y: -30 }}
+                transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col items-center justify-center text-center w-full px-4 relative"
+              >
+                <div className="absolute w-[360px] h-[360px] sm:w-[480px] sm:h-[480px] rounded-full bg-rose-500/10 filter blur-[95px] animate-[seconds-flash_1s_infinite] pointer-events-none z-0" />
+                
+                {/* Bouncing Second numbers */}
+                <div className="flex flex-col items-center justify-center relative z-10 animate-[seconds-heartbeat-bounce_1s_infinite]">
+                  <h2 className="font-sans text-[10rem] sm:text-[13rem] md:text-[16rem] font-black tracking-tighter leading-none text-red-500 drop-shadow-[0_0_55px_rgba(244,63,94,0.9)]">
+                    {pad(timeLeft.seconds)}
+                  </h2>
+                  <span className="text-[11px] sm:text-xs md:text-sm font-black tracking-[0.45em] text-rose-400 uppercase mt-2 animate-pulse">
+                    Seconds
+                  </span>
+                </div>
+              </motion.div>
+            )}
+
           </AnimatePresence>
         </div>
+
+        {/* 5. Majestic Glowing Floating Swapper (NOW EMBEDDED INSIDE CARD DIRECTLY AFTER THE COUNTDOWN DISPLAY) */}
+        <div className="w-full max-w-md z-20 px-4 mt-2">
+          <div className="rounded-2xl glassmorphism border border-white/5 p-3.5 flex flex-col items-center shadow-lg bg-black/25">
+            <button 
+              onClick={() => setIsSwapperOpen(!isSwapperOpen)}
+              className="text-[9.5px] uppercase tracking-[0.3em] text-rose-300 font-bold hover:text-white transition-all flex items-center gap-1.5 cursor-pointer py-0.5 select-none"
+            >
+              <span>✨ {isSwapperOpen ? 'Hide Developer Mode' : 'Open Developer Mode (Time-Travel Swapper)'}</span>
+              <span className="text-[7.5px] opacity-60">{isSwapperOpen ? '▲' : '▼'}</span>
+            </button>
+
+            <AnimatePresence>
+              {isSwapperOpen && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  className="w-full flex flex-col items-center mt-3.5 border-t border-white/5 pt-3.5 overflow-hidden"
+                >
+                  <div className="flex flex-wrap gap-2 justify-center w-full">
+                    <button
+                      onClick={() => handleSetSimulation('days')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === 'days'
+                          ? 'bg-rose-400 text-black border-rose-400 font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Days Mode
+                    </button>
+
+                    <button
+                      onClick={() => handleSetSimulation('hours')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === 'hours'
+                          ? 'bg-amber-400 text-black border-amber-400 font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Hours Mode
+                    </button>
+
+                    <button
+                      onClick={() => handleSetSimulation('minutes')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === 'minutes'
+                          ? 'bg-pink-400 text-black border-pink-400 font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Minutes Mode
+                    </button>
+
+                    <button
+                      onClick={() => handleSetSimulation('seconds')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === 'seconds'
+                          ? 'bg-red-500 text-black border-red-500 font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Seconds Mode
+                    </button>
+
+                    <button
+                      onClick={() => handleSetSimulation('real')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === null
+                          ? 'bg-white text-black border-white font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/30 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Real Time
+                    </button>
+                  </div>
+                  
+                  <p className="text-[7.5px] uppercase tracking-widest text-white/30 text-center mt-2.5">
+                    {simulationMode 
+                      ? `Simulating: ${themeConfig.name} Realm` 
+                      : "Running live countdown targeting midnight on May 31"}
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </div>
+
       </div>
 
     </motion.div>

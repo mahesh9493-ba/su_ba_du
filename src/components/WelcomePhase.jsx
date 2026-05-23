@@ -576,15 +576,7 @@ export default function WelcomePhase({ onUnlock, onPreUnlock }) {
           <p className="text-[10px] sm:text-[11px] text-white/60 font-light leading-relaxed max-w-sm italic mb-2.5 transition-all duration-1000">
             "{activeDayConfig.loveNote}"
           </p>
-          
-          <div className="w-full h-px bg-white/5 my-2" />
-          
-          <div className="flex flex-col items-center max-w-xs">
-            <span className="text-[7.5px] uppercase tracking-[0.2em] text-white/35 font-bold mb-1">Daily Clue Hint</span>
-            <p className="text-[9.5px] text-white/70 font-mono leading-tight transition-all duration-1000">
-              {activeDayConfig.clue}
-            </p>
-          </div>
+
         </motion.div>
       </motion.div>
     </div>

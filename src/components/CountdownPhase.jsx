@@ -491,141 +491,143 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
         </div>
 
         {/* 5. Majestic Glowing Floating Swapper (NOW EMBEDDED INSIDE CARD DIRECTLY AFTER THE COUNTDOWN DISPLAY) */}
-        <div className="w-full max-w-md z-20 px-4 mt-2">
-          <div className="rounded-2xl glassmorphism border border-white/5 p-3.5 flex flex-col items-center shadow-lg bg-black/25">
-            <button 
-              onClick={() => setIsSwapperOpen(!isSwapperOpen)}
-              className="text-[9.5px] uppercase tracking-[0.3em] text-rose-300 font-bold hover:text-white transition-all flex items-center gap-1.5 cursor-pointer py-0.5 select-none"
-            >
-              <span>✨ {isSwapperOpen ? 'Hide Developer Mode' : 'Open Developer Mode (Time-Travel Swapper)'}</span>
-              <span className="text-[7.5px] opacity-60">{isSwapperOpen ? '▲' : '▼'}</span>
-            </button>
+        {false && (
+          <div className="w-full max-w-md z-20 px-4 mt-2">
+            <div className="rounded-2xl glassmorphism border border-white/5 p-3.5 flex flex-col items-center shadow-lg bg-black/25">
+              <button 
+                onClick={() => setIsSwapperOpen(!isSwapperOpen)}
+                className="text-[9.5px] uppercase tracking-[0.3em] text-rose-300 font-bold hover:text-white transition-all flex items-center gap-1.5 cursor-pointer py-0.5 select-none"
+              >
+                <span>✨ {isSwapperOpen ? 'Hide Developer Mode' : 'Open Developer Mode (Time-Travel Swapper)'}</span>
+                <span className="text-[7.5px] opacity-60">{isSwapperOpen ? '▲' : '▼'}</span>
+              </button>
 
-            <AnimatePresence>
-              {isSwapperOpen && (
-                <motion.div 
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
-                  exit={{ opacity: 0, height: 0 }}
-                  className="w-full flex flex-col items-center mt-3.5 border-t border-white/5 pt-3.5 overflow-hidden"
-                >
-                  <div className="flex flex-wrap gap-2 justify-center w-full">
-                    <button
-                      onClick={() => handleSetSimulation('days')}
-                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                        simulationMode === 'days'
-                          ? 'bg-rose-400 text-black border-rose-400 font-bold shadow-md'
-                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                      }`}
-                    >
-                      Days Mode
-                    </button>
+              <AnimatePresence>
+                {isSwapperOpen && (
+                  <motion.div 
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="w-full flex flex-col items-center mt-3.5 border-t border-white/5 pt-3.5 overflow-hidden"
+                  >
+                    <div className="flex flex-wrap gap-2 justify-center w-full">
+                      <button
+                        onClick={() => handleSetSimulation('days')}
+                        className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                          simulationMode === 'days'
+                            ? 'bg-rose-400 text-black border-rose-400 font-bold shadow-md'
+                            : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        Days Mode
+                      </button>
 
-                    <button
-                      onClick={() => handleSetSimulation('hours')}
-                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                        simulationMode === 'hours'
-                          ? 'bg-amber-400 text-black border-amber-400 font-bold shadow-md'
-                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                      }`}
-                    >
-                      Hours Mode
-                    </button>
+                      <button
+                        onClick={() => handleSetSimulation('hours')}
+                        className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                          simulationMode === 'hours'
+                            ? 'bg-amber-400 text-black border-amber-400 font-bold shadow-md'
+                            : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        Hours Mode
+                      </button>
 
-                    <button
-                      onClick={() => handleSetSimulation('minutes')}
-                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                        simulationMode === 'minutes'
-                          ? 'bg-pink-400 text-black border-pink-400 font-bold shadow-md'
-                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                      }`}
-                    >
-                      Minutes Mode
-                    </button>
+                      <button
+                        onClick={() => handleSetSimulation('minutes')}
+                        className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                          simulationMode === 'minutes'
+                            ? 'bg-pink-400 text-black border-pink-400 font-bold shadow-md'
+                            : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        Minutes Mode
+                      </button>
 
-                    <button
-                      onClick={() => handleSetSimulation('seconds')}
-                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                        simulationMode === 'seconds'
-                          ? 'bg-red-500 text-black border-red-500 font-bold shadow-md'
-                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                      }`}
-                    >
-                      Seconds Mode
-                    </button>
+                      <button
+                        onClick={() => handleSetSimulation('seconds')}
+                        className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                          simulationMode === 'seconds'
+                            ? 'bg-red-500 text-black border-red-500 font-bold shadow-md'
+                            : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        Seconds Mode
+                      </button>
 
-                    <button
-                      onClick={() => handleSetSimulation('real')}
-                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                        simulationMode === null
-                          ? 'bg-white text-black border-white font-bold shadow-md'
-                          : 'bg-white/5 border-white/10 text-white/30 hover:bg-white/10 hover:text-white'
-                      }`}
-                    >
-                      Real Time
-                    </button>
-                  </div>
-                  
-                  <p className="text-[7.5px] uppercase tracking-widest text-white/30 text-center mt-2.5">
-                    {simulationMode 
-                      ? `Simulating: ${themeConfig.name} Realm` 
-                      : "Running live countdown targeting midnight on May 31"}
-                  </p>
+                      <button
+                        onClick={() => handleSetSimulation('real')}
+                        className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                          simulationMode === null
+                            ? 'bg-white text-black border-white font-bold shadow-md'
+                            : 'bg-white/5 border-white/10 text-white/30 hover:bg-white/10 hover:text-white'
+                        }`}
+                      >
+                        Real Time
+                      </button>
+                    </div>
+                    
+                    <p className="text-[7.5px] uppercase tracking-widest text-white/30 text-center mt-2.5">
+                      {simulationMode 
+                        ? `Simulating: ${themeConfig.name} Realm` 
+                        : "Running live countdown targeting midnight on May 31"}
+                    </p>
 
-                  {/* Developer Quick-Bypass & Travel Grid */}
-                  <div className="w-full h-px bg-white/5 my-3.5" />
-                  
-                  <span className="text-[8.5px] uppercase tracking-[0.25em] text-rose-300 font-bold mb-3.5 self-start pl-1">
-                    🚀 Developer Fast Travel
-                  </span>
+                    {/* Developer Quick-Bypass & Travel Grid */}
+                    <div className="w-full h-px bg-white/5 my-3.5" />
+                    
+                    <span className="text-[8.5px] uppercase tracking-[0.25em] text-rose-300 font-bold mb-3.5 self-start pl-1">
+                      🚀 Developer Fast Travel
+                    </span>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full">
-                    {/* Cinematic Opening (Full Sequence) */}
-                    <button
-                      onClick={() => {
-                        onCountdownComplete(); // triggers setPhase('transition')
-                      }}
-                      className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.25)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] border border-purple-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
-                    >
-                      <span className="text-base">🎬</span>
-                      <span>Cinematic Opening</span>
-                    </button>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full">
+                      {/* Cinematic Opening (Full Sequence) */}
+                      <button
+                        onClick={() => {
+                          onCountdownComplete(); // triggers setPhase('transition')
+                        }}
+                        className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.25)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] border border-purple-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
+                      >
+                        <span className="text-base">🎬</span>
+                        <span>Cinematic Opening</span>
+                      </button>
 
-                    {/* Wished Page (Direct Reveal) */}
-                    <button
-                      onClick={() => {
-                        if (onBypassPhase) {
-                          onBypassPhase('reveal');
-                        } else {
-                          onCountdownComplete();
-                        }
-                      }}
-                      className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-[0_0_15px_rgba(244,63,94,0.25)] hover:shadow-[0_0_25px_rgba(244,63,94,0.5)] border border-rose-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
-                    >
-                      <span className="text-base">🎂</span>
-                      <span>Wished Page</span>
-                    </button>
+                      {/* Wished Page (Direct Reveal) */}
+                      <button
+                        onClick={() => {
+                          if (onBypassPhase) {
+                            onBypassPhase('reveal');
+                          } else {
+                            onCountdownComplete();
+                          }
+                        }}
+                        className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-[0_0_15px_rgba(244,63,94,0.25)] hover:shadow-[0_0_25px_rgba(244,63,94,0.5)] border border-rose-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
+                      >
+                        <span className="text-base">🎂</span>
+                        <span>Wished Page</span>
+                      </button>
 
-                    {/* Additional Features (Surprise Portals) */}
-                    <button
-                      onClick={() => {
-                        if (onBypassPhase) {
-                          onBypassPhase('portals');
-                        } else {
-                          onCountdownComplete();
-                        }
-                      }}
-                      className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white shadow-[0_0_15px_rgba(20,184,166,0.25)] hover:shadow-[0_0_25px_rgba(20,184,166,0.5)] border border-teal-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
-                    >
-                      <span className="text-base">✨</span>
-                      <span>Surprise Portals</span>
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+                      {/* Additional Features (Surprise Portals) */}
+                      <button
+                        onClick={() => {
+                          if (onBypassPhase) {
+                            onBypassPhase('portals');
+                          } else {
+                            onCountdownComplete();
+                          }
+                        }}
+                        className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white shadow-[0_0_15px_rgba(20,184,166,0.25)] hover:shadow-[0_0_25px_rgba(20,184,166,0.5)] border border-teal-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
+                      >
+                        <span className="text-base">✨</span>
+                        <span>Surprise Portals</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
-        </div>
+        )}
 
       </div>
 

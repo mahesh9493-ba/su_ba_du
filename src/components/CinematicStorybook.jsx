@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Compass, Star, Sparkles, MessageCircle, Volume2, VolumeX, PhoneCall, ChevronRight, ChevronLeft, MapPin, Film, Image, Maximize2, Minimize2, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { Heart, Compass, Star, Sparkles, MessageCircle, PhoneCall, ChevronRight, ChevronLeft, MapPin, Film, Image, Maximize2, Minimize2, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
 
 const SCENE_ASSETS = {
   scene1: {
@@ -55,9 +55,7 @@ export default function CinematicStorybook({ onClose }) {
   // View mode state: 'select' | 'cinematic' | 'infographic'
   const [viewMode, setViewMode] = useState('select');
   const [activeScene, setActiveScene] = useState(0);
-  const [audioEnabled, setAudioEnabled] = useState(false);
-  const audioCtxRef = useRef(null);
-  const oscsRef = useRef([]);
+
 
   // Infographic Lightbox zoom state
   const [zoomScale, setZoomScale] = useState(1);
@@ -78,62 +76,61 @@ export default function CinematicStorybook({ onClose }) {
   const fullTexts = {
     scene1: `Dudu was never someone who believed in forever.
 
-Life for him was simple…
+Life for him was simple...
 friends, random rides, late-night roaming,
 and living every day without thinking too deeply about tomorrow.
 
-He enjoyed attention.
-He talked to different girls casually.
-But nothing ever touched his heart deeply.
+He enjoyed attention and talked to others casually,
+but nothing ever touched his heart deeply.
 
-There was even a story once…
+There was even a story once...
 something he thought was love.
-
 But time passed, people changed,
-and that chapter slowly disappeared like an unfinished memory.
+and that chapter slowly faded like an unfinished dream.
 
-After that, Dudu stopped expecting anything serious from life.
-He smiled around everyone… laughed loudly with friends…
+After that, Dudu stopped expecting anything real.
+He smiled, laughed loudly with friends,
 but deep inside, he stopped believing someone would stay.
 
-College became about freedom, tea stalls, bike rides, and escaping responsibilities.
+College became a blur of tea stalls, late-night bike rides, and escaping responsibilities.
 
-But destiny had already planned something unexpected for Dudu…`,
+But destiny was already preparing an unexpected turn...`,
     scene2: `And then…
-during the final year,
+during their final year,
 Bagi quietly entered Dudu’s world.
 
-No dramatic beginning.
-No perfect love story.
+No dramatic announcement.
+No perfect cinematic beginning.
 
-Just a normal friendship circle…
-and one unexpected journey to Tirumala.`,
-    scene2Quote: "Sometimes, the most beautiful stories begin silently.",
+Just a simple friendship circle…
+and one unexpected journey to Tirumala that changed the course of everything.`,
+    scene2Quote: "Sometimes, the most beautiful chapters begin in complete silence. ❤️",
     scene3: `Dudu never realized when simple conversations with Bagi started becoming the best part of his day.
 
-Somewhere between calls, small smiles, random talks, and beautiful memories…
-Bagi slowly became important to him.
+Somewhere between phone calls, small smiles, and late-night talks,
+Bagi quietly became his safest comfort.
 
 She never asked him to change.
-But somehow… Dudu started becoming a better version of himself.
+Yet, Dudu found himself wanting to be a better man for her.
 
-The guy who once searched everywhere for temporary happiness… slowly stopped noticing everyone else.
-For the first time, his heart stopped wandering.
+The guy whose heart once wandered everywhere, searching for temporary happiness, suddenly stopped noticing the rest of the world.
+For the very first time, his heart found its home.
 
-Without even realizing it… Dudu became addicted to Bagi’s presence.
+Without even realizing it, Dudu was completely drawn to Bagi’s presence.
 
-She didn’t enter his life loudly. She quietly became his peace.`,
-    scene4: `Without even knowing each other completely…
-Dudu and Bagi slowly became comfort to each other.
+She did not enter his life loudly.
+She quietly became his peace.`,
+    scene4: `Without even knowing everything about each other,
+Dudu and Bagi slowly became each other's comfort and safe haven.
 
-What started unexpectedly…
-started feeling permanent.`,
-    scene4Quote: "For the first time in his life, Dudu was not just thinking about today… he was secretly wishing for forever with Bagi.",
+What had started unexpectedly
+began to feel like the only permanent thing in their world.`,
+    scene4Quote: "For the first time in his life, Dudu was not just living for today… he was secretly praying for forever with Bagi. ❤️",
     scene6: `Dear God,
 
 I never looked for love.
 I was just living my life,
-carefree, lost in my own world.
+carefree and lost in my own world.
 
 But somewhere between unexpected conversations,
 late-night calls,
@@ -142,22 +139,21 @@ and beautiful memories…
 
 Bagi quietly became the peace my heart never knew it needed.
 
-She changed me without forcing me to change.
+She changed my world without ever forcing me to change.
 She made me care more,
 feel more,
-and dream differently.
+and dream of a beautiful future.
 
-Today, I don’t ask for a perfect life.
-I just pray for one thing…
+Today, I don't pray for a perfect life.
+I only ask for one blessing…
 
-If Bagi is the blessing You sent into my life,
-please let her stay beside me forever. ❤️`
+If Bagi is the beautiful destiny You sent to me,
+please let her stay beside me in every chapter ahead. ❤️`
   };
 
   // Run typewriter for active scene
   useEffect(() => {
     if (viewMode !== 'cinematic') return;
-    let timer;
     const sceneNum = activeScene + 1;
     const sceneKey = sceneNum === 5 ? null : `scene${sceneNum === 6 ? 6 : sceneNum}`;
     
@@ -165,156 +161,49 @@ please let her stay beside me forever. ❤️`
     const targetText = fullTexts[sceneKey];
     if (!targetText) return;
 
+    // Reset text for active scene
     setSceneTexts(prev => ({ ...prev, [sceneKey]: "" }));
 
+    let isActive = true;
     let i = 0;
-    const interval = 22; // speed per character
+    let timerId = null;
+
     const type = () => {
+      if (!isActive) return;
       if (i < targetText.length) {
-        setSceneTexts(prev => ({ ...prev, [sceneKey]: prev[sceneKey] + targetText[i] }));
+        const nextStr = targetText.slice(0, i + 1);
+        setSceneTexts(prev => ({
+          ...prev,
+          [sceneKey]: nextStr
+        }));
         i++;
-        timer = setTimeout(type, interval);
+        timerId = setTimeout(type, 22);
       }
     };
     
-    timer = setTimeout(type, 600);
+    timerId = setTimeout(type, 600);
 
-    return () => clearTimeout(timer);
+    return () => {
+      isActive = false;
+      if (timerId) {
+        clearTimeout(timerId);
+      }
+    };
   }, [activeScene, viewMode]);
 
-  // Web Audio Synth for warm emotional ambient chords
-  const startAmbientSynth = () => {
-    if (audioCtxRef.current) return;
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      const ctx = new AudioContext();
-      audioCtxRef.current = ctx;
 
-      const masterVolume = ctx.createGain();
-      masterVolume.gain.setValueAtTime(0.12, ctx.currentTime);
-      masterVolume.connect(ctx.destination);
-
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(320, ctx.currentTime);
-      filter.Q.setValueAtTime(1.2, ctx.currentTime);
-      filter.connect(masterVolume);
-
-      // Nostalgic piano-pad progression
-      const chords = [
-        [110.00, 165.00, 220.00, 277.18], // A major (Carefree college vibe)
-        [116.54, 174.61, 233.08, 293.66], // Bb major (Mysterious entry)
-        [98.00, 146.83, 196.00, 246.94],  // G major (Calming changeover)
-        [87.31, 130.81, 174.61, 220.00],  // F major (Their connection)
-        [146.83, 220.00, 293.66, 369.99], // D major (Dream list stars)
-        [73.42, 110.00, 146.83, 185.00]    // Low D major (Divine prayer)
-      ];
-
-      const playChord = (freqs) => {
-        oscsRef.current.forEach(o => {
-          try { o.stop(); } catch(e) {}
-        });
-        oscsRef.current = [];
-
-        freqs.forEach((freq, idx) => {
-          const osc = ctx.createOscillator();
-          const oscGain = ctx.createGain();
-          
-          osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
-          osc.frequency.setValueAtTime(freq, ctx.currentTime);
-
-          const lfo = ctx.createOscillator();
-          const lfoGain = ctx.createGain();
-          lfo.frequency.setValueAtTime(0.12 + idx * 0.04, ctx.currentTime);
-          lfoGain.gain.setValueAtTime(1.4, ctx.currentTime);
-          lfo.connect(lfoGain);
-          lfoGain.connect(osc.frequency);
-          lfo.start();
-
-          oscGain.gain.setValueAtTime(0, ctx.currentTime);
-          oscGain.gain.linearRampToValueAtTime(0.18, ctx.currentTime + 2.5);
-
-          osc.connect(oscGain);
-          oscGain.connect(filter);
-          osc.start();
-
-          oscsRef.current.push(osc);
-        });
-      };
-
-      playChord(chords[activeScene % chords.length]);
-      ctx.chordPlay = playChord;
-      ctx.chordsList = chords;
-
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
-  const stopAmbientSynth = () => {
-    if (audioCtxRef.current) {
-      oscsRef.current.forEach(o => {
-        try { o.stop(); } catch(e) {}
-      });
-      oscsRef.current = [];
-      try {
-        audioCtxRef.current.close();
-      } catch(e) {}
-      audioCtxRef.current = null;
-    }
-  };
-
-  const playChimeSound = () => {
-    if (!audioEnabled || !audioCtxRef.current) return;
-    try {
-      const ctx = audioCtxRef.current;
-      const osc = ctx.createOscillator();
-      const oscGain = ctx.createGain();
-
-      osc.type = 'sine';
-      const noteFreqs = [523.25, 587.33, 659.25, 783.99, 880.00];
-      const randomFreq = noteFreqs[Math.floor(Math.random() * noteFreqs.length)];
-      osc.frequency.setValueAtTime(randomFreq, ctx.currentTime);
-
-      oscGain.gain.setValueAtTime(0.08, ctx.currentTime);
-      oscGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.2);
-
-      osc.connect(oscGain);
-      oscGain.connect(ctx.destination);
-      osc.start();
-      setTimeout(() => {
-        try { osc.stop(); } catch(e) {}
-      }, 1500);
-    } catch (e) {}
-  };
-
-  useEffect(() => {
-    if (audioEnabled) {
-      if (!audioCtxRef.current) {
-        startAmbientSynth();
-      } else if (audioCtxRef.current.chordPlay) {
-        audioCtxRef.current.chordPlay(audioCtxRef.current.chordsList[activeScene % audioCtxRef.current.chordsList.length]);
-      }
-    } else {
-      stopAmbientSynth();
-    }
-  }, [audioEnabled, activeScene, viewMode]);
-
-  useEffect(() => {
-    return () => stopAmbientSynth();
-  }, []);
 
   // Texting messages mockup for Scene 3
   const [chatMessages, setChatMessages] = useState([]);
   const [isTyping, setIsTyping] = useState(false);
 
   const chatScript = [
-    { sender: 'him', text: "Hey Bagi... are you home? 🌙" },
-    { sender: 'her', text: "Just reached! Let me wash up, calling you in 5 minutes! 🌸" },
-    { sender: 'him', text: "Haha take your time. I was just thinking about that canteen incident today 😂" },
-    { sender: 'her', text: "Omg! You stealing my French fries? 🍟 I'm still mad at you for that!" },
-    { sender: 'him', text: "It tasted better because it was yours. 😜" },
-    { sender: 'her', text: "Aww, okay fine... you are forgiven. ❤️ Calling you now!" }
+    { sender: 'him', text: "Oyy... pg ki vellava? 🌙" },
+    { sender: 'her', text: "Oyy! Ippude vacha... fresh up ayyi, 5 minutes lo call chesta! 🌸" },
+    { sender: 'him', text: "Haha, take your time. Eeroju Cream Stone lo mana ice cream incident gurinche aalochistunna 😂" },
+    { sender: 'her', text: "Omg! Naa ice cream dongalinchinav kada! 🍨 Nenu inka nee meeda kopam gane unna!" },
+    { sender: 'him', text: "Oyy, adi needi kabatte inka tasty ga undi 😜" },
+    { sender: 'her', text: "Aww, okay fine... Oyy garu, mimmalni kshaminchesa ❤️ Call chestunna!" }
   ];
 
   useEffect(() => {
@@ -325,22 +214,40 @@ please let her stay beside me forever. ❤️`
     }
 
     let chatIndex = 0;
+    let isActive = true;
+    let timer1 = null;
+    let timer2 = null;
+
     const loadNextMessage = () => {
+      if (!isActive) return;
       if (chatIndex >= chatScript.length) return;
 
       setIsTyping(true);
       const delayText = chatScript[chatIndex].text.length * 35;
       
-      setTimeout(() => {
+      timer1 = setTimeout(() => {
+        if (!isActive) return;
         setIsTyping(false);
-        setChatMessages(prev => [...prev, chatScript[chatIndex]]);
+        setChatMessages(prev => {
+          if (!isActive) return prev;
+          return [...prev, chatScript[chatIndex]];
+        });
         chatIndex++;
-        setTimeout(loadNextMessage, 2000);
+        
+        timer2 = setTimeout(loadNextMessage, 2000);
       }, Math.max(1000, delayText));
     };
 
     const initialDelay = setTimeout(loadNextMessage, 1500);
-    return () => clearTimeout(initialDelay);
+    
+    return () => {
+      isActive = false;
+      clearTimeout(initialDelay);
+      if (timer1) clearTimeout(timer1);
+      if (timer2) clearTimeout(timer2);
+      setChatMessages([]);
+      setIsTyping(false);
+    };
   }, [activeScene, viewMode]);
 
   // Fading Old Chats for Scene 1
@@ -365,7 +272,6 @@ please let her stay beside me forever. ❤️`
 
   const handleDiyaHover = (id) => {
     setDiyas(prev => prev.map(d => d.id === id ? { ...d, hovered: true } : d));
-    playChimeSound();
     setTimeout(() => {
       setDiyas(prev => prev.map(d => d.id === id ? { ...d, hovered: false } : d));
     }, 1500);
@@ -441,12 +347,10 @@ please let her stay beside me forever. ❤️`
 
   const zoomIn = () => {
     setZoomScale(prev => Math.min(prev + 0.25, 3));
-    playChimeSound();
   };
 
   const zoomOut = () => {
     setZoomScale(prev => Math.max(prev - 0.25, 0.75));
-    playChimeSound();
   };
 
   return (
@@ -458,48 +362,38 @@ please let her stay beside me forever. ❤️`
       }} />
 
       {/* Header Panel */}
-      <div className="w-full flex items-center justify-between px-6 pt-6 pb-2 relative z-30 max-w-7xl mx-auto">
-        <div className="flex flex-col">
-          <span className="text-[10px] uppercase tracking-[0.3em] text-luxury-rose font-medium mb-1">
+      <div className="w-full flex flex-col md:flex-row items-center justify-between px-4 md:px-6 pt-20 md:pt-6 pb-3 relative z-30 max-w-7xl mx-auto gap-4 text-center md:text-left">
+        <div className="flex flex-col items-center md:items-start">
+          <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.3em] text-luxury-rose font-medium mb-1.5">
             Dudu & Bagi • {viewMode === 'select' && "Dashboard"}
             {viewMode === 'cinematic' && "Cinematic Story"}
             {viewMode === 'infographic' && "Complete Infographic"}
           </span>
-          <h1 className="text-xl md:text-2xl font-serif font-bold text-luxury-gradient tracking-wide">
+          <h1 className="text-lg sm:text-xl md:text-2xl font-serif font-bold text-luxury-gradient tracking-wide leading-tight">
             The Change Bagi Never Knew She Made ❤️
           </h1>
-          <span className="text-[10px] italic text-white/40 tracking-wider">
+          <span className="text-[9px] sm:text-[10px] italic text-white/40 tracking-wider mt-1.5">
             "The unexpected story of Dudu & Bagi..."
           </span>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3">
           {viewMode !== 'select' && (
             <button
               onClick={() => {
                 setViewMode('select');
-                playChimeSound();
               }}
-              className="px-3.5 py-1.5 text-xs rounded-full border border-white/10 hover:border-white/30 text-white/70 hover:text-white transition-all pointer-events-auto"
+              className="px-3 py-1 text-[10px] sm:text-xs rounded-full border border-white/10 hover:border-white/30 text-white/70 hover:text-white transition-all pointer-events-auto cursor-pointer"
             >
               Choose Mode
             </button>
           )}
 
-          <button
-            onClick={() => {
-              setAudioEnabled(!audioEnabled);
-              playChimeSound();
-            }}
-            className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 pointer-events-auto border ${audioEnabled ? 'bg-luxury-red/25 border-luxury-rose text-white shadow-[0_0_12px_rgba(230,57,70,0.4)] animate-pulse' : 'border-white/10 text-white/50 hover:text-white'}`}
-            title="Toggle Ambient Audio"
-          >
-            {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          </button>
+
 
           <button
             onClick={onClose}
-            className="px-4 py-1.5 text-xs rounded-full border border-luxury-red/25 bg-luxury-red/10 text-luxury-rose hover:text-white hover:border-luxury-red/50 hover:scale-105 active:scale-95 transition-all duration-300 pointer-events-auto"
+            className="px-3.5 py-1.5 text-[10px] sm:text-xs rounded-full border border-luxury-red/25 bg-luxury-red/10 text-luxury-rose hover:text-white hover:border-luxury-red/50 hover:scale-105 active:scale-95 transition-all duration-300 pointer-events-auto cursor-pointer"
           >
             Exit Story
           </button>
@@ -533,7 +427,6 @@ please let her stay beside me forever. ❤️`
                 whileHover={{ scale: 1.015, translateY: -4 }}
                 onClick={() => {
                   setViewMode('infographic');
-                  playChimeSound();
                 }}
                 className="p-6 rounded-2xl glassmorphism-luxury border-luxury-red/35 shadow-2xl flex flex-col justify-between items-center text-center cursor-pointer pointer-events-auto relative overflow-hidden group glassmorphism-hover border-pulse"
                 style={{ animationDuration: '3s' }}
@@ -544,7 +437,7 @@ please let her stay beside me forever. ❤️`
                 </div>
 
                 <div className="flex-1 flex flex-col items-center mb-6">
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-luxury-rose font-bold mb-2 bg-luxury-red/20 border border-luxury-rose/30 px-3 py-1 rounded-full animate-glow-pulse">
+                  <span className="text-[8px] sm:text-[9px] uppercase tracking-normal sm:tracking-[0.2em] text-luxury-rose font-bold mb-2 bg-luxury-red/20 border border-luxury-rose/30 px-2 sm:px-3 py-1 rounded-full animate-glow-pulse">
                     ✨ Recommended Path • Master Frame ✨
                   </span>
                   <h3 className="text-xl font-serif font-bold text-white mt-3 mb-2">Complete Story Infographic 🖼️</h3>
@@ -580,7 +473,6 @@ please let her stay beside me forever. ❤️`
                 whileHover={{ scale: 1.015, translateY: -4 }}
                 onClick={() => {
                   setViewMode('cinematic');
-                  playChimeSound();
                 }}
                 className="p-6 rounded-2xl glassmorphism-luxury border-purple-500/25 shadow-2xl flex flex-col justify-between items-center text-center cursor-pointer pointer-events-auto relative overflow-hidden group glassmorphism-hover"
               >
@@ -719,14 +611,14 @@ please let her stay beside me forever. ❤️`
                     animate={{ rotate: -10, x: -20, opacity: 1 }}
                     transition={{ delay: 0.2 }}
                     whileHover={{ scale: 1.04, rotate: -2, zIndex: 12 }}
-                    className="absolute left-4 top-4 w-40 md:w-52 p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
+                    className="absolute left-2 sm:left-4 top-2 sm:top-4 w-28 sm:w-44 md:w-52 p-2 sm:p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
                   >
                     <img
                       src={SCENE_ASSETS.scene1.images[0].url}
                       alt={SCENE_ASSETS.scene1.images[0].title}
-                      className="w-full h-24 md:h-32 object-cover rounded grayscale hover:grayscale-0 transition-all duration-500"
+                      className="w-full h-20 sm:h-28 md:h-32 object-cover rounded grayscale hover:grayscale-0 transition-all duration-500"
                     />
-                    <p className="font-handwritten text-lg text-center text-luxury-rose mt-2">Carefree college days 🎒</p>
+                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Carefree college days 🎒</p>
                   </motion.div>
 
                   {/* Floating image 2 (Lonely night ride) */}
@@ -735,14 +627,14 @@ please let her stay beside me forever. ❤️`
                     animate={{ rotate: 8, x: 20, opacity: 1 }}
                     transition={{ delay: 0.4 }}
                     whileHover={{ scale: 1.04, rotate: 2, zIndex: 12 }}
-                    className="absolute right-4 bottom-4 w-40 md:w-52 p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
+                    className="absolute right-2 sm:right-4 bottom-2 sm:bottom-4 w-28 sm:w-44 md:w-52 p-2 sm:p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
                   >
                     <img
                       src={SCENE_ASSETS.scene1.images[1].url}
                       alt={SCENE_ASSETS.scene1.images[1].title}
-                      className="w-full h-24 md:h-32 object-cover rounded hover:brightness-110 transition-all duration-500"
+                      className="w-full h-20 sm:h-28 md:h-32 object-cover rounded hover:brightness-110 transition-all duration-500"
                     />
-                    <p className="font-handwritten text-lg text-center text-luxury-rose mt-2">Riding alone in the dark 🏍️</p>
+                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Riding alone in the dark 🏍️</p>
                   </motion.div>
 
                   {/* Fading Old Chat Box mockup */}
@@ -751,11 +643,11 @@ please let her stay beside me forever. ❤️`
                     animate={{ scale: 1, opacity: 0.7 }}
                     transition={{ delay: 0.7 }}
                     whileHover={{ opacity: 1, scale: 1.02 }}
-                    className="absolute w-56 p-3 rounded-lg border border-red-500/10 bg-black/50 backdrop-blur-md z-15 flex flex-col gap-2 shadow-2xl pointer-events-auto text-[10px]"
+                    className="absolute w-36 sm:w-44 md:w-56 p-2 sm:p-3 rounded-lg border border-red-500/10 bg-black/50 backdrop-blur-md z-15 flex flex-col gap-1.5 sm:gap-2 shadow-2xl pointer-events-auto text-[8.5px] sm:text-[10px]"
                   >
-                    <span className="text-[8px] uppercase tracking-wider text-red-400 font-bold border-b border-red-500/10 pb-1">Unfinished past memory</span>
+                    <span className="text-[7.5px] sm:text-[8px] uppercase tracking-wider text-red-400 font-bold border-b border-red-500/10 pb-1">Unfinished past memory</span>
                     {oldChats.map((c, i) => (
-                      <div key={i} className={`p-1.5 rounded ${c.sender === 'him' ? 'self-end bg-white/5 text-white/50' : 'self-start bg-red-950/15 text-red-400/60'}`}>
+                      <div key={i} className={`p-1 sm:p-1.5 rounded ${c.sender === 'him' ? 'self-end bg-white/5 text-white/50' : 'self-start bg-red-950/15 text-red-400/60'}`}>
                         {c.text}
                       </div>
                     ))}
@@ -764,14 +656,14 @@ please let her stay beside me forever. ❤️`
 
                 {/* Story Narration */}
                 <div className="lg:col-span-6 flex flex-col justify-center px-4 md:px-8">
-                  <span className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-3">Scene 01 • The Carey-Free Heart</span>
+                  <span className="text-xs uppercase tracking-widest text-blue-400 font-semibold mb-3">Scene 01 • The Carefree Heart</span>
                   <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6 leading-tight">
                     Life Before Bagi...
                   </h2>
                   
-                  <div className="text-sm md:text-base font-light text-white/75 leading-relaxed font-sans min-h-[220px] whitespace-pre-line tracking-wide">
+                  <div className="font-serif text-base sm:text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-pink-100 to-rose-200 leading-relaxed italic filter blur-[0.1px] min-h-[220px] whitespace-pre-line tracking-wide">
                     {sceneTexts.scene1}
-                    <span className="inline-block w-1.5 h-4 bg-blue-400 animate-pulse ml-0.5" />
+                    <span className="inline-block w-2.5 h-4 bg-rose-400/80 animate-[pulse_0.8s_infinite] ml-1.5 shadow-[0_0_10px_rgba(244,63,94,0.7)]" />
                   </div>
                 </div>
               </motion.div>
@@ -794,9 +686,9 @@ please let her stay beside me forever. ❤️`
                     Bagi’s Entry
                   </h2>
                   
-                  <div className="text-sm md:text-base font-light text-white/75 leading-relaxed font-sans min-h-[120px] whitespace-pre-line tracking-wide mb-6">
+                  <div className="font-serif text-base sm:text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-pink-100 to-rose-200 leading-relaxed italic filter blur-[0.1px] min-h-[120px] whitespace-pre-line tracking-wide mb-6">
                     {sceneTexts.scene2}
-                    <span className="inline-block w-1.5 h-4 bg-amber-500 animate-pulse ml-0.5" />
+                    <span className="inline-block w-2.5 h-4 bg-amber-400/80 animate-[pulse_0.8s_infinite] ml-1.5 shadow-[0_0_10px_rgba(245,158,11,0.7)]" />
                   </div>
 
                   {sceneTexts.scene2.length >= fullTexts.scene2.length - 10 && (
@@ -821,12 +713,12 @@ please let her stay beside me forever. ❤️`
                     animate={{ rotate: -5, scale: 1, opacity: 1 }}
                     transition={{ delay: 0.3 }}
                     whileHover={{ scale: 1.04, rotate: -1, zIndex: 12 }}
-                    className="absolute left-4 top-10 w-40 md:w-52 p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
+                    className="absolute left-2 sm:left-4 top-6 sm:top-10 w-28 sm:w-40 md:w-52 p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
                   >
                     <img
                       src={SCENE_ASSETS.scene2.images[0].url}
                       alt={SCENE_ASSETS.scene2.images[0].title}
-                      className="w-full h-24 md:h-32 object-cover rounded hover:brightness-110 duration-500"
+                      className="w-full h-18 sm:h-24 md:h-32 object-cover rounded hover:brightness-110 duration-500"
                     />
                     <p className="font-handwritten text-lg text-center text-amber-300 mt-2">Bagi's quiet smile ✨</p>
                   </motion.div>
@@ -837,12 +729,12 @@ please let her stay beside me forever. ❤️`
                     animate={{ rotate: 8, scale: 1, opacity: 1 }}
                     transition={{ delay: 0.6 }}
                     whileHover={{ scale: 1.04, rotate: 2, zIndex: 12 }}
-                    className="absolute right-4 bottom-10 w-40 md:w-52 p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
+                    className="absolute right-2 sm:right-4 bottom-6 sm:bottom-10 w-28 sm:w-40 md:w-52 p-2.5 sm:p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
                   >
                     <img
                       src={SCENE_ASSETS.scene2.images[1].url}
                       alt={SCENE_ASSETS.scene2.images[1].title}
-                      className="w-full h-24 md:h-32 object-cover rounded hover:brightness-110 duration-500"
+                      className="w-full h-18 sm:h-24 md:h-32 object-cover rounded hover:brightness-110 duration-500"
                     />
                     <p className="font-handwritten text-lg text-center text-amber-300 mt-2">Classroom eye contact 📚</p>
                   </motion.div>
@@ -853,12 +745,12 @@ please let her stay beside me forever. ❤️`
                     animate={{ y: -30, opacity: 1 }}
                     transition={{ delay: 0.9 }}
                     whileHover={{ scale: 1.04, rotate: -3, zIndex: 14 }}
-                    className="absolute w-36 md:w-44 p-2.5 bg-white/5 border border-white/10 rounded shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
+                    className="absolute w-24 sm:w-32 md:w-44 p-2 bg-white/5 border border-white/10 rounded shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
                   >
                     <img
                       src={SCENE_ASSETS.scene2.images[2].url}
                       alt={SCENE_ASSETS.scene2.images[2].title}
-                      className="w-full h-20 md:h-28 object-cover rounded hover:brightness-110 duration-500"
+                      className="w-full h-14 sm:h-20 md:h-28 object-cover rounded hover:brightness-110 duration-500"
                     />
                     <p className="font-handwritten text-base text-center text-amber-300 mt-2">Tirumala Trip ⛰️</p>
                   </motion.div>
@@ -953,10 +845,10 @@ please let her stay beside me forever. ❤️`
 
                   {/* Text simulator */}
                   <motion.div
-                    initial={{ x: 20, y: 40, opacity: 0 }}
-                    animate={{ x: 30, y: 60, opacity: 1 }}
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.6 }}
-                    className="w-[260px] md:w-[290px] p-4 rounded-xl glassmorphism border-white/10 absolute bottom-4 lg:bottom-10 right-4 lg:right-10 z-20 flex flex-col gap-2.5 shadow-2xl max-h-[220px] overflow-y-auto pr-1 pointer-events-auto custom-scrollbar"
+                    className="w-full max-w-[260px] sm:max-w-[290px] p-4 rounded-xl glassmorphism border-white/10 relative lg:absolute lg:bottom-10 lg:right-10 z-20 flex flex-col gap-2.5 shadow-2xl max-h-[160px] sm:max-h-[220px] overflow-y-auto pr-1 pointer-events-auto custom-scrollbar mt-6 lg:mt-0"
                   >
                     <span className="text-[9px] uppercase tracking-wider text-white/30 font-semibold border-b border-white/5 pb-1">Texts with Bagi</span>
                     <div className="flex flex-col gap-2 text-[10px]">
@@ -987,9 +879,9 @@ please let her stay beside me forever. ❤️`
                     The Changeover ❤️
                   </h2>
                   
-                  <div className="text-sm md:text-base font-light text-white/75 leading-relaxed font-sans min-h-[220px] whitespace-pre-line tracking-wide">
+                  <div className="font-serif text-base sm:text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-pink-100 to-rose-200 leading-relaxed italic filter blur-[0.1px] min-h-[220px] whitespace-pre-line tracking-wide">
                     {sceneTexts.scene3}
-                    <span className="inline-block w-1.5 h-4 bg-luxury-red animate-pulse ml-0.5" />
+                    <span className="inline-block w-2.5 h-4 bg-rose-500/80 animate-[pulse_0.8s_infinite] ml-1.5 shadow-[0_0_10px_rgba(244,63,94,0.7)]" />
                   </div>
                 </div>
               </motion.div>
@@ -1012,9 +904,9 @@ please let her stay beside me forever. ❤️`
                     Their Comfort Connection
                   </h2>
                   
-                  <div className="text-sm md:text-base font-light text-white/75 leading-relaxed font-sans min-h-[120px] whitespace-pre-line tracking-wide mb-6">
+                  <div className="font-serif text-base sm:text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-pink-100 to-rose-200 leading-relaxed italic filter blur-[0.1px] min-h-[120px] whitespace-pre-line tracking-wide mb-6">
                     {sceneTexts.scene4}
-                    <span className="inline-block w-1.5 h-4 bg-purple-400 animate-pulse ml-0.5" />
+                    <span className="inline-block w-2.5 h-4 bg-purple-400/80 animate-[pulse_0.8s_infinite] ml-1.5 shadow-[0_0_10px_rgba(168,85,247,0.7)]" />
                   </div>
 
                   {sceneTexts.scene4.length >= fullTexts.scene4.length - 10 && (
@@ -1039,7 +931,6 @@ please let her stay beside me forever. ❤️`
                       ref={cardRefs[0]}
                       onMouseMove={(e) => handleMouseMoveTilt(e, cardRefs[0])}
                       onMouseLeave={() => handleMouseLeaveTilt(cardRefs[0])}
-                      onClick={playChimeSound}
                       className="p-2.5 bg-white/5 border border-white/10 rounded-lg shadow-xl polaroid-card flex flex-col justify-between backdrop-blur-md transition-all duration-200 ease-out cursor-pointer"
                     >
                       <img
@@ -1055,7 +946,6 @@ please let her stay beside me forever. ❤️`
                       ref={cardRefs[1]}
                       onMouseMove={(e) => handleMouseMoveTilt(e, cardRefs[1])}
                       onMouseLeave={() => handleMouseLeaveTilt(cardRefs[1])}
-                      onClick={playChimeSound}
                       className="p-2.5 bg-white/5 border border-white/10 rounded-lg shadow-xl polaroid-card flex flex-col justify-between backdrop-blur-md transition-all duration-200 ease-out cursor-pointer"
                     >
                       <img
@@ -1071,7 +961,6 @@ please let her stay beside me forever. ❤️`
                       ref={cardRefs[2]}
                       onMouseMove={(e) => handleMouseMoveTilt(e, cardRefs[2])}
                       onMouseLeave={() => handleMouseLeaveTilt(cardRefs[2])}
-                      onClick={playChimeSound}
                       className="p-2.5 bg-white/5 border border-white/10 rounded-lg shadow-xl polaroid-card flex flex-col justify-between backdrop-blur-md transition-all duration-200 ease-out cursor-pointer"
                     >
                       <img
@@ -1087,7 +976,6 @@ please let her stay beside me forever. ❤️`
                       ref={cardRefs[3]}
                       onMouseMove={(e) => handleMouseMoveTilt(e, cardRefs[3])}
                       onMouseLeave={() => handleMouseLeaveTilt(cardRefs[3])}
-                      onClick={playChimeSound}
                       className="p-2.5 bg-white/5 border border-white/10 rounded-lg shadow-xl polaroid-card flex flex-col justify-between backdrop-blur-md transition-all duration-200 ease-out cursor-pointer"
                     >
                       <img
@@ -1173,7 +1061,7 @@ please let her stay beside me forever. ❤️`
                 <div className="lg:col-span-7 flex flex-col justify-start relative min-h-[450px] w-full pointer-events-auto">
                   
                   {/* SVG branch */}
-                  <div className="absolute top-0 right-0 w-[420px] h-[60px] pointer-events-none opacity-40 z-0">
+                  <div className="absolute top-0 right-0 w-full max-w-[420px] h-[60px] pointer-events-none opacity-40 z-0">
                     <svg className="w-full h-full text-emerald-400" viewBox="0 0 400 60" fill="none">
                       <path d="M 400,10 C 350,15 280,5 200,20 C 120,35 60,25 0,45" stroke="currentColor" strokeWidth="2.5" strokeDasharray="3 3" />
                       <path d="M 330,12 C 300,10 260,30 240,32" stroke="currentColor" strokeWidth="1.5" />
@@ -1190,10 +1078,8 @@ please let her stay beside me forever. ❤️`
                           key={dest.name}
                           onMouseEnter={() => {
                             setHoveredDest(dest);
-                            playChimeSound();
                           }}
                           onMouseLeave={() => setHoveredDest(null)}
-                          onClick={playChimeSound}
                           className={`px-3 py-2.5 rounded-lg border glassmorphism cursor-pointer flex items-center gap-2 shadow-lg backdrop-blur-md transform-gpu pointer-events-auto transition-all duration-300 ${isHovered ? 'border-emerald-400 bg-emerald-950/20 text-white shadow-[0_0_15px_rgba(52,211,153,0.35)] scale-105' : 'border-white/5 text-white/70 hover:text-white hover:border-white/20'}`}
                           animate={{
                             rotate: isHovered ? [0, -6, 5, -3, 2, 0] : [0, 1.5, -1.5, 0],
@@ -1299,9 +1185,9 @@ please let her stay beside me forever. ❤️`
                       <Sparkles className="w-3 h-3 text-amber-400 animate-pulse" />
                     </div>
 
-                    <div className="text-center font-serif text-sm md:text-base leading-relaxed text-amber-100/90 whitespace-pre-line tracking-wide mt-4 italic max-h-[320px] overflow-y-auto pr-1 select-text custom-scrollbar filter blur-[0.1px]">
+                    <div className="text-center font-serif text-base sm:text-lg md:text-xl leading-relaxed text-transparent bg-clip-text bg-gradient-to-r from-amber-200 via-orange-100 to-amber-200 whitespace-pre-line tracking-wide mt-4 italic max-h-[320px] overflow-y-auto pr-2 select-text custom-scrollbar filter blur-[0.1px] w-full">
                       {sceneTexts.scene6}
-                      <span className="inline-block w-1.5 h-4.5 bg-amber-400 animate-pulse ml-0.5" />
+                      <span className="inline-block w-2.5 h-4.5 bg-amber-400/80 animate-[pulse_0.8s_infinite] ml-1.5 shadow-[0_0_10px_rgba(245,158,11,0.7)]" />
                     </div>
                   </motion.div>
 
@@ -1345,7 +1231,6 @@ please let her stay beside me forever. ❤️`
           <button
             onClick={() => {
               handlePrev();
-              playChimeSound();
             }}
             disabled={activeScene === 0}
             className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs tracking-wider uppercase font-semibold transition-all duration-300 ${activeScene === 0 ? 'border-white/5 text-white/10 cursor-not-allowed' : 'border-white/10 text-white/70 hover:text-white hover:border-white/30 cursor-pointer'}`}
@@ -1363,7 +1248,6 @@ please let her stay beside me forever. ❤️`
                   key={i}
                   onClick={() => {
                     setActiveScene(i);
-                    playChimeSound();
                   }}
                   className="group flex items-center justify-center relative py-2"
                   title={`Jump to ${titles[i]}`}
@@ -1380,7 +1264,6 @@ please let her stay beside me forever. ❤️`
           <button
             onClick={() => {
               handleNext();
-              playChimeSound();
             }}
             disabled={activeScene === 5}
             className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs tracking-wider uppercase font-semibold transition-all duration-300 ${activeScene === 5 ? 'border-white/5 text-white/10 cursor-not-allowed' : 'border-white/10 text-white/70 hover:text-white hover:border-white/30 cursor-pointer'}`}

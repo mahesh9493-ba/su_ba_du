@@ -140,7 +140,7 @@ const DAILY_REGISTRY = {
   }
 };
 
-export default function WelcomePhase({ onUnlock, onPreUnlock }) {
+export default function WelcomePhase({ onUnlock }) {
   const [key, setKey] = useState('');
   const [isError, setIsError] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -197,14 +197,6 @@ export default function WelcomePhase({ onUnlock, onPreUnlock }) {
       setIsSuccess(true);
       setIsError(false);
       
-      // Synchronously unlock audio context inside user gesture to bypass browser autoplay blocks
-      if (window.unlockSurpriseAudio) {
-        window.unlockSurpriseAudio();
-      }
-      if (onPreUnlock) {
-        onPreUnlock();
-      }
-      
       // Delay transition for success animation to play out
       setTimeout(() => {
         onUnlock();
@@ -225,13 +217,6 @@ export default function WelcomePhase({ onUnlock, onPreUnlock }) {
       if (key.toLowerCase() === 'bagi@02') {
         setIsSuccess(true);
         setIsError(false);
-        
-        if (window.unlockSurpriseAudio) {
-          window.unlockSurpriseAudio();
-        }
-        if (onPreUnlock) {
-          onPreUnlock();
-        }
         
         setTimeout(() => {
           onUnlock();

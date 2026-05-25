@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Music } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
 
 // Core Components
 import BackgroundEffects from './components/BackgroundEffects';
-import AudioPlayer from './components/AudioPlayer';
+
 import WelcomePhase from './components/WelcomePhase';
 import CountdownPhase from './components/CountdownPhase';
 import MidnightTransition from './components/MidnightTransition';
@@ -13,8 +13,7 @@ import MemoryPops from './components/MemoryPops';
 
 export default function App() {
   const [phase, setPhase] = useState('intro'); // 'intro', 'countdown', 'transition', 'reveal', 'portals'
-  const [isMuted, setIsMuted] = useState(true);
-  const [isUserInteracted, setIsUserInteracted] = useState(false);
+
   const [targetDate] = useState('2026-05-31T00:00:00'); // Targeted Midnight
   const [currentCountdownTheme, setCurrentCountdownTheme] = useState('days'); // 'days', 'hours', 'minutes', 'seconds'
 
@@ -61,16 +60,7 @@ export default function App() {
     return () => cancelAnimationFrame(animationId);
   }, [mousePos, isDesktop]);
 
-  // Pre-unlock runs synchronously inside user event gesture thread to warm up Web Audio
-  const handlePreUnlock = () => {
-    setIsUserInteracted(true);
-    setIsMuted(false);
-  };
-
-  // Click to start audio and enter Countdown
   const handleEnterExperience = () => {
-    setIsUserInteracted(true);
-    setIsMuted(false);
     setPhase('countdown');
   };
 
@@ -94,15 +84,7 @@ export default function App() {
       {/* 2. Global Canvas Background Particles & Fireflies (Active throughout) */}
       <BackgroundEffects densityMultiplier={phase === 'portals' ? 0.6 : 1} />
 
-      {/* 3. Global Audio Player Controller (Rendered always to allow synchronous audio context activation) */}
-      <AudioPlayer 
-        isCelebration={phase !== 'intro' && phase !== 'countdown'} 
-        isMuted={isMuted} 
-        setIsMuted={setIsMuted} 
-        isUserInteracted={isUserInteracted}
-        hideControls={phase === 'intro' || phase === 'countdown'}
-        countdownTheme={currentCountdownTheme}
-      />
+
 
       {/* 4. Global Screen Phase Router */}
       <AnimatePresence mode="wait">
@@ -119,7 +101,6 @@ export default function App() {
           >
             <WelcomePhase 
               onUnlock={handleEnterExperience} 
-              onPreUnlock={handlePreUnlock}
             />
           </motion.div>
         )}
@@ -138,6 +119,7 @@ export default function App() {
               targetDate={targetDate} 
               onCountdownComplete={() => setPhase('transition')} 
               onThemeChange={setCurrentCountdownTheme}
+              onBypassPhase={setPhase}
             />
           </motion.div>
         )}

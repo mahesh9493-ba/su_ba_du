@@ -2,23 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Compass, MapPin, Heart, Sparkles, Smile, Users, BookOpen, 
-  Volume2, VolumeX, ArrowLeft, ArrowRight, Sun, Coffee, Dumbbell, 
+  ArrowLeft, ArrowRight, Sun, Coffee, Dumbbell, 
   Map, Star, Award, Home, Trees, ShieldCheck, Flame, Compass as CompassIcon
 } from 'lucide-react';
 
-// Pentatonic & peaceful sound frequencies for client-side Web Audio synth
-const CHORD_NOTES = {
-  0: [130.81, 164.81, 196.00, 246.94, 261.63, 329.63], // Cmaj7 (Intro)
-  1: [110.00, 164.81, 196.00, 261.63, 329.63, 392.00], // Am7 (Spiritual Journey)
-  2: [87.31, 130.81, 174.61, 220.00, 261.63, 329.63, 440.00],  // Fmaj7 (Travel)
-  3: [98.00, 146.83, 196.00, 246.94, 293.66, 392.00],  // G6 (Everyday Comfort)
-  4: [130.81, 196.00, 246.94, 329.63, 392.00],         // Cmaj7 (Friends)
-  5: [110.00, 164.81, 220.00, 261.63, 329.63, 440.00], // Am7 (Marriage)
-  6: [87.31, 130.81, 220.00, 261.63, 329.63, 392.00],  // Fmaj7 (Parenthood)
-  7: [130.81, 196.00, 261.63, 293.66, 329.63, 392.00, 523.25, 659.25], // C Pentatonic Peaceful Flute (Tirumala Blessings)
-  8: [130.81, 164.81, 196.00, 261.63, 329.63, 392.00], // C Major (Growing Old)
-  9: [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]  // High Cmaj7 (Cosmic Reveal)
-};
+
 
 // 12 Jyotirlingas Data
 const JYOTIRLINGAS = [
@@ -39,7 +27,6 @@ const JYOTIRLINGAS = [
 export default function FutureDreams({ onClose }) {
   const [activeScene, setActiveScene] = useState(0);
   const [selectedJyotirlinga, setSelectedJyotirlinga] = useState(JYOTIRLINGAS[0]);
-  const [audioEnabled, setAudioEnabled] = useState(true);
   
   // Interactive Scene 7 (Tirumala Family Blessings) Sub-Step Progression
   const [tirumalaSubStep, setTirumalaSubStep] = useState(0);
@@ -50,13 +37,7 @@ export default function FutureDreams({ onClose }) {
   // Typewriter text state
   const [typedText, setTypedText] = useState("");
   
-  // Web Audio Context refs
-  const audioCtxRef = useRef(null);
-  const masterVolumeRef = useRef(null);
-  const delayNodeRef = useRef(null);
-  const feedbackNodeRef = useRef(null);
-  const activeOscsRef = useRef([]);
-  const arpeggiatorIntervalRef = useRef(null);
+
   const currentSceneIndexRef = useRef(0);
 
   // Sync ref with scene state for arpeggiator callback
@@ -142,190 +123,11 @@ export default function FutureDreams({ onClose }) {
     return () => clearTimeout(timer);
   }, [activeScene, tirumalaSubStep, marriageSubStep]);
 
-  // Synthesis engine for felt-piano pad arpeggios
-  const playNote = (ctx, freq, duration = 3.5) => {
-    if (!ctx || ctx.state === 'suspended' || !audioEnabled) return;
-    const now = ctx.currentTime;
-    
-    const osc1 = ctx.createOscillator();
-    const osc2 = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-    const filter = ctx.createBiquadFilter();
-    
-    // Combining a triangle and sine wave detuned by 5 cents for felt acoustic depth
-    osc1.type = 'triangle';
-    osc2.type = 'sine';
-    
-    osc1.frequency.setValueAtTime(freq, now);
-    osc2.frequency.setValueAtTime(freq * 1.003, now); // soft chorus detuning
-    
-    // Soft lowpass filter to emulate cozy, warm felt piano strings
-    filter.type = 'lowpass';
-    filter.frequency.setValueAtTime(700, now);
-    filter.Q.setValueAtTime(1.0, now);
-    
-    // Amplitude Felt Piano Envelope (slow rise, slow decay, long release)
-    gainNode.gain.setValueAtTime(0, now);
-    gainNode.gain.linearRampToValueAtTime(0.24, now + 0.08); // attack
-    gainNode.gain.exponentialRampToValueAtTime(0.04, now + 1.2); // decay to sustain
-    gainNode.gain.setValueAtTime(0.04, now + duration - 0.5);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, now + duration); // release
-    
-    osc1.connect(filter);
-    osc2.connect(filter);
-    filter.connect(gainNode);
-    
-    if (masterVolumeRef.current && delayNodeRef.current) {
-      gainNode.connect(masterVolumeRef.current);
-      gainNode.connect(delayNodeRef.current);
-    }
-    
-    osc1.start(now);
-    osc2.start(now);
-    osc1.stop(now + duration);
-    osc2.stop(now + duration);
-    
-    activeOscsRef.current.push({ osc1, osc2, gainNode, stopTime: now + duration });
-  };
 
-  const playTempleBell = () => {
-    if (!audioCtxRef.current || !audioEnabled) return;
-    const ctx = audioCtxRef.current;
-    const now = ctx.currentTime;
-    
-    const osc = ctx.createOscillator();
-    const osc2 = ctx.createOscillator();
-    const gainNode = ctx.createGain();
-    
-    osc.type = 'sine';
-    osc.frequency.setValueAtTime(1250, now); // crystal high pitch
-    
-    osc2.type = 'triangle';
-    osc2.frequency.setValueAtTime(1253, now); // detune
-    
-    gainNode.gain.setValueAtTime(0, now);
-    gainNode.gain.linearRampToValueAtTime(0.12, now + 0.005);
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, now + 2.5); // long gold resonance
-    
-    osc.connect(gainNode);
-    osc2.connect(gainNode);
-    if (masterVolumeRef.current && delayNodeRef.current) {
-      gainNode.connect(masterVolumeRef.current);
-      gainNode.connect(delayNodeRef.current); // feed through delay loop for sacred space reverb
-    }
-    
-    osc.start(now);
-    osc2.start(now);
-    osc.stop(now + 3.0);
-    osc2.stop(now + 3.0);
-  };
-
-  const startAmbientSynth = () => {
-    if (audioCtxRef.current) return;
-    try {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      const ctx = new AudioContext();
-      audioCtxRef.current = ctx;
-
-      const masterVolume = ctx.createGain();
-      masterVolume.gain.setValueAtTime(0.16, ctx.currentTime);
-      masterVolume.connect(ctx.destination);
-      masterVolumeRef.current = masterVolume;
-
-      // Spacious delay feedback loop simulating concert hall sustain pedal
-      const delayNode = ctx.createDelay(2.0);
-      delayNode.delayTime.setValueAtTime(0.45, ctx.currentTime); // 450ms echo
-
-      const feedbackNode = ctx.createGain();
-      feedbackNode.gain.setValueAtTime(0.48, ctx.currentTime); // feedback percentage
-
-      const delayFilter = ctx.createBiquadFilter();
-      delayFilter.type = 'lowpass';
-      delayFilter.frequency.setValueAtTime(450, ctx.currentTime);
-
-      // Loop connection
-      delayNode.connect(delayFilter);
-      delayFilter.connect(feedbackNode);
-      feedbackNode.connect(delayNode);
-      feedbackNode.connect(masterVolume); // output delay loop
-
-      delayNodeRef.current = delayNode;
-      feedbackNodeRef.current = feedbackNode;
-
-      // Slow elegant rolling arpeggio loop (750ms spacing)
-      let noteIndex = 0;
-      arpeggiatorIntervalRef.current = setInterval(() => {
-        const currentChord = CHORD_NOTES[currentSceneIndexRef.current] || CHORD_NOTES[0];
-        const freq = currentChord[noteIndex % currentChord.length];
-        
-        // Occasional high sparkle note
-        const spark = Math.random() > 0.8;
-        playNote(ctx, freq, 3.5);
-        
-        if (spark) {
-          setTimeout(() => {
-            playNote(ctx, freq * 2, 2.0);
-          }, 200);
-        }
-        
-        noteIndex++;
-      }, 750);
-
-    } catch (e) {
-      console.warn("Web Audio Context initialization blocked or failed", e);
-    }
-  };
-
-  const cleanAudio = () => {
-    if (arpeggiatorIntervalRef.current) {
-      clearInterval(arpeggiatorIntervalRef.current);
-      arpeggiatorIntervalRef.current = null;
-    }
-    activeOscsRef.current.forEach(item => {
-      try {
-        item.osc1.stop();
-        item.osc2.stop();
-      } catch (e) {}
-    });
-    activeOscsRef.current = [];
-    if (audioCtxRef.current) {
-      try {
-        audioCtxRef.current.close();
-      } catch (e) {}
-      audioCtxRef.current = null;
-    }
-  };
-
-  // Start audio on mount / user interaction
-  useEffect(() => {
-    startAmbientSynth();
-    return () => cleanAudio();
-  }, []);
-
-  // Update volume gain node on mute toggle
-  useEffect(() => {
-    if (masterVolumeRef.current && audioCtxRef.current) {
-      masterVolumeRef.current.gain.setValueAtTime(
-        audioEnabled ? 0.16 : 0, 
-        audioCtxRef.current.currentTime
-      );
-    }
-  }, [audioEnabled]);
-
-  // When activeScene transitions into 7, ring chimes sequentially
-  useEffect(() => {
-    if (activeScene === 7) {
-      // Seq chimes
-      setTimeout(() => playTempleBell(), 100);
-      setTimeout(() => playTempleBell(), 700);
-      setTimeout(() => playTempleBell(), 1300);
-    }
-  }, [activeScene]);
 
   // Handle Jyotirlinga node tap
   const handleJyotirlingaSelect = (node) => {
     setSelectedJyotirlinga(node);
-    playTempleBell();
   };
 
   // Navigation handlers
@@ -333,14 +135,12 @@ export default function FutureDreams({ onClose }) {
     // Stage 5 progression
     if (activeScene === 5 && marriageSubStep < 1) {
       setMarriageSubStep(prev => prev + 1);
-      playTempleBell();
       return;
     }
 
     // If we are in Tirumala Blessings (Scene 7), walk through substeps
     if (activeScene === 7 && tirumalaSubStep < 3) {
       setTirumalaSubStep(prev => prev + 1);
-      playTempleBell();
       return;
     }
 
@@ -417,11 +217,6 @@ export default function FutureDreams({ onClose }) {
   return (
     <div 
       className="relative min-h-screen w-full bg-luxury-darker overflow-hidden flex flex-col items-center justify-between text-white font-sans selection:bg-luxury-rose selection:text-white"
-      onClick={() => {
-        if (audioCtxRef.current && audioCtxRef.current.state === 'suspended') {
-          audioCtxRef.current.resume();
-        }
-      }}
     >
       
       {/* Dynamic Background Image with subtle Ken Burns motion */}
@@ -506,9 +301,9 @@ export default function FutureDreams({ onClose }) {
       </div>
 
       {/* TOP HEADER CONTROLS */}
-      <header className="relative w-full max-w-6xl mx-auto px-6 py-5 flex items-center justify-between z-45">
+      <header className="relative w-full max-w-6xl mx-auto px-6 pt-24 pb-5 md:py-5 flex items-center justify-between z-45">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full border border-luxury-rose/25 bg-black/40 backdrop-blur-md flex items-center justify-center text-luxury-rose shadow-lg">
+          <div className="hidden sm:flex w-10 h-10 rounded-full border border-luxury-rose/25 bg-black/40 backdrop-blur-md items-center justify-center text-luxury-rose shadow-lg">
             <Compass className="w-5 h-5 animate-spin-slow" />
           </div>
           <div>
@@ -521,16 +316,7 @@ export default function FutureDreams({ onClose }) {
           </div>
         </div>
 
-        {/* Audio Mute & Close Controls */}
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setAudioEnabled(!audioEnabled)}
-            className={`w-10 h-10 rounded-full glassmorphism flex items-center justify-center transition-all duration-300 pointer-events-auto border hover:scale-105 active:scale-95 ${audioEnabled ? 'border-luxury-rose/30 text-luxury-rose shadow-[0_0_15px_rgba(255,143,163,0.35)]' : 'border-white/5 text-white/40'}`}
-            title={audioEnabled ? "Mute piano pads synth" : "Unmute piano pads synth"}
-          >
-            {audioEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          </button>
-        </div>
+
       </header>
 
       {/* MAIN CINEMATIC WORKSPACE FRAME */}
@@ -555,7 +341,7 @@ export default function FutureDreams({ onClose }) {
               </div>
 
               <span className="text-[9px] tracking-[0.3em] text-luxury-rose uppercase font-semibold mb-2">
-                Chapter Zero • The Horizon of Tomorrow
+                Dream Zero • The Horizon of Tomorrow
               </span>
               
               <h2 className="text-2xl md:text-4xl font-serif font-bold text-luxury-gradient tracking-wide mb-6 leading-tight">
@@ -694,7 +480,7 @@ export default function FutureDreams({ onClose }) {
                   </div>
 
                   <div className="z-10 border-t border-white/5 pt-2 flex justify-between items-center text-[7px] text-white/40 tracking-widest uppercase">
-                    <span>*Click star nodes to hear sacred bell chimes</span>
+                    <span>*Click star nodes to explore temples</span>
                     <span>Destiny connected route</span>
                   </div>
                 </div>
@@ -703,7 +489,7 @@ export default function FutureDreams({ onClose }) {
               {/* Right Grid: Sacred Pilgrimage Dialogue Cards */}
               <div className="lg:col-span-5 flex flex-col justify-center">
                 <span className="text-[10px] tracking-[0.3em] text-[#e0a96d] uppercase font-semibold mb-2">
-                  Chapter One • The Pilgrimage Route
+                  Dream One • The Pilgrimage Route
                 </span>
                 
                 <h3 className="text-2xl md:text-3xl font-serif font-bold text-luxury-gradient mb-4">
@@ -821,7 +607,7 @@ export default function FutureDreams({ onClose }) {
               {/* Right Grid: Emotional narration */}
               <div className="lg:col-span-6 flex flex-col justify-center">
                 <span className="text-[10px] tracking-[0.3em] text-luxury-rose uppercase font-semibold mb-2">
-                  Chapter Two • Collecting Memories
+                  Dream Two • Collecting Memories
                 </span>
                 
                 <h3 className="text-2xl md:text-3xl font-serif font-bold text-luxury-gradient mb-5">
@@ -897,7 +683,7 @@ export default function FutureDreams({ onClose }) {
               {/* Right Grid: Emotional Narration */}
               <div className="lg:col-span-6 flex flex-col justify-center">
                 <span className="text-[10px] tracking-[0.3em] text-luxury-rose uppercase font-semibold mb-2">
-                  Chapter Three • Cozy Everyday Comfort
+                  Dream Three • Cozy Everyday Comfort
                 </span>
                 
                 <h3 className="text-2xl md:text-3xl font-serif font-bold text-luxury-gradient mb-5">
@@ -951,7 +737,7 @@ export default function FutureDreams({ onClose }) {
               {/* Right Grid: Emotional Narration */}
               <div className="lg:col-span-6 flex flex-col justify-center">
                 <span className="text-[10px] tracking-[0.3em] text-luxury-rose uppercase font-semibold mb-2">
-                  Chapter Four • Circle of Joy
+                  Dream Four • Circle of Joy
                 </span>
                 
                 <h3 className="text-2xl md:text-3xl font-serif font-bold text-luxury-gradient mb-5">
@@ -1025,7 +811,7 @@ export default function FutureDreams({ onClose }) {
                   <div className="absolute -top-12 -left-12 w-28 h-28 bg-luxury-rose/5 rounded-full pointer-events-none" />
                   
                   <span className="text-[10px] tracking-[0.3em] text-luxury-rose uppercase font-semibold mb-3 block">
-                    Chapter Five • The Sacred Mandap
+                    Dream Five • The Sacred Mandap
                   </span>
                   
                   <h3 className="text-2xl md:text-3xl font-serif font-bold text-luxury-gradient tracking-wide mb-6">
@@ -1193,7 +979,7 @@ export default function FutureDreams({ onClose }) {
               {/* Right Grid: Narrative */}
               <div className="lg:col-span-6 flex flex-col justify-center">
                 <span className="text-[10px] tracking-[0.3em] text-luxury-rose uppercase font-semibold mb-2">
-                  Chapter Six • Tiny Laughing Worlds
+                  Dream Six • Tiny Laughing Worlds
                 </span>
                 
                 <h3 className="text-2xl md:text-3xl font-serif font-bold text-luxury-gradient mb-5">
@@ -1266,7 +1052,7 @@ export default function FutureDreams({ onClose }) {
                   <div className="absolute -top-12 -left-12 w-28 h-28 bg-[#e0a96d]/5 rounded-full pointer-events-none" />
                   
                   <span className="text-[10px] tracking-[0.3em] text-[#e0a96d] uppercase font-semibold mb-3 block">
-                    Chapter Seven • The Spiritual Completion
+                    Dream Seven • The Spiritual Completion
                   </span>
                   
                   <h3 className="text-2xl md:text-3xl font-serif font-bold text-luxury-gradient tracking-wide mb-6">
@@ -1428,7 +1214,7 @@ export default function FutureDreams({ onClose }) {
               {/* Right Grid: Narrative */}
               <div className="lg:col-span-6 flex flex-col justify-center">
                 <span className="text-[10px] tracking-[0.3em] text-[#ffb5a7] uppercase font-semibold mb-2">
-                  Chapter Eight • Sunset of Life
+                  Dream Eight • Sunset of Life
                 </span>
                 
                 <h3 className="text-2xl md:text-3xl font-serif font-bold text-luxury-gradient mb-5">
@@ -1474,20 +1260,7 @@ export default function FutureDreams({ onClose }) {
                 </h2>
               </div>
 
-              {/* Call to action buttons fading in */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1.2, duration: 0.8 }}
-                className="flex flex-col sm:flex-row gap-4 items-center justify-center pointer-events-auto w-full max-w-md"
-              >
-                <button
-                  onClick={onClose}
-                  className="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-luxury-red via-luxury-rose to-luxury-red text-luxury-darker font-bold tracking-widest text-xs uppercase flex items-center justify-center gap-2 hover:scale-[1.03] active:scale-95 transition-transform duration-300 shadow-xl border border-luxury-rose/20 cursor-pointer"
-                >
-                  <ShieldCheck className="w-4 h-4" /> Return to Surprise Portals ❤️
-                </button>
-              </motion.div>
+              {/* No center call to action button as requested */}
             </motion.div>
           )}
 
@@ -1502,7 +1275,7 @@ export default function FutureDreams({ onClose }) {
           onClick={handlePrev}
           disabled={activeScene === 0 && tirumalaSubStep === 0}
           className={`w-12 h-12 rounded-full border glassmorphism flex items-center justify-center transition-all duration-300 pointer-events-auto outline-none hover:scale-105 active:scale-95 ${activeScene === 0 && tirumalaSubStep === 0 ? 'border-white/5 text-white/10 cursor-not-allowed' : 'border-luxury-rose/25 text-luxury-rose cursor-pointer hover:border-luxury-rose/50 shadow-md'}`}
-          title="Previous Chapter"
+          title="Previous Dream"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -1510,7 +1283,7 @@ export default function FutureDreams({ onClose }) {
         {/* Dynamic slide progress bar indicators */}
         <div className="flex-1 flex flex-col items-center max-w-lg pointer-events-auto">
           <div className="flex justify-between items-center w-full text-[9px] text-white/40 uppercase tracking-widest font-semibold mb-2">
-            <span>Chapter {activeScene} of 9</span>
+            <span>Dream {activeScene} of 9</span>
             <span>
               {activeScene === 0 && "Horizon Intro"}
               {activeScene === 1 && "Sacred Pilgrimage"}
@@ -1536,7 +1309,7 @@ export default function FutureDreams({ onClose }) {
                   if (idx !== 7) setTirumalaSubStep(0);
                 }}
                 className={`h-[4px] rounded-full flex-1 transition-all duration-500 cursor-pointer relative ${activeScene === idx ? 'bg-luxury-rose shadow-[0_0_8px_rgba(255,143,163,0.8)] scale-y-125' : 'bg-white/15 hover:bg-white/30'}`}
-                title={`Jump to Chapter ${idx}`}
+                title={`Jump to Dream ${idx}`}
               >
                 {/* Visual marker inside active/visited segments */}
                 {activeScene > idx && (
@@ -1552,7 +1325,7 @@ export default function FutureDreams({ onClose }) {
           <button
             onClick={handleNext}
             className="w-12 h-12 rounded-full border border-luxury-rose/25 glassmorphism text-luxury-rose flex items-center justify-center transition-all duration-300 pointer-events-auto outline-none hover:scale-105 active:scale-95 cursor-pointer hover:border-luxury-rose/50 shadow-md"
-            title="Next Chapter"
+            title="Next Dream"
           >
             <ArrowRight className="w-5 h-5 animate-pulse" />
           </button>

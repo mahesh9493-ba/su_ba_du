@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const NARRATIVES = [
@@ -64,7 +64,7 @@ const THEMES = {
   }
 };
 
-export default function CountdownPhase({ onCountdownComplete, targetDate, onThemeChange }) {
+export default function CountdownPhase({ onCountdownComplete, targetDate, onThemeChange, onBypassPhase }) {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [petals, setPetals] = useState([]);
   const [narrativeIdx, setNarrativeIdx] = useState(0);
@@ -186,48 +186,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
     return () => clearInterval(interval);
   }, []);
 
-  // 4. Web Audio API synthesized Cozy Crystal Music Box notes
-  const playCozyChime = (pitch = 523.25) => {
-    try {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return;
 
-      const ctx = new AudioContextClass();
-      
-      const osc = ctx.createOscillator();
-      const gainNode = ctx.createGain();
-      const filter = ctx.createBiquadFilter();
-
-      // Clean filter to emphasize music box purity
-      filter.type = "highpass";
-      filter.frequency.setValueAtTime(200, ctx.currentTime);
-
-      osc.type = "sine";
-      osc.frequency.setValueAtTime(pitch, ctx.currentTime);
-
-      const isSecondsTick = (activeTheme === 'seconds' && pitch === 987.77);
-      gainNode.gain.setValueAtTime(isSecondsTick ? 0.015 : 0.16, ctx.currentTime);
-      gainNode.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + (isSecondsTick ? 0.6 : 2.2));
-
-      osc.connect(filter);
-      filter.connect(gainNode);
-      gainNode.connect(ctx.destination);
-
-      osc.start();
-      osc.stop(ctx.currentTime + (isSecondsTick ? 0.7 : 2.3));
-    } catch (e) {
-      console.log("Cozy audio synth blocked: ", e);
-    }
-  };
-
-  // Synchronized crystal tick on every second change in seconds theme
-  const prevSecondsRef = useRef(timeLeft.seconds);
-  useEffect(() => {
-    if (activeTheme === 'seconds' && timeLeft.seconds !== prevSecondsRef.current) {
-      playCozyChime(987.77); // sweet B5 chime tick
-      prevSecondsRef.current = timeLeft.seconds;
-    }
-  }, [timeLeft.seconds, activeTheme]);
 
   const pad = (num) => String(num).padStart(2, '0');
   const themeConfig = THEMES[activeTheme] || THEMES.days;
@@ -612,6 +571,56 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
                       ? `Simulating: ${themeConfig.name} Realm` 
                       : "Running live countdown targeting midnight on May 31"}
                   </p>
+
+                  {/* Developer Quick-Bypass & Travel Grid */}
+                  <div className="w-full h-px bg-white/5 my-3.5" />
+                  
+                  <span className="text-[8.5px] uppercase tracking-[0.25em] text-rose-300 font-bold mb-3.5 self-start pl-1">
+                    🚀 Developer Fast Travel
+                  </span>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 w-full">
+                    {/* Cinematic Opening (Full Sequence) */}
+                    <button
+                      onClick={() => {
+                        onCountdownComplete(); // triggers setPhase('transition')
+                      }}
+                      className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.25)] hover:shadow-[0_0_25px_rgba(99,102,241,0.5)] border border-purple-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
+                    >
+                      <span className="text-base">🎬</span>
+                      <span>Cinematic Opening</span>
+                    </button>
+
+                    {/* Wished Page (Direct Reveal) */}
+                    <button
+                      onClick={() => {
+                        if (onBypassPhase) {
+                          onBypassPhase('reveal');
+                        } else {
+                          onCountdownComplete();
+                        }
+                      }}
+                      className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-[0_0_15px_rgba(244,63,94,0.25)] hover:shadow-[0_0_25px_rgba(244,63,94,0.5)] border border-rose-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
+                    >
+                      <span className="text-base">🎂</span>
+                      <span>Wished Page</span>
+                    </button>
+
+                    {/* Additional Features (Surprise Portals) */}
+                    <button
+                      onClick={() => {
+                        if (onBypassPhase) {
+                          onBypassPhase('portals');
+                        } else {
+                          onCountdownComplete();
+                        }
+                      }}
+                      className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white shadow-[0_0_15px_rgba(20,184,166,0.25)] hover:shadow-[0_0_25px_rgba(20,184,166,0.5)] border border-teal-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
+                    >
+                      <span className="text-base">✨</span>
+                      <span>Surprise Portals</span>
+                    </button>
+                  </div>
                 </motion.div>
               )}
             </AnimatePresence>

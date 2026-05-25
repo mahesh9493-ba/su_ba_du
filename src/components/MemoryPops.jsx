@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Camera, Compass, Heart, Gift, MessageCircle, X } from 'lucide-react';
+import { Camera, Compass, Heart, MessageCircle, X } from 'lucide-react';
 
 // Subcomponents (we will create these next)
 import MemoryTimeline from './MemoryTimeline';
@@ -37,21 +37,12 @@ const BUBBLES = [
   },
   {
     id: 'messages',
-    title: 'Special Message',
+    title: 'The Book of Us',
     icon: MessageCircle,
     color: 'shadow-[0_0_35px_rgba(230,57,70,0.45)] border-luxury-rose/30 text-luxury-rose animate-pulse',
     bgGlow: 'from-luxury-red/20 to-transparent',
-    desc: 'The complete story in a single image & interactive movie ❤️',
+    desc: 'An interactive cinematic book of our love ❤️',
     delay: 0.6
-  },
-  {
-    id: 'surprises',
-    title: 'Hidden Surprises',
-    icon: Gift,
-    color: 'shadow-[0_0_30px_rgba(255,143,163,0.35)] border-luxury-rose/30 text-luxury-rose',
-    bgGlow: 'from-luxury-rose/10 to-transparent',
-    desc: 'Secret letters & interactive stars',
-    delay: 0.8
   }
 ];
 
@@ -69,8 +60,6 @@ export default function MemoryPops() {
         return <SecretMessages type="special" onClose={() => setActivePortal(null)} />;
       case 'messages':
         return <SecretMessages type="messages" onClose={() => setActivePortal(null)} />;
-      case 'surprises':
-        return <SecretMessages type="surprises" onClose={() => setActivePortal(null)} />;
       default:
         return null;
     }

@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Heart, Star, Sparkles, Smile, Coffee, Play, Pause, RefreshCw, Send } from 'lucide-react';
+import { Heart, Star, Sparkles, Smile, Coffee, RefreshCw, Send } from 'lucide-react';
 import CinematicStorybook from './CinematicStorybook';
+import WhyYouAreSpecial from './WhyYouAreSpecial';
 
 const REASONS = [
   {
@@ -64,6 +65,10 @@ export default function SecretMessages({ type, onClose }) {
     return <CinematicStorybook onClose={onClose} />;
   }
 
+  if (type === 'special') {
+    return <WhyYouAreSpecial onClose={onClose} />;
+  }
+
   // Envelope State
   const [isOpen, setIsOpen] = useState(false);
   
@@ -90,26 +95,7 @@ export default function SecretMessages({ type, onClose }) {
     setStarNote(null);
   };
 
-  // Audio Player State
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [audioTranscript, setAudioTranscript] = useState("");
 
-  const handlePlayVoiceMessage = () => {
-    setIsAudioPlaying(!isAudioPlaying);
-    if (!isAudioPlaying) {
-      // Simulate typewriter vocal transcription
-      setAudioTranscript("");
-      const fullText = "“Hey... I just wanted to record a quick little note to say how incredibly much you mean to me. The world is so much brighter with you in it. Happy Birthday, my favorite human! 🎙️❤️”";
-      let i = 0;
-      const interval = setInterval(() => {
-        setAudioTranscript((prev) => prev + fullText[i]);
-        i++;
-        if (i >= fullText.length - 1) {
-          clearInterval(interval);
-        }
-      }, 40);
-    }
-  };
 
   const handleCatchStar = (id, text) => {
     setActiveStars(prev => prev.map(s => s.id === id ? { ...s, caught: true } : s));
@@ -122,12 +108,12 @@ export default function SecretMessages({ type, onClose }) {
       {/* Dynamic Header */}
       <div className="text-center mb-10 max-w-xl relative z-10">
         <span className="text-xs uppercase tracking-[0.3em] text-luxury-rose font-medium mb-2 block">
-          {type === 'messages' && "Intimate Parchment"}
+          {type === 'messages' && "Sacred Chronicles"}
           {type === 'special' && "Chapters of Appreciation"}
           {type === 'surprises' && "Twinkling Celestial Secrets"}
         </span>
         <h2 className="text-3xl md:text-5xl font-serif font-bold text-luxury-gradient">
-          {type === 'messages' && "Special Message"}
+          {type === 'messages' && "The Book of Us"}
           {type === 'special' && "Why You're Special"}
           {type === 'surprises' && "Hidden Surprises"}
         </h2>
@@ -317,78 +303,14 @@ export default function SecretMessages({ type, onClose }) {
               )}
             </div>
 
-            {/* Premium Voice Message Player */}
-            <div className="w-full max-w-md p-6 rounded-xl glassmorphism-luxury border border-luxury-red/15 flex flex-col items-center">
-              <span className="text-[10px] tracking-widest uppercase text-luxury-rose font-medium mb-3 select-none">
-                Hidden Vocal Surprise
-              </span>
 
-              {/* Custom Audio visual wave container */}
-              <div className="w-full h-12 flex justify-center items-center gap-[4px] border-b border-white/5 mb-5 overflow-hidden">
-                {isAudioPlaying ? (
-                  // Bouncing active wave bars
-                  Array.from({ length: 22 }).map((_, i) => {
-                    const duration = Math.random() * 0.7 + 0.5;
-                    const delay = Math.random() * 0.4;
-                    return (
-                      <div
-                        key={i}
-                        className="w-[3px] bg-luxury-red rounded-full h-full"
-                        style={{
-                          animation: `activeSoundWave ${duration}s infinite ease-in-out alternate`,
-                          animationDelay: `${delay}s`,
-                          maxHeight: `${Math.random() * 70 + 30}%`
-                        }}
-                      />
-                    );
-                  })
-                ) : (
-                  // Static flat line
-                  <div className="w-4/5 h-[1.5px] bg-white/10 rounded-full" />
-                )}
-              </div>
-
-              {/* Play button */}
-              <button
-                onClick={handlePlayVoiceMessage}
-                className="w-14 h-14 rounded-full bg-gradient-to-r from-luxury-red via-luxury-rose to-luxury-red text-white flex items-center justify-center shadow-lg cursor-pointer hover:scale-105 active:scale-95 transition-all duration-300 pointer-events-auto border border-luxury-rose/20"
-                title={isAudioPlaying ? "Pause Memo" : "Play Recorded Memo"}
-              >
-                {isAudioPlaying ? (
-                  <Pause className="w-6 h-6 fill-current" />
-                ) : (
-                  <Play className="w-6 h-6 fill-current ml-1" />
-                )}
-              </button>
-
-              {/* Transcript Text reveal */}
-              <AnimatePresence>
-                {audioTranscript && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    className="w-full mt-4 bg-black/20 p-4 rounded-lg text-center"
-                  >
-                    <p className="font-handwritten text-2xl text-luxury-rose leading-relaxed filter blur-[0.1px]">
-                      {audioTranscript}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
 
           </div>
         )}
 
       </div>
 
-      {/* Embedded active visual wave animations */}
-      <style>{`
-        @keyframes activeSoundWave {
-          0% { transform: scaleY(0.15); }
-          100% { transform: scaleY(1); }
-        }
-      `}</style>
+
     </div>
   );
 }

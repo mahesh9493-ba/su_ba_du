@@ -1333,7 +1333,7 @@ export default function FutureDreams({ onClose }) {
           <button
             onClick={onClose}
             className="w-12 h-12 rounded-full bg-gradient-to-r from-luxury-red to-luxury-rose text-luxury-darker flex items-center justify-center transition-all duration-300 pointer-events-auto outline-none hover:scale-105 active:scale-95 cursor-pointer shadow-[0_0_15px_rgba(255,143,163,0.5)] border border-luxury-rose/20"
-            title="Return to Surprise Portals"
+            title="Return to Menu"
           >
             <Heart className="w-5 h-5 fill-current animate-bounce mt-0.5" />
           </button>

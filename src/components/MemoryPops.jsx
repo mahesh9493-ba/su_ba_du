@@ -66,7 +66,15 @@ export default function MemoryPops() {
   };
 
   return (
-    <div className="min-h-screen w-full flex flex-col items-center justify-start pt-16 pb-20 relative z-10 select-none">
+    <div 
+      style={!activePortal ? {
+        backgroundImage: 'linear-gradient(to bottom, rgba(3, 5, 20, 0.88), rgba(1, 1, 3, 0.96)), url("/sunset_chai.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundAttachment: 'fixed'
+      } : {}}
+      className="min-h-screen w-full flex flex-col items-center justify-start pt-16 pb-20 relative z-10 select-none transition-all duration-[1s]"
+    >
       
       {/* 1. Portal selection grid overlay */}
       <AnimatePresence mode="wait">
@@ -84,7 +92,7 @@ export default function MemoryPops() {
                 The Celebration Continues
               </span>
               <h2 className="text-3xl md:text-5xl font-serif font-semibold text-luxury-gradient leading-tight mb-4">
-                Surprise Portals
+                Just For You ❤️
               </h2>
               <p className="text-sm font-light text-white/50 leading-relaxed">
                 Click on any of the floating globes to unlock interactive sections, emotional stories, and secret handwritten messages.
@@ -145,7 +153,7 @@ export default function MemoryPops() {
             <button
               onClick={() => setActivePortal(null)}
               className="fixed top-6 left-6 z-[110] w-12 h-12 rounded-full glassmorphism-luxury flex items-center justify-center text-luxury-rose hover:text-white hover:border-luxury-rose/50 hover:scale-105 active:scale-95 transition-all duration-300 shadow-lg pointer-events-auto"
-              title="Return to surprise portals"
+              title="Return to Menu"
             >
               <X className="w-5 h-5" />
             </button>

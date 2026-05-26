@@ -607,7 +607,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
                         <span>Wished Page</span>
                       </button>
 
-                      {/* Additional Features (Surprise Portals) */}
+                      {/* Additional Features (Just For You Menu) */}
                       <button
                         onClick={() => {
                           if (onBypassPhase) {
@@ -619,7 +619,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
                         className="py-2.5 px-3 rounded-xl text-[9px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white shadow-[0_0_15px_rgba(20,184,166,0.25)] hover:shadow-[0_0_25px_rgba(20,184,166,0.5)] border border-teal-500/20 active:scale-95 flex flex-col items-center justify-center gap-1.5 cursor-pointer select-none"
                       >
                         <span className="text-base">✨</span>
-                        <span>Surprise Portals</span>
+                        <span>Menu Page</span>
                       </button>
                     </div>
                   </motion.div>

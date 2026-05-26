@@ -496,7 +496,7 @@ export default function WhyYouAreSpecial({ onClose }) {
                     onClick={onClose}
                     className="mt-10 px-6 py-2.5 rounded-full border border-luxury-rose/20 bg-luxury-rose/5 text-luxury-rose/80 hover:text-white hover:border-luxury-rose/50 font-light tracking-[0.2em] text-[10px] uppercase transition-all duration-300 shadow-md cursor-pointer select-none"
                   >
-                    Return to surprise portals ❤️
+                    Return to Menu ❤️
                   </motion.button>
                 )}
               </motion.div>

@@ -63,7 +63,7 @@ const CHAPTERS = [
       "Walking beside Bagi through temple paths… felt like a blessing he never asked for, but always needed.",
       "In that silence, his prayers slowly started including her."
     ],
-    img: "/arunachalam_paths.png",
+    img: "/arunachalam_paths_fixed.jpg",
     fit: "object-contain",
     effect: "bells",
     accent: "from-red-500/20 via-orange-500/10 to-transparent",

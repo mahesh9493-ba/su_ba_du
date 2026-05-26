@@ -46,8 +46,8 @@ const CHAPTERS = [
       "Some mornings become memories forever."
     ],
     images: [
-      { src: "/nandi_group.jpg", position: "object-center" },
-      { src: "/nandi_bagi_sunrise.jpg", position: "object-[center_18%]" }
+      { src: "/nandi_group.jpg", position: "object-center", fit: "object-contain" },
+      { src: "/nandi_bagi_sunrise.jpg", position: "object-center", fit: "object-contain" }
     ],
     effect: "fog",
     accent: "from-yellow-500/20 via-orange-500/10 to-transparent",
@@ -162,20 +162,21 @@ function ImageSlider({ images, theme, onError }) {
   const currentImage = images[index];
   const src = typeof currentImage === 'string' ? currentImage : currentImage.src;
   const position = typeof currentImage === 'string' ? 'object-center' : (currentImage.position || 'object-center');
+  const fit = typeof currentImage === 'string' ? 'object-cover' : (currentImage.fit || 'object-cover');
 
   return (
-    <div className="relative w-full h-full group/slider pointer-events-auto cursor-pointer">
+    <div className="relative w-full h-full group/slider pointer-events-auto cursor-pointer bg-black/40">
       <AnimatePresence mode="wait">
         <motion.img
           key={index}
           src={src}
           alt={`${theme} slide ${index}`}
           onError={onError}
-          initial={{ opacity: 0, scale: 1.05 }}
+          initial={{ opacity: 0, scale: 1.02 }}
           animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.95 }}
+          exit={{ opacity: 0, scale: 0.98 }}
           transition={{ duration: 1.2 }}
-          className={`w-full h-full object-cover absolute inset-0 ${position}`}
+          className={`w-full h-full absolute inset-0 ${fit} ${position}`}
         />
       </AnimatePresence>
 

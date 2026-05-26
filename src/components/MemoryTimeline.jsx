@@ -121,7 +121,7 @@ const CHAPTERS = [
   },
   {
     id: 8,
-    title: "Your Warm Voice in the Dark — Late Night Office Calls ❤️",
+    title: "Your Warm Voice in the Dark — Late Night Calls ❤️",
     theme: "No Matter How Busy Life Became",
     narration: [
       "No matter how busy life became…",
@@ -130,7 +130,8 @@ const CHAPTERS = [
       "Love was no longer in big moments.",
       "It quietly started living inside everyday life."
     ],
-    video: "https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c02b5e7d07936a28290f6ed5e2fc092e&profile_id=139&oauth2_token_id=57447761",
+    img: "/latenight_call.jpg",
+    fit: "object-contain",
     effect: "metro",
     accent: "from-teal-500/20 via-cyan-500/10 to-transparent",
     glow: "shadow-[0_0_40px_rgba(20,184,166,0.25)] border-teal-500/20"

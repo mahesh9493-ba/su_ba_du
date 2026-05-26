@@ -445,6 +445,34 @@ export default function MemoryTimeline() {
   const containerRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeChapter, setActiveChapter] = useState(1);
+  const [activePhotoIndex, setActivePhotoIndex] = useState(null);
+
+  const collageImages = [
+    { src: "/collage_cartoon.jpg", title: "Dreamy Us", note: "The cartoon that captures our dreamiest vibes—two souls in our own sweet little bubble. ❤️" },
+    { src: "/collage_airport.jpg", title: "Adventures", note: "Every trip with you is an adventure I want to live on repeat. ✈️" },
+    { src: "/collage_palace.jpg", title: "Royalty", note: "You looked like a queen here, and my heart was honored to stand beside you. 👑" },
+    { src: "/collage_sunset.jpg", title: "Serenity", note: "Watching the sun fade with you is where I find my absolute peace. 🌅" },
+    { src: "/collage_party.jpg", title: "Celebrations", note: "Every celebration becomes a core memory when I see that gorgeous smile. 🎉" },
+    { src: "/collage_toy.jpg", title: "Priceless Smiles", note: "That playful, innocent smile of yours is the absolute cutest thing in the world! 🧸" },
+    { src: "/collage_cake_neon.jpg", title: "Slaying", note: "Neon glasses, birthday cake, and absolute slay vibes. You rule my world! 🕶️" },
+    { src: "/collage_traditional.jpg", title: "Elegance", note: "Traditional elegance at its finest. You look breathtaking in every single pose. 🌸" },
+    { src: "/collage_sleeping.jpg", title: "Quiet Peace", note: "My absolute calm. Seeing you sleep so peacefully is the most reassuring sight in my life. 💤" },
+    { src: "/collage_corridor.jpg", title: "Movie Time", note: "Late nights, movie dates, and walking down corridors talking about a thousand silly things. 🎬" },
+    { src: "/collage_blue_dress.jpg", title: "Traditional Grace", note: "That gorgeous blue saree, holding the door with such grace. My heart skipped a beat here. 💙" },
+    { src: "/collage_icecream_1.jpg", title: "Sweet Tooth", note: "Who is sweeter—you or the ice cream? Obviously you, hands down! 🍦" },
+    { src: "/collage_icecream_2.jpg", title: "Ice Cream Date", note: "Looking down, quietly enjoying your favorite scoop. Love these little dates with you. ❤️" },
+    { src: "/collage_icecream_3.jpg", title: "Sweet Smiles", note: "That bright, happy smile at the cafe table is what keeps me going every day. 😊" },
+    { src: "/collage_noodles.jpg", title: "Foodie Partner", note: "Noodles, laughter, and your cute food-focus face. Best foodie partner ever! 🍜" },
+    { src: "/collage_dinner.jpg", title: "Feasting", note: "Sharing plates and tasting everything together. Every dinner is a feast of joy with you. 🍽️" },
+    { src: "/collage_profile.jpg", title: "Candid Grace", note: "Your side profile is absolute art. I could stare at you for hours without saying a word. 🎨" },
+    { src: "/collage_burger.jpg", title: "Burger Love", note: "Cute cheeks stuffed with burger bites. You look so adorable when you eat! 🍔" },
+    { src: "/collage_diwali.jpg", title: "Happy Diwali", note: "Lighting up my life like Diwali lamps. You are the brightest spark in my world! 🪔" },
+    { src: "/sunset_chai.jpg", title: "Sunset Chai", note: "Hot chai, mountain sunsets, and you by my side. Nothing else in the world matters. ☕" },
+    { src: "/collage_baby.jpg", title: "Auntie Duties", note: "Morning sunlight, cute baby cuddles, and that warm maternal grace. My heart melts seeing this side of you. 👶☀️" },
+    { src: "/collage_peach_saree.jpg", title: "Golden Glow", note: "Draped in absolute perfection, leaning back in that warm golden glow. You look divine. ✨" },
+    { src: "/collage_smile_portrait.jpg", title: "Pure Joy", note: "This close-up portrait captures your purest joy—a smile that instantly erases all my worries. ❤️" },
+    { src: "/tirumala_trip.jpg", title: "Sacred Prayers", note: "Our trip to Tirumala—climbing heights together and seeking blessings for our beautiful journey ahead. 🙏" }
+  ];
 
   // Track vertical scroll progress within portal context
   const handleScroll = (e) => {
@@ -662,54 +690,183 @@ export default function MemoryTimeline() {
 
       </div>
 
-      {/* Cinematic Grid Collage Frame (20 specified collage assets) */}
-      <div className="w-full max-w-5xl mx-auto px-4 pb-20 relative z-10 flex flex-col items-center">
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-3.5 w-full">
-          {[
-            { src: "/collage_cartoon.jpg", title: "Dreamy Us" },
-            { src: "/collage_airport.jpg", title: "Adventures" },
-            { src: "/collage_palace.jpg", title: "Royalty" },
-            { src: "/collage_sunset.jpg", title: "Serenity" },
-            { src: "/collage_party.jpg", title: "Celebrations" },
-            { src: "/collage_toy.jpg", title: "Priceless Smiles" },
-            { src: "/collage_cake_neon.jpg", title: "Slaying" },
-            { src: "/collage_traditional.jpg", title: "Elegance" },
-            { src: "/collage_sleeping.jpg", title: "Quiet Peace" },
-            { src: "/collage_corridor.jpg", title: "Movie Time" },
-            { src: "/collage_blue_dress.jpg", title: "Traditional Grace" },
-            { src: "/collage_icecream_1.jpg", title: "Sweet Tooth" },
-            { src: "/collage_icecream_2.jpg", title: "Ice Cream Date" },
-            { src: "/collage_icecream_3.jpg", title: "Sweet Smiles" },
-            { src: "/collage_noodles.jpg", title: "Foodie Partner" },
-            { src: "/collage_dinner.jpg", title: "Feasting" },
-            { src: "/collage_profile.jpg", title: "Candid Grace" },
-            { src: "/collage_burger.jpg", title: "Burger Love" },
-            { src: "/collage_diwali.jpg", title: "Happy Diwali" },
-            { src: "/sunset_chai.jpg", title: "Sunset Chai" }
-          ].map((item, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, scale: 0.9, y: 25 }}
-              whileInView={{ opacity: 0.85, scale: 1, y: 0 }}
-              whileHover={{ opacity: 1, scale: 1.04, zIndex: 20 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ delay: idx * 0.08, duration: 0.8, ease: "easeOut" }}
-              className="aspect-[3/4] rounded-xl overflow-hidden border border-white/5 shadow-2xl relative cursor-pointer bg-black/40"
-            >
-              <img 
-                src={item.src} 
-                alt={item.title} 
-                className="w-full h-full object-contain pointer-events-none"
-              />
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 text-center">
-                <span className="text-[9px] uppercase tracking-widest text-[#ffccd5] font-serif font-bold">
+      {/* Cinematic Scattered Polaroid Pile Outro Gallery */}
+      <div className="w-full max-w-6xl mx-auto px-4 pb-28 relative z-10 flex flex-col items-center">
+        
+        {/* Soft hint text */}
+        <span className="text-[9px] uppercase tracking-[0.25em] text-rose-300/80 mb-6 font-bold animate-pulse">
+          ✨ Tap any Polaroid card to read Dudu's secret thoughts…
+        </span>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-7 w-full">
+          {collageImages.map((item, idx) => {
+            // Generate a deterministic random rotation between -4 and +4 degrees based on index
+            const rot = ((idx * 7) % 9) - 4;
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, scale: 0.9, y: 35, rotate: rot }}
+                whileInView={{ opacity: 0.9, scale: 1, y: 0 }}
+                whileHover={{ 
+                  opacity: 1, 
+                  scale: 1.07, 
+                  rotate: 0, 
+                  zIndex: 30,
+                  boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.7)"
+                }}
+                viewport={{ once: false, amount: 0.15 }}
+                transition={{ 
+                  type: "spring", 
+                  stiffness: 260, 
+                  damping: 22,
+                  delay: (idx % 6) * 0.05
+                }}
+                onClick={() => setActivePhotoIndex(idx)}
+                className="bg-[#fdfbf7] p-3 pb-6 sm:pb-7 rounded-sm shadow-[0_8px_20px_rgba(0,0,0,0.5)] border border-neutral-200/40 cursor-pointer flex flex-col justify-between"
+              >
+                {/* Polaroid Image Inset */}
+                <div className="aspect-[3/4] w-full rounded-sm overflow-hidden bg-black/95 flex items-center justify-center border border-neutral-300/35 relative">
+                  <img 
+                    src={item.src} 
+                    alt={item.title} 
+                    className="w-full h-full object-contain pointer-events-none select-none"
+                  />
+                  <div className="absolute inset-0 bg-black/5 group-hover:bg-transparent transition-colors duration-300" />
+                </div>
+                
+                {/* Polaroid Cursive Title Tag */}
+                <span className="text-center font-serif text-[11px] sm:text-xs text-neutral-800 tracking-wide font-semibold block pt-3.5 select-none truncate">
                   {item.title}
                 </span>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
+
+      {/* Immersive Polaroid Scrapbook Lightbox Modal */}
+      <AnimatePresence>
+        {activePhotoIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 w-full h-full bg-black/95 backdrop-blur-2xl z-[999] flex flex-col items-center justify-center p-4 select-none"
+            onClick={() => setActivePhotoIndex(null)}
+          >
+            {/* Top Close Bar */}
+            <div className="absolute top-4 sm:top-6 left-4 sm:left-8 right-4 sm:right-8 flex justify-between items-center z-[1000] w-[calc(100%-2rem)] sm:w-[calc(100%-4rem)]">
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50 font-serif">
+                Memory {activePhotoIndex + 1} of {collageImages.length}
+              </span>
+              <button
+                className="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition-all scale-95 hover:scale-105 active:scale-95 text-lg font-light"
+                onClick={() => setActivePhotoIndex(null)}
+              >
+                ✕
+              </button>
+            </div>
+
+            {/* Lightbox Center Content */}
+            <div className="w-full max-w-5xl flex flex-col md:flex-row items-center justify-center gap-8 sm:gap-12 px-4" onClick={(e) => e.stopPropagation()}>
+              
+              {/* Prev Button (Desktop only) */}
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActivePhotoIndex((prev) => (prev === 0 ? collageImages.length - 1 : prev - 1));
+                }}
+                className="hidden md:flex w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 items-center justify-center text-white/70 hover:text-white transition-all scale-95 hover:scale-105 text-lg"
+              >
+                ◀
+              </button>
+
+              {/* Polaroid Frame Container */}
+              <motion.div
+                key={activePhotoIndex}
+                initial={{ scale: 0.95, y: 15, rotate: -1 }}
+                animate={{ scale: 1, y: 0, rotate: 0 }}
+                exit={{ scale: 0.95, y: 15 }}
+                transition={{ type: "spring", stiffness: 280, damping: 22 }}
+                className="bg-[#fdfbf7] p-4 pb-10 rounded-sm shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] border border-neutral-200/50 w-full max-w-[290px] sm:max-w-[340px] md:max-w-[360px] aspect-[3/4] flex flex-col justify-between shrink-0"
+              >
+                <div className="w-full aspect-[3/4] rounded-sm overflow-hidden bg-black/95 flex items-center justify-center border border-neutral-300/40 relative">
+                  <img 
+                    src={collageImages[activePhotoIndex].src} 
+                    alt={collageImages[activePhotoIndex].title} 
+                    className="w-full h-full object-contain pointer-events-none"
+                  />
+                </div>
+                <div className="text-center pt-5">
+                  <span className="font-serif italic font-bold text-neutral-800 text-base sm:text-lg tracking-wider block truncate">
+                    {collageImages[activePhotoIndex].title}
+                  </span>
+                </div>
+              </motion.div>
+
+              {/* Next Button (Desktop only) */}
+              <button 
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActivePhotoIndex((prev) => (prev === collageImages.length - 1 ? 0 : prev + 1));
+                }}
+                className="hidden md:flex w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 items-center justify-center text-white/70 hover:text-white transition-all scale-95 hover:scale-105 text-lg"
+              >
+                ▶
+              </button>
+
+              {/* Confessions/Notes Panel */}
+              <motion.div 
+                key={`text-${activePhotoIndex}`}
+                initial={{ opacity: 0, x: 25 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1, duration: 0.6 }}
+                className="flex flex-col max-w-[320px] sm:max-w-[380px] md:max-w-[400px] text-center md:text-left gap-4"
+              >
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.35em] text-rose-300 font-bold block">
+                  ❤️ Dudu's Confession
+                </span>
+                
+                <h3 className="text-xl sm:text-3xl font-serif font-bold tracking-wide text-white">
+                  {collageImages[activePhotoIndex].title}
+                </h3>
+                
+                <div className="w-8 h-px bg-rose-500/30 my-0.5 self-center md:self-start" />
+
+                <p className="text-sm sm:text-base text-rose-100/90 font-serif italic leading-relaxed tracking-wide font-light">
+                  “{collageImages[activePhotoIndex].note}”
+                </p>
+
+                {/* Mobile Navigation Row */}
+                <div className="flex md:hidden items-center justify-center gap-6 mt-4">
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActivePhotoIndex((prev) => (prev === 0 ? collageImages.length - 1 : prev - 1));
+                    }}
+                    className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70"
+                  >
+                    ◀
+                  </button>
+                  <span className="text-xs text-white/40 font-mono">
+                    {activePhotoIndex + 1} / {collageImages.length}
+                  </span>
+                  <button 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActivePhotoIndex((prev) => (prev === collageImages.length - 1 ? 0 : prev + 1));
+                    }}
+                    className="w-10 h-10 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-white/70"
+                  >
+                    ▶
+                  </button>
+                </div>
+              </motion.div>
+
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Custom Styles Injector for premium animations */}
       <style>{`

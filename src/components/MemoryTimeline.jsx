@@ -662,7 +662,7 @@ export default function MemoryTimeline() {
 
       </div>
 
-      {/* Cinematic Grid Collage Frame (Only the 5 specified collage assets) */}
+      {/* Cinematic Grid Collage Frame (10 specified collage assets) */}
       <div className="w-full max-w-5xl mx-auto px-4 pb-20 relative z-10 flex flex-col items-center">
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5 w-full">
           {[
@@ -670,7 +670,12 @@ export default function MemoryTimeline() {
             { src: "/collage_airport.jpg", title: "Adventures" },
             { src: "/collage_palace.jpg", title: "Royalty" },
             { src: "/collage_sunset.jpg", title: "Serenity" },
-            { src: "/collage_party.jpg", title: "Celebrations" }
+            { src: "/collage_party.jpg", title: "Celebrations" },
+            { src: "/collage_toy.jpg", title: "Priceless Smiles" },
+            { src: "/collage_cake_neon.jpg", title: "Slaying" },
+            { src: "/collage_traditional.jpg", title: "Elegance" },
+            { src: "/collage_sleeping.jpg", title: "Quiet Peace" },
+            { src: "/collage_corridor.jpg", title: "Midnight Walks" }
           ].map((item, idx) => (
             <motion.div
               key={idx}

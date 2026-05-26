@@ -148,7 +148,11 @@ const CHAPTERS = [
       "It was walking beside Bagi on quiet nights. ❤️",
       "The cold breeze, random jokes, late-night chai, and those peaceful walks through empty streets… slowly became memories he never wanted to forget."
     ],
-    img: "https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=800&auto=format&fit=crop&q=80",
+    images: [
+      { src: "/nightwalk_shadow.jpg", position: "object-center", fit: "object-contain" },
+      { src: "/nightwalk_cake.jpg", position: "object-center", fit: "object-contain" },
+      { src: "/nightwalk_corridor.jpg", position: "object-center", fit: "object-contain" }
+    ],
     effect: "night",
     accent: "from-purple-900/35 via-black/20 to-transparent",
     glow: "shadow-[0_0_40px_rgba(147,51,234,0.22)] border-purple-500/20"

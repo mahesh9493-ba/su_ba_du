@@ -63,7 +63,8 @@ const CHAPTERS = [
       "Walking beside Bagi through temple paths… felt like a blessing he never asked for, but always needed.",
       "In that silence, his prayers slowly started including her."
     ],
-    img: "https://images.unsplash.com/photo-1604599211621-492d7134e6b2?w=800&auto=format&fit=crop&q=80",
+    img: "/arunachalam_temple.jpg",
+    fit: "object-contain",
     effect: "bells",
     accent: "from-red-500/20 via-orange-500/10 to-transparent",
     glow: "shadow-[0_0_40px_rgba(239,68,68,0.25)] border-red-500/20"
@@ -260,7 +261,7 @@ function CinematicFrame({ chapter }) {
             src={chapter.img}
             alt={chapter.theme}
             onError={() => setImageError(true)}
-            className="w-full h-full object-cover transition-transform duration-[4s] ease-out hover:scale-105 pointer-events-none"
+            className={`w-full h-full absolute inset-0 ${chapter.fit || 'object-cover'} ${chapter.position || 'object-center'} transition-transform duration-[4s] ease-out hover:scale-105 pointer-events-none`}
             loading="lazy"
           />
         )}

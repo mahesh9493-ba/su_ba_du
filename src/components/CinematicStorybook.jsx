@@ -14,39 +14,32 @@ const SCENE_ASSETS = {
   scene2: {
     title: "Bagi’s Entry ❤️",
     images: [
-      { url: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&q=80&w=600", title: "Bagi entering Dudu's world" },
-      { url: "https://images.unsplash.com/photo-1427504494785-3a9ca7044f45?auto=format&fit=crop&q=80&w=600", title: "Silent classroom glance" },
-      { url: "https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&q=80&w=600", title: "Tirumala misty mountain roads" }
+      { url: "/collage_smile_portrait.jpg", title: "Bagi entering Dudu's world" },
+      { url: "/collage_corridor.jpg", title: "Silent classroom glance" },
+      { url: "/tirumala_trip.jpg", title: "Tirumala misty mountain roads" }
     ]
   },
   scene3: {
     title: "The Changeover ❤️",
     images: [
-      { url: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600", title: "Smiling at late night texts" },
-      { url: "https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=600", title: "Deep emotional attachment" }
+      { url: "/latenight_call.jpg", title: "Smiling at late night texts" },
+      { url: "/collage_sleeping.jpg", title: "Deep emotional attachment" }
     ]
   },
   scene4: {
     title: "Their Connection ❤️",
     images: [
-      { url: "https://images.unsplash.com/photo-1475483768296-6163e08872a1?auto=format&fit=crop&q=80&w=600", title: "Nostalgic walks together" },
-      { url: "https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&q=80&w=600", title: "Stealing french fries at canteen" },
-      { url: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?auto=format&fit=crop&q=80&w=600", title: "Finding quiet comfort" }
+      { url: "/nightwalk_shadow.jpg", title: "Nostalgic walks together" },
+      { url: "/burgerking_selfie.jpg", title: "Stealing french fries at canteen" },
+      { url: "/sunset_chai.jpg", title: "Finding quiet comfort" }
     ]
   },
   scene5: {
-    title: "Our Sacred Bucket List ❤️",
-    destinations: [
-      { name: "Somnath Linga", icon: "🔱", bg: "from-amber-950/30 to-yellow-950/30", fact: "Somnath, Gujarat • The shrine of eternal light..." },
-      { name: "Mallikarjuna", icon: "🔱", bg: "from-orange-950/30 to-red-950/30", fact: "Srisailam, Andhra Pradesh • Consecrated on Nallamala hills..." },
-      { name: "Mahakaleshwar", icon: "🔱", bg: "from-red-950/30 to-purple-950/30", fact: "Ujjain, Madhya Pradesh • The sacred Lord of Time..." },
-      { name: "Omkareshwar", icon: "🔱", bg: "from-purple-950/30 to-indigo-950/30", fact: "Narmada River, Madhya Pradesh • On an island shaped like Om..." },
-      { name: "Vaidyanath Linga", icon: "🔱", bg: "from-indigo-950/30 to-blue-950/30", fact: "Deoghar, Jharkhand • The divine Lord of Physicians..." },
-      { name: "Bhimashankar", icon: "🔱", bg: "from-blue-950/30 to-cyan-950/30", fact: "Pune, Maharashtra • Surrounded by dense sacred forest..." },
-      { name: "Kashi Vishwanath", icon: "🔱", bg: "from-cyan-950/30 to-teal-950/30", fact: "Varanasi, Uttar Pradesh • The golden heart of Shiva's city..." },
-      { name: "Trimbakeshwar", icon: "🔱", bg: "from-teal-950/30 to-emerald-950/30", fact: "Nashik, Maharashtra • The source of Godavari river..." },
-      { name: "Nageshwar Linga", icon: "🔱", bg: "from-emerald-950/30 to-green-950/30", fact: "Dwarka, Gujarat • The divine Lord of Serpents..." },
-      { name: "Rameshwaram", icon: "🔱", bg: "from-[#4a080c]/30 to-[#1c0204]", fact: "Rameswaram, Tamil Nadu • Consecrated by Sri Rama himself..." }
+    title: "The Unspoken Promise ❤️",
+    images: [
+      { url: "/collage_traditional.jpg", title: "Traditional Grace" },
+      { url: "/collage_diwali.jpg", title: "Happy Diwali" },
+      { url: "/collage_peach_saree.jpg", title: "Golden Glow" }
     ]
   }
 };
@@ -70,6 +63,7 @@ export default function CinematicStorybook({ onClose }) {
     scene2: "",
     scene3: "",
     scene4: "",
+    scene5: "",
     scene6: ""
   });
 
@@ -126,6 +120,19 @@ Dudu and Bagi slowly became each other's comfort and safe haven.
 What had started unexpectedly
 began to feel like the only permanent thing in their world.`,
     scene4Quote: "For the first time in his life, Dudu was not just living for today… he was secretly praying for forever with Bagi. ❤️",
+    scene5: `We never promised each other a lifetime.
+
+We never made loud, dramatic declarations of forever.
+
+But somewhere in the way Dudu watches you eat your favorite food…
+In the way you hold his arm a little tighter during cold night rides…
+An unspoken promise was quietly written.
+
+A promise that says:
+'No matter where life takes us, I want to walk it beside you.'
+
+We don't need a perfect, uncomplicated world.
+We just need our silent understanding, our cozy chai dates, and that quiet home we built in each other's hearts. ❤️`,
     scene6: `Dear God,
 
 I never looked for love.
@@ -155,7 +162,7 @@ please let her stay beside me in every chapter ahead. ❤️`
   useEffect(() => {
     if (viewMode !== 'cinematic') return;
     const sceneNum = activeScene + 1;
-    const sceneKey = sceneNum === 5 ? null : `scene${sceneNum === 6 ? 6 : sceneNum}`;
+    const sceneKey = `scene${sceneNum}`;
     
     if (!sceneKey) return;
     const targetText = fullTexts[sceneKey];
@@ -309,7 +316,7 @@ please let her stay beside me in every chapter ahead. ❤️`
     "bg-gradient-to-b from-[#2e1903] via-[#140b01] to-luxury-darker", // Scene 2 - Warm Golden Sunrise
     "bg-gradient-to-b from-[#380408] via-[#100102] to-luxury-darker", // Scene 3 - Velvet Crimson
     "bg-gradient-to-b from-[#130724] via-[#05020a] to-luxury-darker", // Scene 4 - Starry Indigo/Purple
-    "bg-gradient-to-b from-[#091b15] via-[#030d0a] to-luxury-darker", // Scene 5 - Magical Emerald Tree
+    "bg-gradient-to-b from-[#3a0a18] via-[#1a0208] to-luxury-darker", // Scene 5 - Rose Gold Promise
     "bg-gradient-to-b from-[#4d1012] via-[#240405] to-luxury-darker"  // Scene 6 - Divine Temple Golden
   ];
 
@@ -354,7 +361,15 @@ please let her stay beside me in every chapter ahead. ❤️`
   };
 
   return (
-    <div className={`min-h-screen w-full relative overflow-y-auto select-none transition-colors duration-1000 flex flex-col justify-between ${viewMode === 'cinematic' ? sceneBackgrounds[activeScene] : "bg-gradient-to-b from-[#120406] via-luxury-dark to-luxury-darker"}`}>
+    <div 
+      style={viewMode === 'cinematic' && activeScene === 5 ? {
+        backgroundImage: 'linear-gradient(to bottom, rgba(36, 4, 5, 0.82), rgba(18, 2, 3, 0.95)), url("/wedding_blessings.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundBlendMode: 'multiply'
+      } : {}}
+      className={`min-h-screen w-full relative overflow-y-auto select-none transition-colors duration-1000 flex flex-col justify-between ${viewMode === 'cinematic' ? sceneBackgrounds[activeScene] : "bg-gradient-to-b from-[#120406] via-luxury-dark to-luxury-darker"}`}
+    >
       
       {/* Cinematic Film Grain Overlay */}
       <div className="absolute inset-0 pointer-events-none z-10 opacity-[0.035] bg-[radial-gradient(transparent_50%,rgba(0,0,0,0.85))]" style={{
@@ -485,12 +500,12 @@ please let her stay beside me in every chapter ahead. ❤️`
                   <span className="text-[9px] uppercase tracking-wider text-purple-300 font-bold mb-2">Interactive Journey</span>
                   <h3 className="text-xl font-serif font-bold text-white mb-3">Interactive Cinematic Movie 🎬</h3>
                   <p className="text-xs font-light text-white/50 leading-relaxed max-w-xs">
-                    Embark on a scene-by-scene romantic narration. Complete with realistic texting simulators, active phone calls, 3D hover-tilt polaroid scrapbook, swinging bucket-list tree, and Dudu's prayer at Tirumala.
+                    Embark on a scene-by-scene romantic narration. Complete with realistic texting simulators, active phone calls, 3D hover-tilt polaroid scrapbooks, custom particle visualizers, and Dudu's prayer at Tirumala.
                   </p>
 
                   <div className="w-full h-36 mt-5 rounded-lg overflow-hidden border border-white/10 relative group-hover:border-purple-400/30 transition-colors duration-300">
                     <img 
-                      src="https://images.unsplash.com/photo-1507608869274-d3177c8bb4c7?auto=format&fit=crop&q=80&w=600" 
+                      src="/collage_traditional.jpg" 
                       alt="Cinematic Preview" 
                       className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500 scale-105 group-hover:scale-100" 
                     />
@@ -964,7 +979,7 @@ please let her stay beside me in every chapter ahead. ❤️`
                       className="p-2.5 bg-white/5 border border-white/10 rounded-lg shadow-xl polaroid-card flex flex-col justify-between backdrop-blur-md transition-all duration-200 ease-out cursor-pointer"
                     >
                       <img
-                        src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=600"
+                        src="/latenight_call.jpg"
                         alt="Phone text glowing at night"
                         className="w-full h-24 md:h-28 object-cover rounded hover:contrast-110"
                       />
@@ -1015,83 +1030,56 @@ please let her stay beside me in every chapter ahead. ❤️`
               </motion.div>
             )}
 
-            {/* SCENE 5: THEIR SACRED BUCKET LIST */}
+            {/* SCENE 5: THE UNSPOKEN PROMISE */}
             {activeScene === 4 && (
               <motion.div
                 key="scene-5"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full min-h-[70vh] relative"
               >
-                {/* Description */}
+                {/* Narration */}
                 <div className="lg:col-span-5 flex flex-col justify-center px-4 md:px-8 z-10">
-                  <span className="text-xs uppercase tracking-widest text-emerald-400 font-semibold mb-3">Scene 05 • The Sacred List</span>
-                  <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-4 leading-tight flex items-center gap-2">
-                    <Compass className="w-8 h-8 text-emerald-400 animate-spin-slow" />
-                    Sacred Bucket List
+                  <span className="text-xs uppercase tracking-widest text-[#ff8fa3] font-semibold mb-3">Scene 05 • Silent Promise</span>
+                  <h2 className="text-3xl md:text-4xl font-serif font-bold text-white mb-6 leading-tight">
+                    The Unspoken Promise
                   </h2>
-                  <p className="text-xs md:text-sm font-light text-white/60 leading-relaxed mb-6">
-                    Hover over the dangling constellation boards to reveal the 10 Jyotirlingas Dudu and Bagi pray to visit together.
-                  </p>
-
-                  <div className="p-4 border-l-2 border-emerald-500/50 bg-emerald-500/5 backdrop-blur-md rounded-r-lg max-w-md min-h-[80px] flex items-center justify-center text-center">
-                    <AnimatePresence mode="wait">
-                      {hoveredDest ? (
-                        <motion.p
-                          key={hoveredDest.name}
-                          initial={{ opacity: 0, y: 5 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -5 }}
-                          className="font-serif italic text-emerald-300 text-xs md:text-sm leading-relaxed"
-                        >
-                          “{hoveredDest.fact}”
-                        </motion.p>
-                      ) : (
-                        <p className="font-serif italic text-emerald-300/40 text-xs md:text-sm">
-                          “One day, hand in hand, we’ll seek blessings at all these sacred places and create memories for a lifetime. ❤️”
-                        </p>
-                      )}
-                    </AnimatePresence>
+                  
+                  <div className="font-serif text-base sm:text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-rose-200 via-pink-100 to-rose-200 leading-relaxed italic filter blur-[0.1px] min-h-[160px] whitespace-pre-line tracking-wide mb-6">
+                    {sceneTexts.scene5}
+                    <span className="inline-block w-2.5 h-4 bg-rose-400/80 animate-[pulse_0.8s_infinite] ml-1.5 shadow-[0_0_10px_rgba(244,63,94,0.7)]" />
                   </div>
                 </div>
 
-                {/* Tree and hanging signs */}
-                <div className="lg:col-span-7 flex flex-col justify-start relative min-h-[450px] w-full pointer-events-auto">
-                  
-                  {/* SVG branch */}
-                  <div className="absolute top-0 right-0 w-full max-w-[420px] h-[60px] pointer-events-none opacity-40 z-0">
-                    <svg className="w-full h-full text-emerald-400" viewBox="0 0 400 60" fill="none">
-                      <path d="M 400,10 C 350,15 280,5 200,20 C 120,35 60,25 0,45" stroke="currentColor" strokeWidth="2.5" strokeDasharray="3 3" />
-                      <path d="M 330,12 C 300,10 260,30 240,32" stroke="currentColor" strokeWidth="1.5" />
-                      <path d="M 180,21 C 150,15 120,40 90,42" stroke="currentColor" strokeWidth="1.5" />
-                    </svg>
-                  </div>
-
-                  {/* 10 Hanging Destination boards */}
-                  <div className="flex flex-wrap items-center justify-center gap-3 pt-10 px-4 max-w-xl mx-auto relative z-10">
-                    {SCENE_ASSETS.scene5.destinations.map((dest, i) => {
-                      const isHovered = hoveredDest?.name === dest.name;
+                {/* 3D Scrapbook Polaroid deck */}
+                <div className="lg:col-span-7 flex justify-center items-center py-6 w-full relative">
+                  <div className="grid grid-cols-3 gap-4 max-w-lg w-full relative z-10 pointer-events-auto">
+                    {SCENE_ASSETS.scene5.images.map((img, i) => {
+                      const rot = i === 0 ? -3 : i === 1 ? 4 : -2;
                       return (
                         <motion.div
-                          key={dest.name}
-                          onMouseEnter={() => {
-                            setHoveredDest(dest);
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.9, y: 20, rotate: rot }}
+                          animate={{ opacity: 1, scale: 1, y: 0 }}
+                          whileHover={{ 
+                            scale: 1.08, 
+                            rotate: 0, 
+                            zIndex: 30,
+                            boxShadow: "0 20px 40px rgba(0,0,0,0.6)" 
                           }}
-                          onMouseLeave={() => setHoveredDest(null)}
-                          className={`px-3 py-2.5 rounded-lg border glassmorphism cursor-pointer flex items-center gap-2 shadow-lg backdrop-blur-md transform-gpu pointer-events-auto transition-all duration-300 ${isHovered ? 'border-emerald-400 bg-emerald-950/20 text-white shadow-[0_0_15px_rgba(52,211,153,0.35)] scale-105' : 'border-white/5 text-white/70 hover:text-white hover:border-white/20'}`}
-                          animate={{
-                            rotate: isHovered ? [0, -6, 5, -3, 2, 0] : [0, 1.5, -1.5, 0],
-                          }}
-                          transition={{
-                            rotate: isHovered 
-                              ? { duration: 1.2, ease: "easeOut" }
-                              : { duration: 4 + Math.random() * 2, repeat: Infinity, ease: "easeInOut" }
-                          }}
+                          transition={{ type: "spring", stiffness: 260, damping: 20 }}
+                          className="p-2.5 bg-white/5 border border-white/10 rounded-lg shadow-xl polaroid-card flex flex-col justify-between backdrop-blur-md cursor-pointer"
                         >
-                          <span className="text-sm">{dest.icon}</span>
-                          <span className="font-serif font-bold text-[10px] tracking-wider uppercase">{dest.name}</span>
+                          <div className="aspect-[3/4] w-full rounded overflow-hidden bg-black/40 flex items-center justify-center border border-white/5">
+                            <img
+                              src={img.url}
+                              alt={img.title}
+                              className="w-full h-full object-contain hover:contrast-115 transition-all duration-300"
+                            />
+                          </div>
+                          <p className="font-handwritten text-xs text-center text-rose-300 mt-3 block truncate">{img.title}</p>
                         </motion.div>
                       );
                     })}
@@ -1101,19 +1089,18 @@ please let her stay beside me in every chapter ahead. ❤️`
                     {Array.from({ length: 15 }).map((_, i) => (
                       <motion.div
                         key={i}
-                        className="absolute w-1.5 h-1.5 rounded-full bg-emerald-400/30"
+                        className="absolute w-1.5 h-1.5 rounded-full bg-rose-400/20"
                         style={{
                           left: `${Math.random() * 100}%`,
                           top: `${Math.random() * 100}%`
                         }}
                         animate={{
                           y: [-20, 20],
-                          x: [-10, 10],
-                          opacity: [0.1, 0.7, 0.1],
-                          scale: [0.7, 1.2, 0.7]
+                          opacity: [0.1, 0.8, 0.1],
+                          scale: [0.7, 1.3, 0.7]
                         }}
                         transition={{
-                          duration: 3 + Math.random() * 4,
+                          duration: 3.5 + Math.random() * 3,
                           repeat: Infinity,
                           ease: "easeInOut",
                           delay: Math.random() * 2
@@ -1242,7 +1229,7 @@ please let her stay beside me in every chapter ahead. ❤️`
           {/* 6 Dots indicators */}
           <div className="flex items-center gap-4">
             {Array.from({ length: 6 }).map((_, i) => {
-              const titles = ["Before Bagi", "Bagi's Entry", "The Changeover", "Connection", "Bucket List", "His Prayer"];
+              const titles = ["Before Bagi", "Bagi's Entry", "The Changeover", "Connection", "Our Promise", "His Prayer"];
               return (
                 <button
                   key={i}

@@ -45,7 +45,7 @@ const CHAPTERS = [
       "As the cold wind blew and others stood around, Dudu felt a tiny bit possessive inside… but seeing Bagi smile only at him, a deep, happy warmth filled his heart.",
       "Some mornings become memories forever."
     ],
-    img: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&auto=format&fit=crop&q=80",
+    images: ["/nandi_group.jpg", "/nandi_bagi_sunrise.jpg"],
     effect: "fog",
     accent: "from-yellow-500/20 via-orange-500/10 to-transparent",
     glow: "shadow-[0_0_40px_rgba(234,179,8,0.25)] border-yellow-500/20"
@@ -145,6 +145,52 @@ const CHAPTERS = [
   }
 ];
 
+// Simple auto-sliding interactive photo gallery
+function ImageSlider({ images, theme, onError }) {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((prev) => (prev + 1) % images.length);
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [images.length]);
+
+  return (
+    <div className="relative w-full h-full group/slider pointer-events-auto cursor-pointer">
+      <AnimatePresence mode="wait">
+        <motion.img
+          key={index}
+          src={images[index]}
+          alt={`${theme} slide ${index}`}
+          onError={onError}
+          initial={{ opacity: 0, scale: 1.05 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 1.2 }}
+          className="w-full h-full object-cover absolute inset-0"
+        />
+      </AnimatePresence>
+
+      {/* Manual slide indicators */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
+        {images.map((_, i) => (
+          <button
+            key={i}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIndex(i);
+            }}
+            className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+              i === index ? 'bg-white scale-125' : 'bg-white/40 hover:bg-white/70'
+            }`}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Interactive Parallax Polaroid Component with specific emotional animations
 function CinematicFrame({ chapter }) {
   const cardRef = useRef(null);
@@ -194,6 +240,8 @@ function CinematicFrame({ chapter }) {
             playsInline
             className="w-full h-full object-cover pointer-events-none scale-[1.02]"
           />
+        ) : chapter.images ? (
+          <ImageSlider images={chapter.images} theme={chapter.theme} onError={() => setImageError(true)} />
         ) : imageError ? (
           <div className="w-full h-full bg-gradient-to-br from-rose-950/40 via-black to-luxury-darker flex flex-col items-center justify-center p-4">
             <Camera className="w-10 h-10 text-rose-400 mb-2 animate-pulse" />

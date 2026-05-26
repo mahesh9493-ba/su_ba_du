@@ -662,9 +662,9 @@ export default function MemoryTimeline() {
 
       </div>
 
-      {/* Cinematic Grid Collage Frame (10 specified collage assets) */}
+      {/* Cinematic Grid Collage Frame (15 specified collage assets) */}
       <div className="w-full max-w-5xl mx-auto px-4 pb-20 relative z-10 flex flex-col items-center">
-        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5 w-full">
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2 sm:gap-3.5 w-full">
           {[
             { src: "/collage_cartoon.jpg", title: "Dreamy Us" },
             { src: "/collage_airport.jpg", title: "Adventures" },
@@ -675,7 +675,12 @@ export default function MemoryTimeline() {
             { src: "/collage_cake_neon.jpg", title: "Slaying" },
             { src: "/collage_traditional.jpg", title: "Elegance" },
             { src: "/collage_sleeping.jpg", title: "Quiet Peace" },
-            { src: "/collage_corridor.jpg", title: "Movie Time" }
+            { src: "/collage_corridor.jpg", title: "Movie Time" },
+            { src: "/collage_blue_dress.jpg", title: "Traditional Grace" },
+            { src: "/collage_icecream_1.jpg", title: "Sweet Tooth" },
+            { src: "/collage_icecream_2.jpg", title: "Ice Cream Date" },
+            { src: "/collage_icecream_3.jpg", title: "Sweet Smiles" },
+            { src: "/collage_noodles.jpg", title: "Foodie Partner" }
           ].map((item, idx) => (
             <motion.div
               key={idx}

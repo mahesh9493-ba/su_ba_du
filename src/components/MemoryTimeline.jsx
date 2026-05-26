@@ -14,7 +14,7 @@ const CHAPTERS = [
       "Dudu slowly started noticing Bagi differently.",
       "Without saying anything… that journey stayed in his heart forever."
     ],
-    img: "https://images.unsplash.com/photo-1620766182966-c6eb5ed2b788?w=800&auto=format&fit=crop&q=80",
+    img: "/tirumala_trip.jpg",
     effect: "diyas",
     accent: "from-orange-500/20 via-amber-500/10 to-transparent",
     glow: "shadow-[0_0_40px_rgba(245,158,11,0.25)] border-orange-500/20"

@@ -660,42 +660,6 @@ export default function MemoryTimeline() {
           </motion.div>
         </div>
 
-        {/* Cinematic Grid Collage Frame */}
-        <div className="w-full max-w-5xl px-4 grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 relative">
-          {CHAPTERS.map((ch, index) => (
-            <motion.div
-              key={ch.id}
-              initial={{ opacity: 0, scale: 0.9, y: 30 }}
-              whileInView={{ opacity: 0.8, scale: 1, y: 0 }}
-              whileHover={{ opacity: 1, scale: 1.03, zIndex: 10 }}
-              viewport={{ once: false, amount: 0.2 }}
-              transition={{ delay: index * 0.08, duration: 0.8, ease: "easeOut" }}
-              className="aspect-square rounded-xl overflow-hidden border border-white/5 shadow-2xl relative cursor-pointer"
-            >
-              {ch.video ? (
-                <video
-                  src={ch.video}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  className="w-full h-full object-cover scale-[1.03] pointer-events-none"
-                />
-              ) : (
-                <img 
-                  src={ch.img} 
-                  alt={ch.theme} 
-                  className="w-full h-full object-cover pointer-events-none transition-transform duration-[3s] hover:scale-105"
-                />
-              )}
-              {/* Inner frame ambient glow */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent pointer-events-none" />
-              <div className="absolute bottom-2 left-2 text-[8px] sm:text-[9.5px] uppercase tracking-widest text-white/80 font-serif leading-none font-bold">
-                {ch.theme.split(" ")[0]}
-              </div>
-            </motion.div>
-          ))}
-        </div>
       </div>
 
       {/* Custom Styles Injector for premium animations */}

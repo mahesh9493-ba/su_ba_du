@@ -79,7 +79,10 @@ const CHAPTERS = [
       "It became the place where hours felt like minutes.",
       "Small talks, random jokes, and simple moments… started becoming Dudu’s favorite memories."
     ],
-    img: "https://images.unsplash.com/photo-1550547660-d9450f859349?w=800&auto=format&fit=crop&q=80",
+    images: [
+      { src: "/burgerking_selfie.jpg", position: "object-center", fit: "object-contain" },
+      { src: "/burgerking_night.jpg", position: "object-center", fit: "object-contain" }
+    ],
     effect: "cozy",
     accent: "from-rose-500/20 via-pink-500/10 to-transparent",
     glow: "shadow-[0_0_40px_rgba(244,63,94,0.25)] border-rose-500/20"

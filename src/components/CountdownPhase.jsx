@@ -491,7 +491,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
         </div>
 
         {/* 5. Majestic Glowing Floating Swapper (NOW EMBEDDED INSIDE CARD DIRECTLY AFTER THE COUNTDOWN DISPLAY) */}
-        {true && (
+        {false && (
           <div className="w-full max-w-md z-20 px-4 mt-2">
             <div className="rounded-2xl glassmorphism border border-white/5 p-3.5 flex flex-col items-center shadow-lg bg-black/25">
               <button 

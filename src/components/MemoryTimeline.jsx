@@ -100,7 +100,9 @@ const CHAPTERS = [
       "Waffle stories, random teasing, shared desserts, and uncontrollable laughter…",
       "Those tiny moments slowly became unforgettable."
     ],
-    img: "https://images.unsplash.com/photo-1573821663912-569905455b1c?w=800&auto=format&fit=crop&q=80",
+    img: "/waffle_story.jpg",
+    fit: "object-contain",
+    position: "object-center",
     effect: "hearts",
     accent: "from-pink-500/20 via-rose-500/10 to-transparent",
     glow: "shadow-[0_0_40px_rgba(236,72,153,0.25)] border-pink-500/20"
@@ -468,10 +470,12 @@ export default function MemoryTimeline() {
     { src: "/collage_burger.jpg", title: "Burger Love", note: "Cute cheeks stuffed with burger bites. You look so adorable when you eat! 🍔" },
     { src: "/collage_diwali.jpg", title: "Happy Diwali", note: "Lighting up my life like Diwali lamps. You are the brightest spark in my world! 🪔" },
     { src: "/sunset_chai.jpg", title: "Sunset Chai", note: "Hot chai, mountain sunsets, and you by my side. Nothing else in the world matters. ☕" },
-    { src: "/collage_baby.jpg", title: "Auntie Duties", note: "Morning sunlight, cute baby cuddles, and that warm maternal grace. My heart melts seeing this side of you. 👶☀️" },
+    { src: "/collage_baby.jpg", title: "Chikkama Duties", note: "Morning sunlight, cute baby cuddles, and that warm maternal grace. My heart melts seeing this side of you. 👶☀️" },
     { src: "/collage_peach_saree.jpg", title: "Golden Glow", note: "Draped in absolute perfection, leaning back in that warm golden glow. You look divine. ✨" },
     { src: "/collage_smile_portrait.jpg", title: "Pure Joy", note: "This close-up portrait captures your purest joy—a smile that instantly erases all my worries. ❤️" },
-    { src: "/tirumala_trip.jpg", title: "Sacred Prayers", note: "Our trip to Tirumala—climbing heights together and seeking blessings for our beautiful journey ahead. 🙏" }
+    { src: "/tirumala_trip.jpg", title: "Sacred Prayers", note: "Our trip to Tirumala—climbing heights together and seeking blessings for our beautiful journey ahead. 🙏" },
+    { src: "/waffle_story.jpg", title: "Waffle Stories", note: "Waffle stories, random teasing, and sharing that delicious chocolate bite. You look so incredibly adorable when you eat! ❤️" },
+    { src: "/collage_coconut.jpg", title: "Sweet Sips", note: "Late night coconut water dates, sharing simple sips under the stars. Seeing you happy in these little, quiet moments is all I ever want. 🥥❤️" }
   ];
 
   // Track vertical scroll progress within portal context
@@ -698,7 +702,7 @@ export default function MemoryTimeline() {
           ✨ Tap any Polaroid card to read Dudu's secret thoughts…
         </span>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 sm:gap-7 w-full">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 sm:gap-7 w-full">
           {collageImages.map((item, idx) => {
             // Generate a deterministic random rotation between -4 and +4 degrees based on index
             const rot = ((idx * 7) % 9) - 4;

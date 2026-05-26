@@ -675,7 +675,7 @@ export default function MemoryTimeline() {
             { src: "/collage_cake_neon.jpg", title: "Slaying" },
             { src: "/collage_traditional.jpg", title: "Elegance" },
             { src: "/collage_sleeping.jpg", title: "Quiet Peace" },
-            { src: "/collage_corridor.jpg", title: "Midnight Walks" }
+            { src: "/collage_corridor.jpg", title: "Movie Time" }
           ].map((item, idx) => (
             <motion.div
               key={idx}

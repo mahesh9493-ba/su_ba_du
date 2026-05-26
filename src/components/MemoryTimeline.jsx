@@ -662,6 +662,40 @@ export default function MemoryTimeline() {
 
       </div>
 
+      {/* Cinematic Grid Collage Frame (Only the 5 specified collage assets) */}
+      <div className="w-full max-w-5xl mx-auto px-4 pb-20 relative z-10 flex flex-col items-center">
+        <div className="grid grid-cols-2 sm:grid-cols-5 gap-3.5 w-full">
+          {[
+            { src: "/collage_cartoon.jpg", title: "Dreamy Us" },
+            { src: "/collage_airport.jpg", title: "Adventures" },
+            { src: "/collage_palace.jpg", title: "Royalty" },
+            { src: "/collage_sunset.jpg", title: "Serenity" },
+            { src: "/collage_party.jpg", title: "Celebrations" }
+          ].map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, scale: 0.9, y: 25 }}
+              whileInView={{ opacity: 0.85, scale: 1, y: 0 }}
+              whileHover={{ opacity: 1, scale: 1.04, zIndex: 20 }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ delay: idx * 0.08, duration: 0.8, ease: "easeOut" }}
+              className="aspect-[3/4] rounded-xl overflow-hidden border border-white/5 shadow-2xl relative cursor-pointer bg-black/40"
+            >
+              <img 
+                src={item.src} 
+                alt={item.title} 
+                className="w-full h-full object-contain pointer-events-none"
+              />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent p-2 text-center">
+                <span className="text-[9px] uppercase tracking-widest text-[#ffccd5] font-serif font-bold">
+                  {item.title}
+                </span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
       {/* Custom Styles Injector for premium animations */}
       <style>{`
         .rain-drop-container {

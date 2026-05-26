@@ -30,7 +30,7 @@ const CHAPTERS = [
       "Dudu wished that road would never end.",
       "Sometimes, peace looks like a rainy road ride with the right person. ❤️"
     ],
-    img: "https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=800&auto=format&fit=crop&q=80",
+    img: "/rain_airport_ride.jpg",
     effect: "rain",
     accent: "from-blue-500/20 via-teal-500/10 to-transparent",
     glow: "shadow-[0_0_40px_rgba(59,130,246,0.25)] border-blue-500/20"

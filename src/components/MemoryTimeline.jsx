@@ -483,7 +483,12 @@ export default function MemoryTimeline() {
     { src: "/collage_mem_2.jpg", title: "Warmth & Comfort", note: "In your eyes, I find a quiet warmth that heals every broken piece of me. The sweetest soul in existence. ✨" },
     { src: "/collage_mem_3.jpg", title: "Captured Essence", note: "This candid captures the exact magic of you—unfiltered, beautiful, and completely breathtaking. 🌸" },
     { src: "/collage_mem_4.jpg", title: "Infinite Joy", note: "A moment of pure, radiant happiness. Seeing you smile like this is my daily source of energy and love. 😊❤️" },
-    { src: "/collage_mem_5.jpg", title: "Quiet Togetherness", note: "Every second with you is a memory I keep locked deep inside my heart. I am so lucky to call you mine. 🔒❤️" }
+    { src: "/collage_mem_5.jpg", title: "Quiet Togetherness", note: "Every second with you is a memory I keep locked deep inside my heart. I am so lucky to call you mine. 🔒❤️" },
+    { src: "/collage_park_flags.jpg", title: "A Splendid View", note: "Even in a garden full of blooming flowers and vibrant colors, my eyes always find their way to you. The most beautiful flower in the world. 🌸✨" },
+    { src: "/collage_chandelier_1.jpg", title: "Shining Star", note: "Under the glowing chandeliers, you outshined every light in the room. Breathtakingly beautiful, absolute elegance. 💖" },
+    { src: "/collage_chandelier_2.jpg", title: "Divine Grace", note: "Draped in colors, smiling so warmly. You look like a beautiful dream I never want to wake up from. ❤️" },
+    { src: "/collage_flower_backpack.jpg", title: "Joyful Travels", note: "That cute pink backpack and your bright, happy smile. Exploring the world with you is my ultimate dream. 🎒🗺️" },
+    { src: "/collage_stairs_group.jpg", title: "The College Gang", note: "The gang, the endless banters, the college steps where our paths crossed. Where my life's most beautiful chapter began. 🎓❤️" }
   ];
 
   // Track vertical scroll progress within portal context

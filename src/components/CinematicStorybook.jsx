@@ -15,7 +15,7 @@ const SCENE_ASSETS = {
     title: "Bagi’s Entry ❤️",
     images: [
       { url: "/collage_smile_portrait.jpg", title: "Bagi entering Dudu's world" },
-      { url: "/collage_corridor.jpg", title: "Silent classroom glance" },
+      { url: "/collage_stairs_group.jpg", title: "The friendship circle 👥" },
       { url: "/tirumala_trip.jpg", title: "Tirumala misty mountain roads" }
     ]
   },
@@ -37,7 +37,7 @@ const SCENE_ASSETS = {
   scene5: {
     title: "The Unspoken Promise ❤️",
     images: [
-      { url: "/collage_traditional.jpg", title: "Traditional Grace" },
+      { url: "/collage_chandelier_1.jpg", title: "Traditional Grace" },
       { url: "/collage_diwali.jpg", title: "Happy Diwali" },
       { url: "/collage_peach_saree.jpg", title: "Golden Glow" }
     ]
@@ -717,7 +717,7 @@ please let her stay beside me in every chapter ahead. ❤️`
                       alt={SCENE_ASSETS.scene2.images[1].title}
                       className="w-full h-18 sm:h-24 md:h-32 object-cover rounded hover:brightness-110 duration-500"
                     />
-                    <p className="font-handwritten text-lg text-center text-amber-300 mt-2">Classroom eye contact 📚</p>
+                    <p className="font-handwritten text-lg text-center text-amber-300 mt-2">Our college gang 👥</p>
                   </motion.div>
 
                   {/* Tirumala hill fog */}

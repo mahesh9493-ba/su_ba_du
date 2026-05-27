@@ -6,9 +6,9 @@ const SCENE_ASSETS = {
   scene1: {
     title: "Before Bagi",
     images: [
-      { url: "https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&q=80&w=600", title: "Carefree boys gang laughter" },
-      { url: "https://images.unsplash.com/photo-1506015391300-4802dc74de2e?auto=format&fit=crop&q=80&w=600", title: "Riding bike alone at night" },
-      { url: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&q=80&w=600", title: "Lonely street tea stall" }
+      { url: "/scene1_dudu_solo.jpg", title: "Dudu walking alone, carefree" },
+      { url: "/scene1_gang_night.jpg", title: "Boys gang night out" },
+      { url: "/scene1_gang_cafe.jpg", title: "Carefree college gang hangout" }
     ]
   },
   scene2: {
@@ -423,104 +423,111 @@ please let her stay beside me in every chapter ahead. ❤️`
             ======================================================== */}
         {viewMode === 'select' && (
           <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="w-full max-w-4xl flex flex-col items-center py-8"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.25, 1, 0.5, 1] }}
+            className="w-full max-w-5xl flex flex-col items-center gap-10"
           >
-            {/* Header prompt */}
-            <div className="text-center mb-12 max-w-xl">
-              <Sparkles className="w-6 h-6 text-luxury-rose mx-auto mb-3 animate-pulse" />
-              <p className="text-sm font-light text-white/70 leading-relaxed">
-                Choose how you would like to witness Dudu & Bagi's magical connection. We highly recommend opening the **Complete Story Infographic** first to see their entire story beautifully captured in a single, high-resolution master frame.
-              </p>
+            {/* Minimal heading */}
+            <div className="text-center">
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-[11px] uppercase tracking-[0.35em] text-rose-400/80 font-bold"
+              >
+                Choose Your Experience
+              </motion.p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full">
-              
-              {/* Option A: Single Infographic Story Frame (User-uploaded High Fidelity Image) */}
+            {/* Two cinematic cards side by side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full">
+
+              {/* Card A — Story Infographic */}
               <motion.div
-                whileHover={{ scale: 1.015, translateY: -4 }}
-                onClick={() => {
-                  setViewMode('infographic');
-                }}
-                className="p-6 rounded-2xl glassmorphism-luxury border-luxury-red/35 shadow-2xl flex flex-col justify-between items-center text-center cursor-pointer pointer-events-auto relative overflow-hidden group glassmorphism-hover border-pulse"
-                style={{ animationDuration: '3s' }}
+                initial={{ opacity: 0, x: -30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.3, duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                whileHover={{ scale: 1.02, y: -6 }}
+                onClick={() => setViewMode('infographic')}
+                className="relative rounded-3xl overflow-hidden cursor-pointer group h-72 md:h-80 pointer-events-auto"
               >
-                <div className="absolute inset-0 bg-gradient-to-tr from-luxury-red/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="w-12 h-12 rounded-full border border-luxury-rose/30 flex items-center justify-center text-luxury-rose mb-5 bg-luxury-red/10">
-                  <Image className="w-6 h-6 animate-pulse" />
-                </div>
+                {/* Background image */}
+                <img
+                  src="/story_infographic.jpg"
+                  alt="Story Infographic"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 group-hover:via-black/30 transition-all duration-500" />
+                {/* Rose glow on hover */}
+                <div className="absolute inset-0 ring-0 group-hover:ring-2 ring-rose-500/50 rounded-3xl transition-all duration-500" />
 
-                <div className="flex-1 flex flex-col items-center mb-6">
-                  <span className="text-[8px] sm:text-[9px] uppercase tracking-normal sm:tracking-[0.2em] text-luxury-rose font-bold mb-2 bg-luxury-red/20 border border-luxury-rose/30 px-2 sm:px-3 py-1 rounded-full animate-glow-pulse">
-                    ✨ Recommended Path • Master Frame ✨
-                  </span>
-                  <h3 className="text-xl font-serif font-bold text-white mt-3 mb-2">Complete Story Infographic 🖼️</h3>
-                  <div className="text-[10px] text-emerald-400 font-semibold mb-3 select-none flex items-center gap-1.5 bg-emerald-950/20 border border-emerald-500/20 px-3 py-0.5 rounded-full">
-                    <span>❤️</span> Gives the complete story in a single image
+                {/* Content pinned to bottom */}
+                <div className="absolute bottom-0 inset-x-0 p-6 flex flex-col gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] uppercase tracking-[0.3em] text-rose-300 font-bold bg-rose-500/20 border border-rose-500/30 px-2.5 py-0.5 rounded-full">
+                      Complete Story
+                    </span>
                   </div>
-                  <p className="text-xs font-light text-white/60 leading-relaxed max-w-xs">
-                    Witness the entire emotional narrative of Dudu & Bagi captured perfectly in one single, high-fidelity master image. Zoom in and pan to read their beautiful journey and their sacred 10 Jyotirlingas bucket list!
-                  </p>
-
-                  {/* Thumbnail Preview */}
-                  <div className="w-full h-36 mt-5 rounded-lg overflow-hidden border border-white/10 relative group-hover:border-luxury-rose/30 transition-colors duration-300">
-                    <img 
-                      src="/story_infographic.jpg" 
-                      alt="Story infographic Preview" 
-                      className="w-full h-full object-cover grayscale-0 opacity-80 group-hover:opacity-100 transition-all duration-500 scale-100 group-hover:scale-105" 
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/35 group-hover:bg-black/10 transition-colors duration-300">
-                      <div className="p-2.5 rounded-full bg-black/60 border border-white/15 text-white/90">
-                        <Maximize2 className="w-5 h-5 group-hover:scale-110 transition-all duration-300" />
-                      </div>
-                    </div>
+                  <h3 className="text-2xl font-serif font-bold text-white leading-tight">
+                    Our Story<br/>in One Frame 🖼️
+                  </h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="flex items-center gap-1.5 text-[11px] text-white/90 font-semibold bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full group-hover:bg-rose-600/70 group-hover:border-rose-400/30 transition-all duration-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                      Open Now
+                    </span>
                   </div>
                 </div>
-
-                <button className="px-5 py-2 rounded-full bg-gradient-to-r from-luxury-red via-[#d00000] to-luxury-rose text-white text-xs tracking-wider uppercase font-bold shadow-lg pointer-events-none group-hover:scale-105 transition-transform duration-300">
-                  Open Master Frame 🖼️
-                </button>
               </motion.div>
 
-              {/* Option B: Scene-by-Scene Cinematic Movie */}
+              {/* Card B — Cinematic Movie */}
               <motion.div
-                whileHover={{ scale: 1.015, translateY: -4 }}
-                onClick={() => {
-                  setViewMode('cinematic');
-                }}
-                className="p-6 rounded-2xl glassmorphism-luxury border-purple-500/25 shadow-2xl flex flex-col justify-between items-center text-center cursor-pointer pointer-events-auto relative overflow-hidden group glassmorphism-hover"
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.45, duration: 0.6, ease: [0.25, 1, 0.5, 1] }}
+                whileHover={{ scale: 1.02, y: -6 }}
+                onClick={() => setViewMode('cinematic')}
+                className="relative rounded-3xl overflow-hidden cursor-pointer group h-72 md:h-80 pointer-events-auto"
               >
-                <div className="absolute inset-0 bg-gradient-to-tr from-purple-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="w-12 h-12 rounded-full border border-purple-400/30 flex items-center justify-center text-purple-300 mb-5 bg-purple-950/15">
-                  <Film className="w-6 h-6" />
+                {/* Background image */}
+                <img
+                  src="/latenight_call.jpg"
+                  alt="Cinematic Story"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Dark gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-black/10 group-hover:via-black/30 transition-all duration-500" />
+                {/* Purple glow on hover */}
+                <div className="absolute inset-0 ring-0 group-hover:ring-2 ring-purple-500/50 rounded-3xl transition-all duration-500" />
+
+                {/* Floating film icon */}
+                <div className="absolute top-5 right-5 w-9 h-9 rounded-full bg-black/40 backdrop-blur-sm border border-white/10 flex items-center justify-center text-purple-300 group-hover:scale-110 transition-transform duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" /></svg>
                 </div>
 
-                <div className="flex-1 flex flex-col items-center mb-6">
-                  <span className="text-[9px] uppercase tracking-wider text-purple-300 font-bold mb-2">Interactive Journey</span>
-                  <h3 className="text-xl font-serif font-bold text-white mb-3">Interactive Cinematic Movie 🎬</h3>
-                  <p className="text-xs font-light text-white/50 leading-relaxed max-w-xs">
-                    Embark on a scene-by-scene romantic narration. Complete with realistic texting simulators, active phone calls, 3D hover-tilt polaroid scrapbooks, custom particle visualizers, and Dudu's prayer at Tirumala.
-                  </p>
-
-                  <div className="w-full h-36 mt-5 rounded-lg overflow-hidden border border-white/10 relative group-hover:border-purple-400/30 transition-colors duration-300">
-                    <img 
-                      src="/collage_traditional.jpg" 
-                      alt="Cinematic Preview" 
-                      className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 group-hover:opacity-80 transition-all duration-500 scale-105 group-hover:scale-100" 
-                    />
-                    <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-                      <Sparkles className="w-5 h-5 text-white/60 group-hover:text-white group-hover:scale-110 transition-all duration-300 animate-spin-slow" />
-                    </div>
+                {/* Content pinned to bottom */}
+                <div className="absolute bottom-0 inset-x-0 p-6 flex flex-col gap-3">
+                  <div className="flex items-center gap-2">
+                    <span className="text-[9px] uppercase tracking-[0.3em] text-purple-300 font-bold bg-purple-500/20 border border-purple-500/30 px-2.5 py-0.5 rounded-full">
+                      Scene by Scene
+                    </span>
+                  </div>
+                  <h3 className="text-2xl font-serif font-bold text-white leading-tight">
+                    Cinematic<br/>Journey 🎬
+                  </h3>
+                  <div className="flex items-center gap-2 mt-1">
+                    <span className="flex items-center gap-1.5 text-[11px] text-white/90 font-semibold bg-white/10 backdrop-blur-sm border border-white/10 px-4 py-1.5 rounded-full group-hover:bg-purple-600/70 group-hover:border-purple-400/30 transition-all duration-400">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                      Start Journey
+                    </span>
                   </div>
                 </div>
-
-                <button className="px-5 py-2 rounded-full bg-gradient-to-r from-purple-600 to-fuchsia-500 text-white text-xs tracking-wider uppercase font-bold shadow-lg pointer-events-none">
-                  Start Cinematic Journey 🎬
-                </button>
               </motion.div>
 
             </div>
+
           </motion.div>
         )}
 
@@ -531,72 +538,28 @@ please let her stay beside me in every chapter ahead. ❤️`
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="w-full h-[78vh] flex flex-col justify-between items-center relative overflow-hidden"
+            className="w-full flex flex-col items-center gap-4 relative overflow-hidden"
           >
-            {/* Control Bar Overlay */}
-            <div className="absolute top-2 inset-x-0 mx-auto flex items-center justify-center gap-3 z-30 pointer-events-auto bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 max-w-sm shadow-xl">
-              <button 
-                onClick={zoomIn} 
-                className="w-8 h-8 rounded-full border border-white/15 bg-white/5 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-                title="Zoom In"
-              >
-                <ZoomIn className="w-4 h-4" />
-              </button>
-              <button 
-                onClick={zoomOut} 
-                className="w-8 h-8 rounded-full border border-white/15 bg-white/5 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-                title="Zoom Out"
-              >
-                <ZoomOut className="w-4 h-4" />
-              </button>
-              <button 
-                onClick={resetZoom} 
-                className="w-8 h-8 rounded-full border border-white/15 bg-white/5 hover:bg-white/20 text-white flex items-center justify-center transition-colors cursor-pointer"
-                title="Reset Zoom"
-              >
-                <RotateCcw className="w-4 h-4" />
-              </button>
-              <span className="text-[10px] text-white/50 border-l border-white/10 pl-2 select-none">
-                {Math.round(zoomScale * 100)}%
-              </span>
+            {/* Full Story Image */}
+            <div className="w-full rounded-2xl border border-luxury-red/20 bg-black/40 overflow-hidden flex items-center justify-center">
+              <img 
+                src="/story_infographic.jpg" 
+                alt="Dudu & Bagi Complete Story" 
+                className="w-full h-auto object-contain rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.95)]" 
+              />
             </div>
 
-            {/* Interactive Image Viewing Canvas */}
-            <div 
-              className="flex-1 w-full h-full rounded-2xl border border-luxury-red/25 bg-black/55 backdrop-blur-sm relative overflow-hidden flex items-center justify-center cursor-grab active:cursor-grabbing pointer-events-auto"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
+            {/* Single Download Button */}
+            <a
+              href="/story_infographic.jpg"
+              download="Our_Story.jpg"
+              className="flex items-center gap-2 px-7 py-3 rounded-full bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs font-bold tracking-widest uppercase shadow-[0_0_30px_rgba(244,63,94,0.4)] hover:shadow-[0_0_45px_rgba(244,63,94,0.65)] transition-all duration-300 active:scale-95 cursor-pointer select-none border border-rose-400/30"
             >
-              <motion.div
-                ref={imgRef}
-                className="relative select-none pointer-events-none max-w-full max-h-full flex items-center justify-center"
-                style={{
-                  transform: `translate(${panOffset.x}px, ${panOffset.y}px) scale(${zoomScale})`,
-                  transition: isDragging ? 'none' : 'transform 0.25s cubic-bezier(0.25, 1, 0.5, 1)'
-                }}
-              >
-                <img 
-                  src="/story_infographic.jpg" 
-                  alt="Dudu & Bagi Complete Story Infographic" 
-                  className="max-w-[95vw] max-h-[70vh] md:max-h-[72vh] object-contain rounded shadow-[0_20px_60px_rgba(0,0,0,0.95)]" 
-                />
-              </motion.div>
-            </div>
-
-            {/* Bottom Info Bar Overlay */}
-            <div className="w-full max-w-2xl text-center py-3 relative z-30 select-none bg-black/45 backdrop-blur-md border border-white/5 rounded-xl px-4 mt-2">
-              <span className="text-[10px] uppercase tracking-widest font-bold text-luxury-rose flex items-center justify-center gap-1.5 mb-1.5">
-                <span>✨</span> The Complete Story in a Single Image <span>✨</span>
-              </span>
-              <p className="text-[10px] font-light text-white/60 leading-relaxed max-w-lg mx-auto">
-                This beautiful masterpiece image tells the complete, heart-touching story of Dudu & Bagi in a single frame. It covers their carefree days, entry, deep changeover, late-night calls, sacred prayer, and their 10 Jyotirlingas bucket list!
-              </p>
-              <p className="text-[9px] font-semibold text-emerald-400/80 tracking-wide mt-2">
-                Tip: Drag or swipe to pan around, or click the (+) and (-) zoom buttons to examine every beautiful detail in full resolution!
-              </p>
-            </div>
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+              Download Our Story
+            </a>
 
           </motion.div>
         )}
@@ -633,7 +596,7 @@ please let her stay beside me in every chapter ahead. ❤️`
                       alt={SCENE_ASSETS.scene1.images[0].title}
                       className="w-full h-20 sm:h-28 md:h-32 object-cover rounded grayscale hover:grayscale-0 transition-all duration-500"
                     />
-                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Carefree college days 🎒</p>
+                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Just Dudu & the world 🧢</p>
                   </motion.div>
 
                   {/* Floating image 2 (Lonely night ride) */}
@@ -649,24 +612,27 @@ please let her stay beside me in every chapter ahead. ❤️`
                       alt={SCENE_ASSETS.scene1.images[1].title}
                       className="w-full h-20 sm:h-28 md:h-32 object-cover rounded hover:brightness-110 transition-all duration-500"
                     />
-                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Riding alone in the dark 🏍️</p>
+                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Boys gang nights out 🌙</p>
                   </motion.div>
 
-                  {/* Fading Old Chat Box mockup */}
+                  {/* Floating image 3 (Gang cafe hangout) */}
                   <motion.div
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 0.7 }}
+                    initial={{ rotate: -4, y: 20, opacity: 0 }}
+                    animate={{ rotate: -3, y: 0, opacity: 1 }}
                     transition={{ delay: 0.7 }}
-                    whileHover={{ opacity: 1, scale: 1.02 }}
-                    className="absolute w-36 sm:w-44 md:w-56 p-2 sm:p-3 rounded-lg border border-red-500/10 bg-black/50 backdrop-blur-md z-15 flex flex-col gap-1.5 sm:gap-2 shadow-2xl pointer-events-auto text-[8.5px] sm:text-[10px]"
+                    whileHover={{ scale: 1.04, rotate: 0, zIndex: 12 }}
+                    className="absolute left-1/2 -translate-x-1/2 bottom-2 sm:bottom-6 w-28 sm:w-44 md:w-52 p-2 sm:p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md z-10"
                   >
-                    <span className="text-[7.5px] sm:text-[8px] uppercase tracking-wider text-red-400 font-bold border-b border-red-500/10 pb-1">Unfinished past memory</span>
-                    {oldChats.map((c, i) => (
-                      <div key={i} className={`p-1 sm:p-1.5 rounded ${c.sender === 'him' ? 'self-end bg-white/5 text-white/50' : 'self-start bg-red-950/15 text-red-400/60'}`}>
-                        {c.text}
-                      </div>
-                    ))}
+                    <img
+                      src={SCENE_ASSETS.scene1.images[2].url}
+                      alt={SCENE_ASSETS.scene1.images[2].title}
+                      className="w-full h-20 sm:h-28 md:h-32 object-cover rounded hover:brightness-110 transition-all duration-500"
+                    />
+                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Cafe hangouts & laughter ☕</p>
                   </motion.div>
+
+                  {/* Placeholder div to maintain spacing */}
+
                 </div>
 
                 {/* Story Narration */}

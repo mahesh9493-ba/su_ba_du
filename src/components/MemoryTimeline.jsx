@@ -475,7 +475,15 @@ export default function MemoryTimeline() {
     { src: "/collage_smile_portrait.jpg", title: "Pure Joy", note: "This close-up portrait captures your purest joy—a smile that instantly erases all my worries. ❤️" },
     { src: "/tirumala_trip.jpg", title: "Sacred Prayers", note: "Our trip to Tirumala—climbing heights together and seeking blessings for our beautiful journey ahead. 🙏" },
     { src: "/waffle_story.jpg", title: "Waffle Stories", note: "Waffle stories, random teasing, and sharing that delicious chocolate bite. You look so incredibly adorable when you eat! ❤️" },
-    { src: "/collage_coconut.jpg", title: "Sweet Sips", note: "Late night coconut water dates, sharing simple sips under the stars. Seeing you happy in these little, quiet moments is all I ever want. 🥥❤️" }
+    { src: "/collage_coconut.jpg", title: "Sweet Sips", note: "Late night coconut water dates, sharing simple sips under the stars. Seeing you happy in these little, quiet moments is all I ever want. 🥥❤️" },
+    { src: "/scene1_dudu_solo.jpg", title: "Before You", note: "Dudu walking his own path, carefree and unaware that someone was about to change everything forever. 🧢" },
+    { src: "/scene1_gang_night.jpg", title: "Gang Nights", note: "The boys, the laughter, the nights that felt endless. Life was simpler then, but something was always missing. 🌙" },
+    { src: "/scene1_gang_cafe.jpg", title: "Cafe Crew", note: "Hangouts, chai, and a group that made every ordinary day feel like a little celebration. ☕❤️" },
+    { src: "/collage_mem_1.jpg", title: "A Glimpse of Heaven", note: "Every time I look at this picture, I see the absolute grace that walked into my life and made it whole. ❤️" },
+    { src: "/collage_mem_2.jpg", title: "Warmth & Comfort", note: "In your eyes, I find a quiet warmth that heals every broken piece of me. The sweetest soul in existence. ✨" },
+    { src: "/collage_mem_3.jpg", title: "Captured Essence", note: "This candid captures the exact magic of you—unfiltered, beautiful, and completely breathtaking. 🌸" },
+    { src: "/collage_mem_4.jpg", title: "Infinite Joy", note: "A moment of pure, radiant happiness. Seeing you smile like this is my daily source of energy and love. 😊❤️" },
+    { src: "/collage_mem_5.jpg", title: "Quiet Togetherness", note: "Every second with you is a memory I keep locked deep inside my heart. I am so lucky to call you mine. 🔒❤️" }
   ];
 
   // Track vertical scroll progress within portal context

@@ -92,33 +92,36 @@ const CHAPTERS = [
   },
   {
     id: 6,
-    title: "Where Coding Sparked Connections — DCT Academy ❤️",
-    theme: "Our Digital Beginning",
+    title: "Sweet Bites of Pure Joy — Waffle Stories ❤️",
+    theme: "Sweet Little Memories",
     narration: [
-      "Learning syntax, variables, and algorithms under classroom fans...",
-      "DCT Academy was never just a coding boot camp anymore...",
-      "It became the place where Dudu and Bagi sat side-by-side, sharing keyboards, solving compiler bugs, and quietly sharing glances.",
-      "In learning how to compile code, their hearts quietly compiled a connection that skips zero beats. ❤️"
+      "Some memories are serious.",
+      "And some are just sweet little moments that make the heart smile.",
+      "Waffle stories, random teasing, shared desserts, and uncontrollable laughter…",
+      "Those tiny moments slowly became unforgettable."
     ],
+    img: "/waffle_story.jpg",
     fit: "object-contain",
     position: "object-center",
     effect: "hearts",
-    accent: "from-emerald-500/20 via-teal-500/10 to-transparent",
-    glow: "shadow-[0_0_40px_rgba(16,185,129,0.25)] border-emerald-500/20"
+    accent: "from-pink-500/20 via-rose-500/10 to-transparent",
+    glow: "shadow-[0_0_40px_rgba(236,72,153,0.25)] border-pink-500/20"
   },
   {
     id: 7,
-    title: "Growing Together Side-by-Side — Studying Together ❤️",
+    title: "Growing Together Side-by-Side — DCT Academy ❤️",
     theme: "The Comfort of Presence",
     narration: [
-      "Even silence started feeling beautiful around Bagi.",
-      "Studying together, sharing notes, small glances, and peaceful conversations…",
-      "Dudu slowly realized… her presence itself had become his comfort."
+      "Learning variables, notes, and algorithms under classroom fans...",
+      "DCT Academy became the place where Dudu and Bagi sat side-by-side, sharing keyboards and quietly sharing glances.",
+      "Even silence started feeling beautiful, and studying together became Dudu's favorite part of the day.",
+      "He slowly realized… her presence itself had quietly become his ultimate comfort. ❤️"
     ],
-    img: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&auto=format&fit=crop&q=80",
+    fit: "object-contain",
+    position: "object-center",
     effect: "lamp",
-    accent: "from-amber-600/20 via-yellow-500/10 to-transparent",
-    glow: "shadow-[0_0_40px_rgba(217,119,6,0.25)] border-amber-600/20"
+    accent: "from-emerald-500/20 via-teal-500/10 to-transparent",
+    glow: "shadow-[0_0_40px_rgba(16,185,129,0.25)] border-emerald-500/20"
   },
   {
     id: 8,
@@ -252,7 +255,7 @@ function CinematicFrame({ chapter }) {
     >
       {/* 1. Base Image or Looping Metro Journey Video */}
       <div className="relative w-full h-full rounded-xl overflow-hidden bg-black/40">
-        {chapter.id === 6 ? (
+        {chapter.id === 7 ? (
           <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-[#060c0d] to-neutral-950 flex flex-col justify-between p-4 sm:p-5 md:p-6 relative overflow-hidden select-none border border-emerald-500/10">
             {/* Shifting tech-green background blob */}
             <div className="absolute w-[200px] h-[200px] rounded-full bg-emerald-500/10 filter blur-[80px] -top-12 -left-12 animate-pulse" />

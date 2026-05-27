@@ -1,60 +1,29 @@
 import React, { useEffect, useRef, useState } from 'react';
-import gsap from 'gsap';
 
 export default function MidnightTransition({ onTransitionComplete }) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const flashRef = useRef(null);
   const [showCanvas, setShowCanvas] = useState(false);
+  const [cameraShakeActive, setCameraShakeActive] = useState(true);
+  const [flashActive, setFlashActive] = useState(false);
 
   useEffect(() => {
-    // Safety timeout in case GSAP fails to fire or runs into errors
-    const safetyTimeout = setTimeout(() => {
-      console.warn("MidnightTransition: safety trigger activated");
+    // 1. Camera shake runs immediately for 550ms
+    const shakeTimer = setTimeout(() => {
+      setCameraShakeActive(false);
+      setShowCanvas(true);
+      setFlashActive(true);
+    }, 550);
+
+    // 2. Climax runs for 3200ms total, then transitions to reveal
+    const completeTimer = setTimeout(() => {
       onTransitionComplete();
-    }, 4500);
-
-    const ctx = gsap.context(() => {
-      const container = containerRef.current;
-      const flash = flashRef.current;
-
-      const tl = gsap.timeline({
-        onComplete: () => {
-          clearTimeout(safetyTimeout);
-          setTimeout(onTransitionComplete, 500);
-        }
-      });
-
-      // Highly robust deterministic camera shake timeline (independent of EasePack)
-      tl.to(container, { x: -6, y: 5, duration: 0.05, ease: "none" })
-        .to(container, { x: 6, y: -5, duration: 0.05, ease: "none" })
-        .to(container, { x: -8, y: 7, duration: 0.05, ease: "none" })
-        .to(container, { x: 8, y: -7, duration: 0.05, ease: "none" })
-        .to(container, { x: -5, y: 4, duration: 0.05, ease: "none" })
-        .to(container, { x: 5, y: -4, duration: 0.05, ease: "none" })
-        .to(container, { x: -3, y: 2, duration: 0.05, ease: "none" })
-        .to(container, { x: 3, y: -2, duration: 0.05, ease: "none" })
-        .to(container, { x: -1, y: 1, duration: 0.05, ease: "none" })
-        .to(container, { x: 1, y: -1, duration: 0.05, ease: "none" })
-        .to(container, { x: 0, y: 0, duration: 0.05, ease: "none", clearProps: "transform" });
-
-      tl.to(flash, {
-        opacity: 1,
-        duration: 0.3,
-        ease: "power2.out",
-        onStart: () => setShowCanvas(true)
-      });
-
-      tl.to(flash, {
-        opacity: 0,
-        duration: 2.2,
-        ease: "power1.inOut"
-      }, "+=0.1");
-    });
+    }, 3200);
 
     return () => {
-      clearTimeout(safetyTimeout);
-      ctx.revert();
+      clearTimeout(shakeTimer);
+      clearTimeout(completeTimer);
     };
   }, [onTransitionComplete]);
 
@@ -248,7 +217,7 @@ export default function MidnightTransition({ onTransitionComplete }) {
   return (
     <div 
       ref={containerRef}
-      className="fixed inset-0 w-full h-full z-50 pointer-events-none overflow-hidden flex items-center justify-center"
+      className={`fixed inset-0 w-full h-full z-50 pointer-events-none overflow-hidden flex items-center justify-center ${cameraShakeActive ? "animate-camera-shake" : ""}`}
     >
       {/* Permanently mounted canvas to eliminate race conditions, toggling opacity */}
       <canvas 
@@ -275,11 +244,40 @@ export default function MidnightTransition({ onTransitionComplete }) {
 
       <div 
         ref={flashRef}
-        className="absolute inset-0 w-full h-full opacity-0 pointer-events-none z-30"
+        className={`absolute inset-0 w-full h-full pointer-events-none z-30 opacity-0 ${flashActive ? "animate-white-flash" : ""}`}
         style={{
           background: 'radial-gradient(circle, rgba(255,240,240,1) 0%, rgba(230,57,70,0.85) 60%, rgba(10,4,4,1) 100%)',
         }}
       />
+
+      {/* Hardware-accelerated dynamic compositor CSS animations */}
+      <style>{`
+        @keyframes climax-camera-shake {
+          0% { transform: translate(0, 0); }
+          5% { transform: translate(-4px, 3px); }
+          15% { transform: translate(4px, -3px); }
+          25% { transform: translate(-6px, 5px); }
+          35% { transform: translate(6px, -5px); }
+          45% { transform: translate(-3px, 2px); }
+          55% { transform: translate(3px, -2px); }
+          65% { transform: translate(-2px, 1px); }
+          75% { transform: translate(2px, -1px); }
+          85% { transform: translate(-1px, 0px); }
+          95% { transform: translate(1px, 0px); }
+          100% { transform: translate(0, 0); }
+        }
+        .animate-camera-shake {
+          animation: climax-camera-shake 0.55s ease-in-out forwards;
+        }
+        @keyframes climax-white-flash {
+          0% { opacity: 0; }
+          10% { opacity: 1; }
+          100% { opacity: 0; }
+        }
+        .animate-white-flash {
+          animation: climax-white-flash 2.5s ease-in-out forwards;
+        }
+      `}</style>
     </div>
   );
 }

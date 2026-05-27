@@ -8,6 +8,11 @@ export default function MidnightTransition({ onTransitionComplete }) {
   const [cameraShakeActive, setCameraShakeActive] = useState(true);
   const [flashActive, setFlashActive] = useState(false);
 
+  const onCompleteRef = useRef(onTransitionComplete);
+  useEffect(() => {
+    onCompleteRef.current = onTransitionComplete;
+  }, [onTransitionComplete]);
+
   useEffect(() => {
     // 1. Camera shake runs immediately for 550ms
     const shakeTimer = setTimeout(() => {
@@ -18,14 +23,16 @@ export default function MidnightTransition({ onTransitionComplete }) {
 
     // 2. Climax runs for 3200ms total, then transitions to reveal
     const completeTimer = setTimeout(() => {
-      onTransitionComplete();
+      if (onCompleteRef.current) {
+        onCompleteRef.current();
+      }
     }, 3200);
 
     return () => {
       clearTimeout(shakeTimer);
       clearTimeout(completeTimer);
     };
-  }, [onTransitionComplete]);
+  }, []);
 
   // High performance fireworks in crimson
   useEffect(() => {
@@ -73,6 +80,7 @@ export default function MidnightTransition({ onTransitionComplete }) {
       }
       draw() {
         ctx.save();
+        ctx.globalAlpha = 1.0;
         ctx.translate(this.x, this.y);
         ctx.rotate((this.rotation * Math.PI) / 180);
         ctx.fillStyle = this.color;
@@ -103,6 +111,7 @@ export default function MidnightTransition({ onTransitionComplete }) {
       }
       draw() {
         if (this.alpha <= 0) return;
+        ctx.save();
         // Highly optimized layered glow drawing (30x faster than shadowBlur)
         ctx.fillStyle = this.color;
 
@@ -117,6 +126,7 @@ export default function MidnightTransition({ onTransitionComplete }) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
+        ctx.restore();
       }
     }
 
@@ -147,6 +157,7 @@ export default function MidnightTransition({ onTransitionComplete }) {
         }
       }
       draw() {
+        ctx.save();
         // Optimized layered rocket tail glow
         ctx.fillStyle = this.color;
         
@@ -159,6 +170,7 @@ export default function MidnightTransition({ onTransitionComplete }) {
         ctx.beginPath();
         ctx.arc(this.x, this.y, 3, 0, Math.PI * 2);
         ctx.fill();
+        ctx.restore();
       }
       explode() {
         for (let i = 0; i < 60; i++) {

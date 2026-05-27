@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 
@@ -22,9 +22,23 @@ export default function App() {
   const [targetDate] = useState('2026-05-31T00:00:00'); // Targeted Midnight
   const [currentCountdownTheme, setCurrentCountdownTheme] = useState('days'); // 'days', 'hours', 'minutes', 'seconds'
 
-  // Desktop Liquid Custom Cursor Tracking
-  const [mousePos, setMousePos] = useState({ x: -100, y: -100 });
-  const [ringPos, setRingPos] = useState({ x: -100, y: -100 });
+  // Stable callbacks to prevent unnecessary child effect cancellations
+  const handleTransitionComplete = useCallback(() => {
+    setPhase('reveal');
+  }, []);
+
+  const handleBypassPhase = useCallback((targetPhase) => {
+    setPhase(targetPhase);
+  }, []);
+
+  const handleThemeChange = useCallback((theme) => {
+    setCurrentCountdownTheme(theme);
+  }, []);
+
+  // Ultra-High Performance Desktop Liquid Custom Cursor Tracking (Ref-Based)
+  const cursorDotRef = useRef(null);
+  const cursorRingRef = useRef(null);
+  const mousePosRef = useRef({ x: -100, y: -100 });
   const [isDesktop, setIsDesktop] = useState(false);
 
   useEffect(() => {
@@ -36,7 +50,11 @@ export default function App() {
     window.addEventListener('resize', checkDesktop);
 
     const handleMouseMove = (e) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      mousePosRef.current = { x: e.clientX, y: e.clientY };
+      if (cursorDotRef.current) {
+        cursorDotRef.current.style.left = `${e.clientX}px`;
+        cursorDotRef.current.style.top = `${e.clientY}px`;
+      }
     };
     window.addEventListener('mousemove', handleMouseMove);
 
@@ -46,24 +64,31 @@ export default function App() {
     };
   }, []);
 
-  // Smooth ring cursor delay lag interpolation
+  // Smooth ring cursor delay lag interpolation (Runs entirely outside React re-renders!)
   useEffect(() => {
     if (!isDesktop) return;
+
+    let ringX = -100;
+    let ringY = -100;
     let animationId;
+
     const updateRing = () => {
-      setRingPos((prev) => {
-        const dx = mousePos.x - prev.x;
-        const dy = mousePos.y - prev.y;
-        return {
-          x: prev.x + dx * 0.15, // Interpolation speed
-          y: prev.y + dy * 0.15
-        };
-      });
+      const dx = mousePosRef.current.x - ringX;
+      const dy = mousePosRef.current.y - ringY;
+      
+      ringX += dx * 0.15;
+      ringY += dy * 0.15;
+
+      if (cursorRingRef.current) {
+        cursorRingRef.current.style.left = `${ringX}px`;
+        cursorRingRef.current.style.top = `${ringY}px`;
+      }
       animationId = requestAnimationFrame(updateRing);
     };
+
     animationId = requestAnimationFrame(updateRing);
     return () => cancelAnimationFrame(animationId);
-  }, [mousePos, isDesktop]);
+  }, [isDesktop]);
 
   const handleEnterExperience = () => {
     setPhase('countdown');
@@ -76,15 +101,18 @@ export default function App() {
       {isDesktop && (
         <>
           <div 
+            ref={cursorDotRef}
             className="custom-cursor"
-            style={{ left: `${mousePos.x}px`, top: `${mousePos.y}px` }}
+            style={{ left: '-100px', top: '-100px' }}
           />
           <div 
+            ref={cursorRingRef}
             className="custom-cursor-ring"
-            style={{ left: `${ringPos.x}px`, top: `${ringPos.y}px` }}
+            style={{ left: '-100px', top: '-100px' }}
           />
         </>
       )}
+
 
       {/* 2. Global Canvas Background Particles & Fireflies (Active throughout) */}
       <BackgroundEffects densityMultiplier={phase === 'portals' ? 0.6 : 1} />
@@ -108,9 +136,9 @@ export default function App() {
           >
             <CountdownPhase 
               targetDate={targetDate} 
-              onCountdownComplete={() => setPhase('transition')} 
-              onThemeChange={setCurrentCountdownTheme}
-              onBypassPhase={setPhase}
+              onCountdownComplete={handleTransitionComplete} 
+              onThemeChange={handleThemeChange}
+              onBypassPhase={handleBypassPhase}
             />
           </motion.div>
         )}
@@ -125,7 +153,7 @@ export default function App() {
             transition={{ duration: 0.5 }}
             className="fixed inset-0 w-full h-full z-50 pointer-events-none"
           >
-            <MidnightTransition onTransitionComplete={() => setPhase('reveal')} />
+            <MidnightTransition onTransitionComplete={handleTransitionComplete} />
           </motion.div>
         )}
 

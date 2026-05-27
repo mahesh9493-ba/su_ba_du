@@ -74,6 +74,9 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
   const [simulationMode, setSimulationMode] = useState(null); // null, 'days', 'hours', 'minutes', 'seconds'
   const [simulatedTarget, setSimulatedTarget] = useState(0);
   const [isSwapperOpen, setIsSwapperOpen] = useState(false);
+  const [isDevModeAvailable] = useState(() => {
+    return new URLSearchParams(window.location.search).get('dev') === 'true';
+  });
 
   const [automatedTarget, setAutomatedTarget] = useState(null);
 
@@ -510,145 +513,147 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
         </div>
 
         {/* Developer Mode Time-Travel & Fast-Travel Swapper Dock */}
-        <div className="w-full max-w-md px-4 mt-6 flex flex-col items-center relative z-20">
-          <button 
-            onClick={() => setIsSwapperOpen(!isSwapperOpen)}
-            className="text-[9.5px] uppercase tracking-[0.3em] text-rose-300 font-bold hover:text-white transition-all flex items-center gap-1.5 cursor-pointer py-1 px-4 rounded-full border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 shadow-[0_0_10px_rgba(244,63,94,0.05)] select-none"
-          >
-            <Sparkles className="w-3 h-3 animate-pulse text-rose-400" />
-            <span>{isSwapperOpen ? 'Hide Developer Tools' : 'Developer Tools (Time-Travel)'}</span>
-            <span className="text-[7.5px] opacity-60">{isSwapperOpen ? '▲' : '▼'}</span>
-          </button>
+        {isDevModeAvailable && (
+          <div className="w-full max-w-md px-4 mt-6 flex flex-col items-center relative z-20">
+            <button 
+              onClick={() => setIsSwapperOpen(!isSwapperOpen)}
+              className="text-[9.5px] uppercase tracking-[0.3em] text-rose-300 font-bold hover:text-white transition-all flex items-center gap-1.5 cursor-pointer py-1 px-4 rounded-full border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 shadow-[0_0_10px_rgba(244,63,94,0.05)] select-none"
+            >
+              <Sparkles className="w-3 h-3 animate-pulse text-rose-400" />
+              <span>{isSwapperOpen ? 'Hide Developer Tools' : 'Developer Tools (Time-Travel)'}</span>
+              <span className="text-[7.5px] opacity-60">{isSwapperOpen ? '▲' : '▼'}</span>
+            </button>
 
-          <AnimatePresence>
-            {isSwapperOpen && (
-              <motion.div 
-                initial={{ opacity: 0, height: 0, scale: 0.95 }}
-                animate={{ opacity: 1, height: 'auto', scale: 1 }}
-                exit={{ opacity: 0, height: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                className="w-full flex flex-col items-center mt-3.5 border border-white/10 glassmorphism p-4 rounded-2xl overflow-hidden shadow-2xl bg-black/60"
-              >
-                <span className="text-[8.5px] uppercase tracking-[0.25em] text-rose-300 font-bold mb-2.5 self-start pl-1">
-                  ⏱️ Countdown Simulators
-                </span>
+            <AnimatePresence>
+              {isSwapperOpen && (
+                <motion.div 
+                  initial={{ opacity: 0, height: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, height: 'auto', scale: 1 }}
+                  exit={{ opacity: 0, height: 0, scale: 0.95 }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="w-full flex flex-col items-center mt-3.5 border border-white/10 glassmorphism p-4 rounded-2xl overflow-hidden shadow-2xl bg-black/60"
+                >
+                  <span className="text-[8.5px] uppercase tracking-[0.25em] text-rose-300 font-bold mb-2.5 self-start pl-1">
+                    ⏱️ Countdown Simulators
+                  </span>
 
-                <div className="flex flex-wrap gap-2 justify-center w-full">
-                  <button
-                    onClick={() => handleSetSimulation('days')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === 'days'
-                        ? 'bg-rose-400 text-black border-rose-400 font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Days Mode
-                  </button>
+                  <div className="flex flex-wrap gap-2 justify-center w-full">
+                    <button
+                      onClick={() => handleSetSimulation('days')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === 'days'
+                          ? 'bg-rose-400 text-black border-rose-400 font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Days Mode
+                    </button>
 
-                  <button
-                    onClick={() => handleSetSimulation('hours')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === 'hours'
-                        ? 'bg-amber-400 text-black border-amber-400 font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Hours Mode
-                  </button>
+                    <button
+                      onClick={() => handleSetSimulation('hours')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === 'hours'
+                          ? 'bg-amber-400 text-black border-amber-400 font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Hours Mode
+                    </button>
 
-                  <button
-                    onClick={() => handleSetSimulation('minutes')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === 'minutes'
-                        ? 'bg-pink-400 text-black border-pink-400 font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Minutes Mode
-                  </button>
+                    <button
+                      onClick={() => handleSetSimulation('minutes')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === 'minutes'
+                          ? 'bg-pink-400 text-black border-pink-400 font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Minutes Mode
+                    </button>
 
-                  <button
-                    onClick={() => handleSetSimulation('seconds')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === 'seconds'
-                        ? 'bg-red-500 text-black border-red-500 font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Seconds Mode
-                  </button>
+                    <button
+                      onClick={() => handleSetSimulation('seconds')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === 'seconds'
+                          ? 'bg-red-500 text-black border-red-500 font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/70 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Seconds Mode
+                    </button>
 
-                  <button
-                    onClick={() => handleSetSimulation('real')}
-                    className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
-                      simulationMode === null
-                        ? 'bg-white text-black border-white font-bold shadow-md'
-                        : 'bg-white/5 border-white/10 text-white/30 hover:bg-white/10 hover:text-white'
-                    }`}
-                  >
-                    Real Time
-                  </button>
-                </div>
-                
-                <p className="text-[7.5px] uppercase tracking-widest text-white/30 text-center mt-2.5">
-                  {simulationMode 
-                    ? `Simulating: ${themeConfig.name} Realm` 
-                    : "Running live countdown targeting midnight on May 31"}
-                </p>
+                    <button
+                      onClick={() => handleSetSimulation('real')}
+                      className={`px-3 py-1.5 rounded-lg text-[9px] uppercase tracking-wider font-semibold border transition-all duration-300 ${
+                        simulationMode === null
+                          ? 'bg-white text-black border-white font-bold shadow-md'
+                          : 'bg-white/5 border-white/10 text-white/30 hover:bg-white/10 hover:text-white'
+                      }`}
+                    >
+                      Real Time
+                    </button>
+                  </div>
+                  
+                  <p className="text-[7.5px] uppercase tracking-widest text-white/30 text-center mt-2.5">
+                    {simulationMode 
+                      ? `Simulating: ${themeConfig.name} Realm` 
+                      : "Running live countdown targeting midnight on May 31"}
+                  </p>
 
-                {/* Developer Quick-Bypass & Travel Grid */}
-                <div className="w-full h-px bg-white/5 my-3.5" />
-                
-                <span className="text-[8.5px] uppercase tracking-[0.25em] text-rose-300 font-bold mb-2.5 self-start pl-1">
-                  🚀 Developer Fast Travel
-                </span>
+                  {/* Developer Quick-Bypass & Travel Grid */}
+                  <div className="w-full h-px bg-white/5 my-3.5" />
+                  
+                  <span className="text-[8.5px] uppercase tracking-[0.25em] text-rose-300 font-bold mb-2.5 self-start pl-1">
+                    🚀 Developer Fast Travel
+                  </span>
 
-                <div className="grid grid-cols-3 gap-2 w-full">
-                  {/* Cinematic Opening (Full Sequence) */}
-                  <button
-                    onClick={() => {
-                      onCountdownComplete(); // triggers setPhase('transition')
-                    }}
-                    className="py-2 px-1.5 rounded-lg text-[8.5px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.25)] border border-purple-500/20 active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer select-none"
-                  >
-                    <span className="text-sm">🎬</span>
-                    <span>Transition</span>
-                  </button>
+                  <div className="grid grid-cols-3 gap-2 w-full">
+                    {/* Cinematic Opening (Full Sequence) */}
+                    <button
+                      onClick={() => {
+                        onCountdownComplete(); // triggers setPhase('transition')
+                      }}
+                      className="py-2 px-1.5 rounded-lg text-[8.5px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white shadow-[0_0_15px_rgba(99,102,241,0.25)] border border-purple-500/20 active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer select-none"
+                    >
+                      <span className="text-sm">🎬</span>
+                      <span>Transition</span>
+                    </button>
 
-                  {/* Wished Page (Direct Reveal) */}
-                  <button
-                    onClick={() => {
-                      if (onBypassPhase) {
-                        onBypassPhase('reveal');
-                      } else {
-                        onCountdownComplete();
-                      }
-                    }}
-                    className="py-2 px-1.5 rounded-lg text-[8.5px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-[0_0_15px_rgba(244,63,94,0.25)] border border-rose-500/20 active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer select-none"
-                  >
-                    <span className="text-sm">🎂</span>
-                    <span>Wished Page</span>
-                  </button>
+                    {/* Wished Page (Direct Reveal) */}
+                    <button
+                      onClick={() => {
+                        if (onBypassPhase) {
+                          onBypassPhase('reveal');
+                        } else {
+                          onCountdownComplete();
+                        }
+                      }}
+                      className="py-2 px-1.5 rounded-lg text-[8.5px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-rose-500 to-pink-600 hover:from-rose-400 hover:to-pink-500 text-white shadow-[0_0_15px_rgba(244,63,94,0.25)] border border-rose-500/20 active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer select-none"
+                    >
+                      <span className="text-sm">🎂</span>
+                      <span>Wished Page</span>
+                    </button>
 
-                  {/* Additional Features (Just For You Menu) */}
-                  <button
-                    onClick={() => {
-                      if (onBypassPhase) {
-                        onBypassPhase('portals');
-                      } else {
-                        onCountdownComplete();
-                      }
-                    }}
-                    className="py-2 px-1.5 rounded-lg text-[8.5px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white shadow-[0_0_15px_rgba(20,184,166,0.25)] border border-teal-500/20 active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer select-none"
-                  >
-                    <span className="text-sm">✨</span>
-                    <span>Menu Page</span>
-                  </button>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
+                    {/* Additional Features (Just For You Menu) */}
+                    <button
+                      onClick={() => {
+                        if (onBypassPhase) {
+                          onBypassPhase('portals');
+                        } else {
+                          onCountdownComplete();
+                        }
+                      }}
+                      className="py-2 px-1.5 rounded-lg text-[8.5px] uppercase tracking-wider font-extrabold transition-all duration-300 bg-gradient-to-r from-teal-500 to-emerald-600 hover:from-teal-400 hover:to-emerald-500 text-white shadow-[0_0_15px_rgba(20,184,166,0.25)] border border-teal-500/20 active:scale-95 flex flex-col items-center justify-center gap-1 cursor-pointer select-none"
+                    >
+                      <span className="text-sm">✨</span>
+                      <span>Menu Page</span>
+                    </button>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        )}
 
       </div>
 

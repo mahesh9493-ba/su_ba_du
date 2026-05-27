@@ -92,20 +92,19 @@ const CHAPTERS = [
   },
   {
     id: 6,
-    title: "Sweet Bites of Pure Joy — Waffle Stories ❤️",
-    theme: "Sweet Little Memories",
+    title: "Where Coding Sparked Connections — DCT Academy ❤️",
+    theme: "Our Digital Beginning",
     narration: [
-      "Some memories are serious.",
-      "And some are just sweet little moments that make the heart smile.",
-      "Waffle stories, random teasing, shared desserts, and uncontrollable laughter…",
-      "Those tiny moments slowly became unforgettable."
+      "Learning syntax, variables, and algorithms under classroom fans...",
+      "DCT Academy was never just a coding boot camp anymore...",
+      "It became the place where Dudu and Bagi sat side-by-side, sharing keyboards, solving compiler bugs, and quietly sharing glances.",
+      "In learning how to compile code, their hearts quietly compiled a connection that skips zero beats. ❤️"
     ],
-    img: "/waffle_story.jpg",
     fit: "object-contain",
     position: "object-center",
     effect: "hearts",
-    accent: "from-pink-500/20 via-rose-500/10 to-transparent",
-    glow: "shadow-[0_0_40px_rgba(236,72,153,0.25)] border-pink-500/20"
+    accent: "from-emerald-500/20 via-teal-500/10 to-transparent",
+    glow: "shadow-[0_0_40px_rgba(16,185,129,0.25)] border-emerald-500/20"
   },
   {
     id: 7,
@@ -253,7 +252,68 @@ function CinematicFrame({ chapter }) {
     >
       {/* 1. Base Image or Looping Metro Journey Video */}
       <div className="relative w-full h-full rounded-xl overflow-hidden bg-black/40">
-        {chapter.video ? (
+        {chapter.id === 6 ? (
+          <div className="w-full h-full bg-gradient-to-br from-neutral-900 via-[#060c0d] to-neutral-950 flex flex-col justify-between p-4 sm:p-5 md:p-6 relative overflow-hidden select-none border border-emerald-500/10">
+            {/* Shifting tech-green background blob */}
+            <div className="absolute w-[200px] h-[200px] rounded-full bg-emerald-500/10 filter blur-[80px] -top-12 -left-12 animate-pulse" />
+            <div className="absolute w-[200px] h-[200px] rounded-full bg-teal-500/5 filter blur-[80px] -bottom-12 -right-12" />
+
+            {/* Terminal Header */}
+            <div className="flex justify-between items-center border-b border-emerald-500/20 pb-2 relative z-10">
+              <div className="flex gap-1.5">
+                <div className="w-2.5 h-2.5 rounded-full bg-red-500/60 shadow-[0_0_8px_rgba(239,68,68,0.5)]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/60 shadow-[0_0_8px_rgba(245,158,11,0.5)]" />
+                <div className="w-2.5 h-2.5 rounded-full bg-emerald-500/60 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+              </div>
+              <span className="text-[8px] uppercase tracking-[0.2em] text-emerald-400/80 font-mono flex items-center gap-1.5">
+                <span className="w-1 h-1 rounded-full bg-emerald-400 animate-ping" />
+                dct_academy_terminal.sh
+              </span>
+            </div>
+
+            {/* Center Coding Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center relative z-10 flex-1 py-3 md:py-4">
+              
+              {/* Left Column: Neon Academy Banner */}
+              <div className="md:col-span-5 flex flex-col justify-center gap-1">
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-serif font-black tracking-widest bg-gradient-to-r from-emerald-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent drop-shadow-[0_0_12px_rgba(16,185,129,0.4)]">
+                  DCT ACADEMY
+                </h3>
+                <div className="text-[8px] sm:text-[9px] text-teal-300/80 font-mono tracking-wider uppercase mb-1">
+                  Bangalore Classroom 📍
+                </div>
+                <p className="text-[9px] sm:text-[10px] md:text-xs text-white/55 leading-relaxed font-light">
+                  Where variables, functions, and coding concepts were learned... and where Dudu's hearts slowly compiled into a connection that skips zero beats. ❤️
+                </p>
+              </div>
+
+              {/* Right Column: Code Editor Console Mock-up */}
+              <div className="md:col-span-7 rounded-lg bg-black/60 border border-white/5 p-3 font-mono text-[9px] sm:text-xs leading-relaxed text-emerald-300 shadow-2xl relative">
+                <div className="absolute top-2 right-2 text-[7px] text-white/20 uppercase tracking-widest">
+                  ES6 JS
+                </div>
+                <div className="text-white/30 text-[8px] mb-1 border-b border-white/5 pb-1">
+                  // Compiling beautiful connections...
+                </div>
+                <p className="text-pink-400"><span className="text-blue-400">const</span> connection = <span className="text-amber-300">"Perfect"</span>;</p>
+                <p className="text-teal-400"><span className="text-blue-400">const</span> hearts = &#123;</p>
+                <p className="pl-4 text-emerald-400">dudu: <span className="text-amber-300">"Coding & Teasing 💻"</span>,</p>
+                <p className="pl-4 text-emerald-400">bagi: <span className="text-amber-300">"Sweetest Coder 🌸"</span>,</p>
+                <p className="pl-4 text-emerald-400">status: <span className="text-rose-400">"Infinity ❤️"</span></p>
+                <p className="text-teal-400">&#125;;</p>
+                <p className="text-emerald-400/50 mt-1 text-[8px] sm:text-[9px]">
+                  &gt; Connection compiled successfully with 0 errors!
+                </p>
+              </div>
+            </div>
+
+            {/* Footer Bar */}
+            <div className="flex justify-between items-center border-t border-emerald-500/10 pt-1.5 text-[8px] text-white/40 tracking-widest font-mono relative z-10">
+              <span>SYSTEM: READY</span>
+              <span className="text-emerald-400">STATUS: MATCHED ❤️</span>
+            </div>
+          </div>
+        ) : chapter.video ? (
           <video
             src={chapter.video}
             autoPlay

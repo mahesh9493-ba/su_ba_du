@@ -476,9 +476,6 @@ export default function MemoryTimeline() {
     { src: "/tirumala_trip.jpg", title: "Sacred Prayers", note: "Our trip to Tirumala—climbing heights together and seeking blessings for our beautiful journey ahead. 🙏" },
     { src: "/waffle_story.jpg", title: "Waffle Stories", note: "Waffle stories, random teasing, and sharing that delicious chocolate bite. You look so incredibly adorable when you eat! ❤️" },
     { src: "/collage_coconut.jpg", title: "Sweet Sips", note: "Late night coconut water dates, sharing simple sips under the stars. Seeing you happy in these little, quiet moments is all I ever want. 🥥❤️" },
-    { src: "/scene1_dudu_solo.jpg", title: "Before You", note: "Dudu walking his own path, carefree and unaware that someone was about to change everything forever. 🧢" },
-    { src: "/scene1_gang_night.jpg", title: "Gang Nights", note: "The boys, the laughter, the nights that felt endless. Life was simpler then, but something was always missing. 🌙" },
-    { src: "/scene1_gang_cafe.jpg", title: "Cafe Crew", note: "Hangouts, chai, and a group that made every ordinary day feel like a little celebration. ☕❤️" },
     { src: "/collage_mem_1.jpg", title: "A Glimpse of Heaven", note: "Every time I look at this picture, I see the absolute grace that walked into my life and made it whole. ❤️" },
     { src: "/collage_mem_2.jpg", title: "Warmth & Comfort", note: "In your eyes, I find a quiet warmth that heals every broken piece of me. The sweetest soul in existence. ✨" },
     { src: "/collage_mem_3.jpg", title: "Captured Essence", note: "This candid captures the exact magic of you—unfiltered, beautiful, and completely breathtaking. 🌸" },
@@ -487,14 +484,7 @@ export default function MemoryTimeline() {
     { src: "/collage_park_flags.jpg", title: "A Splendid View", note: "Even in a garden full of blooming flowers and vibrant colors, my eyes always find their way to you. The most beautiful flower in the world. 🌸✨" },
     { src: "/collage_chandelier_1.jpg", title: "Shining Star", note: "Under the glowing chandeliers, you outshined every light in the room. Breathtakingly beautiful, absolute elegance. 💖" },
     { src: "/collage_chandelier_2.jpg", title: "Divine Grace", note: "Draped in colors, smiling so warmly. You look like a beautiful dream I never want to wake up from. ❤️" },
-    { src: "/collage_flower_backpack.jpg", title: "Joyful Travels", note: "That cute pink backpack and your bright, happy smile. Exploring the world with you is my ultimate dream. 🎒🗺️" },
-    { src: "/collage_stairs_group.jpg", title: "The College Gang", note: "The gang, the endless banters, the college steps where our paths crossed. Where my life's most beautiful chapter began. 🎓❤️" },
-    { src: "/scene2_waterfall_trip.jpg", title: "Waterfall Adventure", note: "Waterfalls, wet clothes, cold breezes, and having you right beside me in the center of the world. One of our most thrilling group trips! 🌊❤️" },
-    { src: "/collage_college_ids.jpg", title: "SVCE College Days", note: "SVCE engineering IDs, the classrooms, the heavy backpacks, and my college brothers who made every dry class feel like an adventure. 🎓👥" },
-    { src: "/collage_cake_smash.jpg", title: "Birthday Smashes", note: "Cake smeared all over our faces, laughing like crazy. Typical hostel birthday traditions that are messy but unforgettable! 🎂😜" },
-    { src: "/collage_college_fest_group.jpg", title: "Fest Night Gathering", note: "Sitting together on the lawn under the bright lights, enjoying the college breeze and having you near. The best nights of SVCE! 🌟❤️" },
-    { src: "/collage_fest_night_selfie.jpg", title: "SVCE Concert Vibes", note: "Crowds screaming, bass thumping, and taking selfies in the middle of a massive college concert. Unmatched energy with my best folks! 🎵🔥" },
-    { src: "/collage_hostel_birthday.jpg", title: "Midnight hostel cuts", note: "Hostel room birthdays, cutting standard bakery cakes, and the crazy roomies who make midnight celebrations so loud and special. 🎂🎉" }
+    { src: "/collage_flower_backpack.jpg", title: "Joyful Travels", note: "That cute pink backpack and your bright, happy smile. Exploring the world with you is my ultimate dream. 🎒🗺️" }
   ];
 
   // Track vertical scroll progress within portal context

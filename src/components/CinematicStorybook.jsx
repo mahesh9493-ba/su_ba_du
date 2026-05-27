@@ -9,14 +9,19 @@ const SCENE_ASSETS = {
       { url: "/scene1_dudu_solo.jpg", title: "Carefree Dudu 🧢" },
       { url: "/scene1_gang_night.jpg", title: "Boys gang nights out 🌙" },
       { url: "/scene1_gang_cafe.jpg", title: "Road trips & rides 🏍️" },
-      { url: "/collage_college_ids.jpg", title: "SVCE College Days 🎓" }
+      { url: "/collage_college_ids.jpg", title: "SVCE College Days 🎓" },
+      { url: "/scene2_waterfall_trip.jpg", title: "Waterfall adventure 🌊" },
+      { url: "/collage_cake_smash.jpg", title: "Birthday smashes 🎂" },
+      { url: "/collage_college_fest_group.jpg", title: "Fest lawn gathering 🌟" },
+      { url: "/collage_fest_night_selfie.jpg", title: "Concert vibes 🎵" },
+      { url: "/collage_hostel_birthday.jpg", title: "Midnight hostel cuts 🎂" }
     ]
   },
   scene2: {
     title: "Bagi’s Entry ❤️",
     images: [
       { url: "/collage_smile_portrait.jpg", title: "Bagi entering Dudu's world" },
-      { url: "/scene2_waterfall_trip.jpg", title: "Waterfall adventure 🌊" },
+      { url: "/collage_corridor.jpg", title: "Silent classroom glance" },
       { url: "/tirumala_trip.jpg", title: "Tirumala misty mountain roads" }
     ]
   },
@@ -581,9 +586,9 @@ please let her stay beside me in every chapter ahead. ❤️`
                 transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full min-h-[70vh]"
               >
-                {/* Visuals - Tactile Scattered Polaroid Pile of 4 memories */}
+                {/* Visuals - Tactile Scattered Polaroid Pile of 9 memories */}
                 <div className="lg:col-span-6 flex justify-center items-center py-4 w-full relative z-10">
-                  <div className="grid grid-cols-2 gap-4 max-w-sm sm:max-w-md w-full pointer-events-auto">
+                  <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-lg w-full pointer-events-auto">
                     {SCENE_ASSETS.scene1.images.map((img, i) => {
                       // Deterministic rotation and slight y-translation for scattered tactile feel
                       const rot = ((i * 5) % 7) - 3;
@@ -698,7 +703,7 @@ please let her stay beside me in every chapter ahead. ❤️`
                       alt={SCENE_ASSETS.scene2.images[1].title}
                       className="w-full h-18 sm:h-24 md:h-32 object-cover rounded hover:brightness-110 duration-500"
                     />
-                    <p className="font-handwritten text-lg text-center text-amber-300 mt-2">Waterfall adventure 🌊</p>
+                    <p className="font-handwritten text-lg text-center text-amber-300 mt-2">Classroom eye contact 📚</p>
                   </motion.div>
 
                   {/* Tirumala hill fog */}

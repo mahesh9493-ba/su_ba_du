@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Sparkles } from 'lucide-react';
 
 const NARRATIVES = [
   "Ticking towards cozy mountain sunset chai talks... ☕🌅",
@@ -491,7 +492,18 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
           </AnimatePresence>
         </div>
 
-
+        {/* Luxury Demo Bypass Button for Testing */}
+        <motion.button
+          initial={{ opacity: 0, y: 15 }}
+          animate={{ opacity: 0.7, y: 0 }}
+          whileHover={{ opacity: 1, scale: 1.05, boxShadow: "0 0 20px rgba(244,63,94,0.4)" }}
+          whileTap={{ scale: 0.98 }}
+          onClick={() => onBypassPhase && onBypassPhase('portals')}
+          className="mt-6 px-6 py-2.5 rounded-full border border-rose-500/30 bg-rose-500/10 hover:bg-rose-500/20 text-rose-200 text-xs uppercase tracking-[0.2em] font-semibold transition-all duration-300 shadow-[0_0_15px_rgba(244,63,94,0.15)] flex items-center gap-2 cursor-pointer relative z-20"
+        >
+          <Sparkles className="w-3.5 h-3.5 animate-pulse text-rose-300" />
+          Demo: Explore Memories 📖
+        </motion.button>
 
       </div>
 

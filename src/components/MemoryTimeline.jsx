@@ -557,7 +557,11 @@ export default function MemoryTimeline() {
     { src: "/collage_mem_12.jpg", title: "Midnight Glow", note: "Leaning on the balcony overlooking the endless city lights, but my eyes were only reflecting you. You outshine the entire city, Bagi. 🌌✨" },
     { src: "/collage_mem_13.jpg", title: "Wonderla Greens", note: "Standing gracefully against the lush green Wonderla backdrop. Every simple pose of yours looks like a perfectly framed painting. 💚" },
     { src: "/collage_mem_14.jpg", title: "3D Adventures", note: "Yellow glasses on, ready for the adventure! Watching you laugh and jump in the theater made the movie ten times better. 🕶️🎬" },
-    { src: "/collage_mem_15.jpg", title: "Loving Wonderla", note: "Standing proud in front of the big heart. But honestly? I ❤️ Bagi is the only statement that resides in my heart. 💖" }
+    { src: "/collage_mem_15.jpg", title: "Loving Wonderla", note: "Standing proud in front of the big heart. But honestly? I ❤️ Bagi is the only statement that resides in my heart. 💖" },
+    { src: "/collage_mem_16.jpg", title: "Cute Mascot", note: "Standing next to that giant smiling character, making matching peace signs. Your playful energy is absolutely contagious! ✌️🧡" },
+    { src: "/collage_mem_17.jpg", title: "Midnight Birthday", note: "Faces full of cake cream, wide smiles, and pure birthday joy. Every celebration is unforgettable when we are together. 🎂🎉" },
+    { src: "/collage_mem_18.jpg", title: "Teasing Smiles", note: "That beautiful, uncontrollable laugh when someone teases you by pulling your hair. I love seeing you laugh so genuinely! 😊❤️" },
+    { src: "/collage_mem_19.jpg", title: "Night Concert", note: "Surrounded by a giant squad, music in the air, and lights glowing. The best nights are the ones we spend under the open sky! 🎵✨" }
   ];
 
   // Track vertical scroll progress within portal context

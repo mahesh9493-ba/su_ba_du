@@ -9,9 +9,7 @@ const SCENE_ASSETS = {
       { url: "/scene1_dudu_solo.jpg", title: "Carefree Dudu 🧢" },
       { url: "/scene1_gang_night.jpg", title: "Boys gang nights out 🌙" },
       { url: "/scene1_gang_cafe.jpg", title: "Road trips & rides 🏍️" },
-      { url: "/collage_college_ids.jpg", title: "SVCE College Days 🎓" },
-      { url: "/collage_stairs_group.jpg", title: "Our college gang 👥" },
-      { url: "/nandi_group.jpg", title: "Carefree laughter ☕" }
+      { url: "/collage_college_ids.jpg", title: "SVCE College Days 🎓" }
     ]
   },
   scene2: {
@@ -583,9 +581,9 @@ please let her stay beside me in every chapter ahead. ❤️`
                 transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full min-h-[70vh]"
               >
-                {/* Visuals - Tactile Scattered Polaroid Pile of 6 memories */}
+                {/* Visuals - Tactile Scattered Polaroid Pile of 4 memories */}
                 <div className="lg:col-span-6 flex justify-center items-center py-4 w-full relative z-10">
-                  <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-lg w-full pointer-events-auto">
+                  <div className="grid grid-cols-2 gap-4 max-w-sm sm:max-w-md w-full pointer-events-auto">
                     {SCENE_ASSETS.scene1.images.map((img, i) => {
                       // Deterministic rotation and slight y-translation for scattered tactile feel
                       const rot = ((i * 5) % 7) - 3;

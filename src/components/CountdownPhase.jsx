@@ -337,7 +337,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
               >
                 {/* Massive Days display as primary focus */}
                 <div className="flex flex-col items-center justify-center animate-[days-breathing_8s_ease-in-out_infinite]">
-                  <h2 className="text-8xl sm:text-[9rem] md:text-[11rem] font-serif font-black tracking-widest leading-none text-transparent bg-clip-text bg-gradient-to-b from-rose-100 via-rose-300 to-orange-300 drop-shadow-[0_8px_30px_rgba(244,63,94,0.35)]">
+                  <h2 className="text-6xl sm:text-8xl md:text-[11rem] font-serif font-black tracking-widest leading-none text-transparent bg-clip-text bg-gradient-to-b from-rose-100 via-rose-300 to-orange-300 drop-shadow-[0_8px_30px_rgba(244,63,94,0.35)]">
                     {pad(timeLeft.days)}
                   </h2>
                   
@@ -477,7 +477,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
                 
                 {/* Bouncing Second numbers */}
                 <div className="flex flex-col items-center justify-center relative z-10 animate-[seconds-heartbeat-bounce_1s_infinite]">
-                  <h2 className="font-sans text-[10rem] sm:text-[13rem] md:text-[16rem] font-black tracking-tighter leading-none text-red-500 drop-shadow-[0_0_55px_rgba(244,63,94,0.9)]">
+                  <h2 className="font-sans text-7xl sm:text-[11rem] md:text-[15rem] font-black tracking-tighter leading-none text-red-500 drop-shadow-[0_0_55px_rgba(244,63,94,0.9)]">
                     {pad(timeLeft.seconds)}
                   </h2>
                   <span className="text-[11px] sm:text-xs md:text-sm font-black tracking-[0.45em] text-rose-400 uppercase mt-2 animate-pulse">

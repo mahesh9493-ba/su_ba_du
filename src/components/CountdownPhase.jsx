@@ -75,9 +75,22 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
   const [simulatedTarget, setSimulatedTarget] = useState(0);
   const [isSwapperOpen, setIsSwapperOpen] = useState(false);
 
+  const [automatedTarget, setAutomatedTarget] = useState(null);
+
+  // If countdown reaches zero, and they haven't seen the surprise yet,
+  // trigger a 5-second countdown simulator so they see the 5,4,3,2,1 climax!
+  useEffect(() => {
+    const realDifference = +new Date(targetDate) - Date.now();
+    if (realDifference <= 0 && localStorage.getItem('surprise_unlocked') !== 'true' && !automatedTarget) {
+      setAutomatedTarget(Date.now() + 5900); // 5 seconds + buffer
+    }
+  }, [targetDate, automatedTarget]);
+
   // Calculate active stage theme based on remaining countdown metrics
   let activeTheme = 'days';
-  if (timeLeft.days > 0) {
+  if (automatedTarget) {
+    activeTheme = 'seconds';
+  } else if (timeLeft.days > 0) {
     activeTheme = 'days';
   } else if (timeLeft.hours > 0) {
     activeTheme = 'hours';
@@ -128,7 +141,9 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
   // 1. Calculate precise remaining time to May 31 or simulated target
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const target = simulationMode ? simulatedTarget : +new Date(targetDate);
+      const target = automatedTarget
+        ? automatedTarget
+        : (simulationMode ? simulatedTarget : +new Date(targetDate));
       const difference = target - Date.now();
       let newTimeLeft = { days: 0, hours: 0, minutes: 0, seconds: 0 };
 
@@ -140,7 +155,9 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
           seconds: Math.floor((difference / 1000) % 60)
         };
       } else {
-        if (simulationMode) {
+        if (automatedTarget) {
+          onCountdownComplete();
+        } else if (simulationMode) {
           // Loop back simulation when it hits 0 so they can test infinitely
           handleSetSimulation(simulationMode);
           return;
@@ -154,7 +171,7 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
     calculateTimeLeft();
     const timer = setInterval(calculateTimeLeft, 1000);
     return () => clearInterval(timer);
-  }, [targetDate, onCountdownComplete, simulationMode, simulatedTarget]);
+  }, [targetDate, onCountdownComplete, simulationMode, simulatedTarget, automatedTarget]);
 
   // 2. Spawn floating background particles based on active stage
   useEffect(() => {

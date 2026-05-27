@@ -46,8 +46,13 @@ const BUBBLES = [
   }
 ];
 
-export default function MemoryPops() {
+export default function MemoryPops({ onReplayClimax }) {
   const [activePortal, setActivePortal] = useState(null);
+
+  // Mark surprise as unlocked on first successful access
+  React.useEffect(() => {
+    localStorage.setItem('surprise_unlocked', 'true');
+  }, []);
 
   // Render active portal content
   const renderPortalContent = () => {
@@ -97,6 +102,18 @@ export default function MemoryPops() {
               <p className="text-sm font-light text-white/50 leading-relaxed">
                 Click on any of the floating globes to unlock interactive sections, emotional stories, and secret handwritten messages.
               </p>
+
+              {/* Subtle Replay Climax Option for Returning Visits */}
+              <motion.button
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 0.5 }}
+                whileHover={{ opacity: 0.95, scale: 1.03 }}
+                onClick={() => onReplayClimax && onReplayClimax('transition')}
+                className="mt-6 text-[8.5px] uppercase tracking-[0.2em] text-rose-300/80 hover:text-white transition-all cursor-pointer flex items-center gap-1.5 py-1.5 px-4.5 rounded-full border border-rose-500/20 bg-rose-500/5 hover:bg-rose-500/10 shadow-sm mx-auto select-none pointer-events-auto"
+              >
+                <span>🎬 Replay Birthday Climax & Cake</span>
+              </motion.button>
+
             </div>
 
             {/* Orbital drifting bubble layout */}

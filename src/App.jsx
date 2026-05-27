@@ -11,7 +11,13 @@ import BirthdayReveal from './components/BirthdayReveal';
 import MemoryPops from './components/MemoryPops';
 
 export default function App() {
-  const [phase, setPhase] = useState('countdown'); // 'countdown', 'transition', 'reveal', 'portals'
+  const [phase, setPhase] = useState(() => {
+    const target = new Date('2026-05-31T00:00:00').getTime();
+    if (Date.now() >= target && localStorage.getItem('surprise_unlocked') === 'true') {
+      return 'portals';
+    }
+    return 'countdown';
+  }); // 'countdown', 'transition', 'reveal', 'portals'
 
   const [targetDate] = useState('2026-05-31T00:00:00'); // Targeted Midnight
   const [currentCountdownTheme, setCurrentCountdownTheme] = useState('days'); // 'days', 'hours', 'minutes', 'seconds'
@@ -146,7 +152,7 @@ export default function App() {
             transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
             className="relative z-10 w-full"
           >
-            <MemoryPops />
+            <MemoryPops onReplayClimax={(targetPhase) => setPhase(targetPhase)} />
           </motion.div>
         )}
 

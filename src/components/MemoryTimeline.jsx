@@ -552,7 +552,12 @@ export default function MemoryTimeline() {
     { src: "/collage_mem_7.jpg", title: "Wonderla Hands", note: "Our wrists locked in circle, the promise of fun, adventure, and laughing like kids all day at Wonderla. Best squad memories! 🎢💙" },
     { src: "/collage_mem_8.jpg", title: "Pink Grace", note: "Leaning back, looking so serene and peaceful against the sky. Your elegance in this pink dress is completely unmatched. 🌸✨" },
     { src: "/collage_mem_9.jpg", title: "Framed Love", note: "Framing your beautiful face between my fingers, while you shyly hide your eyes. My favorite game is capturing your cuteness! 📸❤️" },
-    { src: "/collage_mem_10.jpg", title: "Coaster Screams", note: "Fists raised, hearts pumping, and screaming our lungs out on the coaster! Exploring thrill rides beside you makes every moment unforgettable. 🎢🔥" }
+    { src: "/collage_mem_10.jpg", title: "Coaster Screams", note: "Fists raised, hearts pumping, and screaming our lungs out on the coaster! Exploring thrill rides beside you makes every moment unforgettable. 🎢🔥" },
+    { src: "/collage_mem_11.jpg", title: "Coaster Thrills", note: "Hearing you scream in pure excitement next to me on the coaster—that raw, carefree joy is something I want to protect forever. ❤️" },
+    { src: "/collage_mem_12.jpg", title: "Midnight Glow", note: "Leaning on the balcony overlooking the endless city lights, but my eyes were only reflecting you. You outshine the entire city, Bagi. 🌌✨" },
+    { src: "/collage_mem_13.jpg", title: "Wonderla Greens", note: "Standing gracefully against the lush green Wonderla backdrop. Every simple pose of yours looks like a perfectly framed painting. 💚" },
+    { src: "/collage_mem_14.jpg", title: "3D Adventures", note: "Yellow glasses on, ready for the adventure! Watching you laugh and jump in the theater made the movie ten times better. 🕶️🎬" },
+    { src: "/collage_mem_15.jpg", title: "Loving Wonderla", note: "Standing proud in front of the big heart. But honestly? I ❤️ Bagi is the only statement that resides in my heart. 💖" }
   ];
 
   // Track vertical scroll progress within portal context

@@ -15,7 +15,7 @@ const SCENE_ASSETS = {
     title: "Bagi’s Entry ❤️",
     images: [
       { url: "/collage_smile_portrait.jpg", title: "Bagi entering Dudu's world" },
-      { url: "/collage_stairs_group.jpg", title: "The friendship circle 👥" },
+      { url: "/scene2_waterfall_trip.jpg", title: "Waterfall adventure 🌊" },
       { url: "/tirumala_trip.jpg", title: "Tirumala misty mountain roads" }
     ]
   },
@@ -717,7 +717,7 @@ please let her stay beside me in every chapter ahead. ❤️`
                       alt={SCENE_ASSETS.scene2.images[1].title}
                       className="w-full h-18 sm:h-24 md:h-32 object-cover rounded hover:brightness-110 duration-500"
                     />
-                    <p className="font-handwritten text-lg text-center text-amber-300 mt-2">Our college gang 👥</p>
+                    <p className="font-handwritten text-lg text-center text-amber-300 mt-2">Waterfall adventure 🌊</p>
                   </motion.div>
 
                   {/* Tirumala hill fog */}

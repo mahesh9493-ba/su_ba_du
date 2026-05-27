@@ -488,7 +488,9 @@ export default function MemoryTimeline() {
     { src: "/collage_chandelier_1.jpg", title: "Shining Star", note: "Under the glowing chandeliers, you outshined every light in the room. Breathtakingly beautiful, absolute elegance. 💖" },
     { src: "/collage_chandelier_2.jpg", title: "Divine Grace", note: "Draped in colors, smiling so warmly. You look like a beautiful dream I never want to wake up from. ❤️" },
     { src: "/collage_flower_backpack.jpg", title: "Joyful Travels", note: "That cute pink backpack and your bright, happy smile. Exploring the world with you is my ultimate dream. 🎒🗺️" },
-    { src: "/collage_stairs_group.jpg", title: "The College Gang", note: "The gang, the endless banters, the college steps where our paths crossed. Where my life's most beautiful chapter began. 🎓❤️" }
+    { src: "/collage_stairs_group.jpg", title: "The College Gang", note: "The gang, the endless banters, the college steps where our paths crossed. Where my life's most beautiful chapter began. 🎓❤️" },
+    { src: "/scene2_waterfall_trip.jpg", title: "Waterfall Adventure", note: "Waterfalls, wet clothes, cold breezes, and having you right beside me in the center of the world. One of our most thrilling group trips! 🌊❤️" },
+    { src: "/collage_college_ids.jpg", title: "SVCE College Days", note: "SVCE engineering IDs, the classrooms, the heavy backpacks, and my college brothers who made every dry class feel like an adventure. 🎓👥" }
   ];
 
   // Track vertical scroll progress within portal context

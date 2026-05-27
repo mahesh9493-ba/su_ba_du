@@ -512,8 +512,8 @@ export default function CountdownPhase({ onCountdownComplete, targetDate, onThem
           </AnimatePresence>
         </div>
 
-        {/* Developer Mode Time-Travel & Fast-Travel Swapper Dock */}
-        {isDevModeAvailable && (
+        {/* Developer Mode Time-Travel & Fast-Travel Swapper Dock - DISABLED FOR Suspense */}
+        {false && (
           <div className="w-full max-w-md px-4 mt-6 flex flex-col items-center relative z-20">
             <button 
               onClick={() => setIsSwapperOpen(!isSwapperOpen)}

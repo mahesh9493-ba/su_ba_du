@@ -5,14 +5,13 @@ import { Sparkles } from 'lucide-react';
 // Core Components
 import BackgroundEffects from './components/BackgroundEffects';
 
-import WelcomePhase from './components/WelcomePhase';
 import CountdownPhase from './components/CountdownPhase';
 import MidnightTransition from './components/MidnightTransition';
 import BirthdayReveal from './components/BirthdayReveal';
 import MemoryPops from './components/MemoryPops';
 
 export default function App() {
-  const [phase, setPhase] = useState('intro'); // 'intro', 'countdown', 'transition', 'reveal', 'portals'
+  const [phase, setPhase] = useState('countdown'); // 'countdown', 'transition', 'reveal', 'portals'
 
   const [targetDate] = useState('2026-05-31T00:00:00'); // Targeted Midnight
   const [currentCountdownTheme, setCurrentCountdownTheme] = useState('days'); // 'days', 'hours', 'minutes', 'seconds'
@@ -89,21 +88,7 @@ export default function App() {
       {/* 4. Global Screen Phase Router */}
       <AnimatePresence mode="wait">
         
-        {/* PHASE A: WELCOME & SOUND UNLOCK SCREEN */}
-        {phase === 'intro' && (
-          <motion.div
-            key="welcome-screen"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, scale: 0.98 }}
-            transition={{ duration: 1.2, ease: [0.25, 1, 0.5, 1] }}
-            className="w-full relative z-20"
-          >
-            <WelcomePhase 
-              onUnlock={handleEnterExperience} 
-            />
-          </motion.div>
-        )}
+
 
         {/* PHASE B: COUNTDOWN EXPERIENCE */}
         {phase === 'countdown' && (

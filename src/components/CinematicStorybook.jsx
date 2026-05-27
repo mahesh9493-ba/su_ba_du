@@ -6,9 +6,12 @@ const SCENE_ASSETS = {
   scene1: {
     title: "Before Bagi",
     images: [
-      { url: "/scene1_dudu_solo.jpg", title: "Dudu walking alone, carefree" },
-      { url: "/scene1_gang_night.jpg", title: "Boys gang night out" },
-      { url: "/scene1_gang_cafe.jpg", title: "Carefree college gang hangout" }
+      { url: "/scene1_dudu_solo.jpg", title: "Carefree Dudu 🧢" },
+      { url: "/scene1_gang_night.jpg", title: "Boys gang nights out 🌙" },
+      { url: "/scene1_gang_cafe.jpg", title: "Road trips & rides 🏍️" },
+      { url: "/collage_college_ids.jpg", title: "SVCE College Days 🎓" },
+      { url: "/collage_stairs_group.jpg", title: "Our college gang 👥" },
+      { url: "/nandi_group.jpg", title: "Carefree laughter ☕" }
     ]
   },
   scene2: {
@@ -580,59 +583,39 @@ please let her stay beside me in every chapter ahead. ❤️`
                 transition={{ duration: 0.8, ease: [0.25, 1, 0.5, 1] }}
                 className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full min-h-[70vh]"
               >
-                {/* Visuals */}
-                <div className="lg:col-span-6 flex justify-center items-center relative min-h-[350px] lg:min-h-[450px] w-full">
-                  
-                  {/* Floating image 1 (Boys gang) */}
-                  <motion.div
-                    initial={{ rotate: -8, x: -30, opacity: 0 }}
-                    animate={{ rotate: -10, x: -20, opacity: 1 }}
-                    transition={{ delay: 0.2 }}
-                    whileHover={{ scale: 1.04, rotate: -2, zIndex: 12 }}
-                    className="absolute left-2 sm:left-4 top-2 sm:top-4 w-28 sm:w-44 md:w-52 p-2 sm:p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
-                  >
-                    <img
-                      src={SCENE_ASSETS.scene1.images[0].url}
-                      alt={SCENE_ASSETS.scene1.images[0].title}
-                      className="w-full h-20 sm:h-28 md:h-32 object-cover rounded grayscale hover:grayscale-0 transition-all duration-500"
-                    />
-                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Just Dudu & the world 🧢</p>
-                  </motion.div>
-
-                  {/* Floating image 2 (Lonely night ride) */}
-                  <motion.div
-                    initial={{ rotate: 10, x: 30, opacity: 0 }}
-                    animate={{ rotate: 8, x: 20, opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    whileHover={{ scale: 1.04, rotate: 2, zIndex: 12 }}
-                    className="absolute right-2 sm:right-4 bottom-2 sm:bottom-4 w-28 sm:w-44 md:w-52 p-2 sm:p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md"
-                  >
-                    <img
-                      src={SCENE_ASSETS.scene1.images[1].url}
-                      alt={SCENE_ASSETS.scene1.images[1].title}
-                      className="w-full h-20 sm:h-28 md:h-32 object-cover rounded hover:brightness-110 transition-all duration-500"
-                    />
-                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Boys gang nights out 🌙</p>
-                  </motion.div>
-
-                  {/* Floating image 3 (Gang cafe hangout) */}
-                  <motion.div
-                    initial={{ rotate: -4, y: 20, opacity: 0 }}
-                    animate={{ rotate: -3, y: 0, opacity: 1 }}
-                    transition={{ delay: 0.7 }}
-                    whileHover={{ scale: 1.04, rotate: 0, zIndex: 12 }}
-                    className="absolute left-1/2 -translate-x-1/2 bottom-2 sm:bottom-6 w-28 sm:w-44 md:w-52 p-2 sm:p-3 bg-white/5 border border-white/10 rounded-lg shadow-2xl polaroid-card transform pointer-events-auto backdrop-blur-md z-10"
-                  >
-                    <img
-                      src={SCENE_ASSETS.scene1.images[2].url}
-                      alt={SCENE_ASSETS.scene1.images[2].title}
-                      className="w-full h-20 sm:h-28 md:h-32 object-cover rounded hover:brightness-110 transition-all duration-500"
-                    />
-                    <p className="font-handwritten text-sm sm:text-lg text-center text-luxury-rose mt-1.5 sm:mt-2">Cafe hangouts & laughter ☕</p>
-                  </motion.div>
-
-                  {/* Placeholder div to maintain spacing */}
-
+                {/* Visuals - Tactile Scattered Polaroid Pile of 6 memories */}
+                <div className="lg:col-span-6 flex justify-center items-center py-4 w-full relative z-10">
+                  <div className="grid grid-cols-3 gap-3 sm:gap-4 max-w-lg w-full pointer-events-auto">
+                    {SCENE_ASSETS.scene1.images.map((img, i) => {
+                      // Deterministic rotation and slight y-translation for scattered tactile feel
+                      const rot = ((i * 5) % 7) - 3;
+                      const yOffset = i % 2 === 0 ? 4 : -4;
+                      return (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.9, y: 25, rotate: rot }}
+                          animate={{ opacity: 1, scale: 1, y: yOffset }}
+                          whileHover={{ 
+                            scale: 1.08, 
+                            rotate: 0, 
+                            zIndex: 30,
+                            boxShadow: "0 20px 40px rgba(244,63,94,0.4)" 
+                          }}
+                          transition={{ type: "spring", stiffness: 240, damping: 18, delay: i * 0.08 }}
+                          className="p-2 bg-white/5 border border-white/10 rounded shadow-xl polaroid-card flex flex-col justify-between backdrop-blur-md cursor-pointer hover:border-rose-500/30"
+                        >
+                          <div className="aspect-[3/4] w-full rounded overflow-hidden bg-black/40 flex items-center justify-center border border-white/5">
+                            <img
+                              src={img.url}
+                              alt={img.title}
+                              className="w-full h-full object-cover hover:contrast-115 transition-all duration-300"
+                            />
+                          </div>
+                          <p className="font-handwritten text-[10px] sm:text-xs text-center text-rose-300 mt-2 block truncate">{img.title}</p>
+                        </motion.div>
+                      );
+                    })}
+                  </div>
                 </div>
 
                 {/* Story Narration */}

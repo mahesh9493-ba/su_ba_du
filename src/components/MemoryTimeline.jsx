@@ -547,7 +547,12 @@ export default function MemoryTimeline() {
     { src: "/collage_park_flags.jpg", title: "A Splendid View", note: "Even in a garden full of blooming flowers and vibrant colors, my eyes always find their way to you. The most beautiful flower in the world. 🌸✨" },
     { src: "/collage_chandelier_1.jpg", title: "Shining Star", note: "Under the glowing chandeliers, you outshined every light in the room. Breathtakingly beautiful, absolute elegance. 💖" },
     { src: "/collage_chandelier_2.jpg", title: "Divine Grace", note: "Draped in colors, smiling so warmly. You look like a beautiful dream I never want to wake up from. ❤️" },
-    { src: "/collage_flower_backpack.jpg", title: "Joyful Travels", note: "That cute pink backpack and your bright, happy smile. Exploring the world with you is my ultimate dream. 🎒🗺️" }
+    { src: "/collage_flower_backpack.jpg", title: "Joyful Travels", note: "That cute pink backpack and your bright, happy smile. Exploring the world with you is my ultimate dream. 🎒🗺️" },
+    { src: "/collage_mem_6.jpg", title: "Roof Top Cuddles", note: "Standing on the rooftop, the wind in your hair, and having you so close in my frame. You are my absolute favorite view, Bagi. ❤️" },
+    { src: "/collage_mem_7.jpg", title: "Wonderla Hands", note: "Our wrists locked in circle, the promise of fun, adventure, and laughing like kids all day at Wonderla. Best squad memories! 🎢💙" },
+    { src: "/collage_mem_8.jpg", title: "Pink Grace", note: "Leaning back, looking so serene and peaceful against the sky. Your elegance in this pink dress is completely unmatched. 🌸✨" },
+    { src: "/collage_mem_9.jpg", title: "Framed Love", note: "Framing your beautiful face between my fingers, while you shyly hide your eyes. My favorite game is capturing your cuteness! 📸❤️" },
+    { src: "/collage_mem_10.jpg", title: "Coaster Screams", note: "Fists raised, hearts pumping, and screaming our lungs out on the coaster! Exploring thrill rides beside you makes every moment unforgettable. 🎢🔥" }
   ];
 
   // Track vertical scroll progress within portal context

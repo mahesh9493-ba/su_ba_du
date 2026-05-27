@@ -490,7 +490,11 @@ export default function MemoryTimeline() {
     { src: "/collage_flower_backpack.jpg", title: "Joyful Travels", note: "That cute pink backpack and your bright, happy smile. Exploring the world with you is my ultimate dream. 🎒🗺️" },
     { src: "/collage_stairs_group.jpg", title: "The College Gang", note: "The gang, the endless banters, the college steps where our paths crossed. Where my life's most beautiful chapter began. 🎓❤️" },
     { src: "/scene2_waterfall_trip.jpg", title: "Waterfall Adventure", note: "Waterfalls, wet clothes, cold breezes, and having you right beside me in the center of the world. One of our most thrilling group trips! 🌊❤️" },
-    { src: "/collage_college_ids.jpg", title: "SVCE College Days", note: "SVCE engineering IDs, the classrooms, the heavy backpacks, and my college brothers who made every dry class feel like an adventure. 🎓👥" }
+    { src: "/collage_college_ids.jpg", title: "SVCE College Days", note: "SVCE engineering IDs, the classrooms, the heavy backpacks, and my college brothers who made every dry class feel like an adventure. 🎓👥" },
+    { src: "/collage_cake_smash.jpg", title: "Birthday Smashes", note: "Cake smeared all over our faces, laughing like crazy. Typical hostel birthday traditions that are messy but unforgettable! 🎂😜" },
+    { src: "/collage_college_fest_group.jpg", title: "Fest Night Gathering", note: "Sitting together on the lawn under the bright lights, enjoying the college breeze and having you near. The best nights of SVCE! 🌟❤️" },
+    { src: "/collage_fest_night_selfie.jpg", title: "SVCE Concert Vibes", note: "Crowds screaming, bass thumping, and taking selfies in the middle of a massive college concert. Unmatched energy with my best folks! 🎵🔥" },
+    { src: "/collage_hostel_birthday.jpg", title: "Midnight hostel cuts", note: "Hostel room birthdays, cutting standard bakery cakes, and the crazy roomies who make midnight celebrations so loud and special. 🎂🎉" }
   ];
 
   // Track vertical scroll progress within portal context
